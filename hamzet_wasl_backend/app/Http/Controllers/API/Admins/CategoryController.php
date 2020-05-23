@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Http\Resources\CategoryResource;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -25,7 +26,7 @@ class CategoryController extends Controller
     }
 
     //add a new category to the database (categories table)
-    public function store(Request $request){
+    public function store(CategoryRequest $request){
         $category = Category::create($request->all());
         if($category)
         {
@@ -49,7 +50,7 @@ class CategoryController extends Controller
     }
     
     //update a category in the database (categories table)
-    public function update(Request $request, $categoryId){ 
+    public function update(CategoryRequest $request, $categoryId){ 
         $category = category::find($categoryId);
         if(is_null($category)){
             return response()->json(["Error"=>"Record doesn't found in the datatabase!! Enter a valid id ^_^"],404);
