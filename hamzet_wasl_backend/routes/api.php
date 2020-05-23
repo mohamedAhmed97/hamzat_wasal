@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'categories'], function(){
+    Route::get('/', 'API\Admins\CategoryController@index');
+    Route::get('/{category}', 'API\Admins\CategoryController@show');
+    Route::post('/', 'API\Admins\CategoryController@store');
+});
