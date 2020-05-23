@@ -22,4 +22,6 @@ Route::group(['prefix' => 'categories'], function(){
     Route::get('/', 'API\Admins\CategoryController@index');
     Route::get('/{category}', 'API\Admins\CategoryController@show');
     Route::post('/', 'API\Admins\CategoryController@store');
+    Route::delete('/{category}', 'API\Admins\CategoryController@destroy');
+    Route::put('/{category}', 'API\Admins\CategoryController@update');
 });

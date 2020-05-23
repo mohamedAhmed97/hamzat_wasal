@@ -36,5 +36,26 @@ class CategoryController extends Controller
         if(!$category){
             return response()->json(["Error"=>"Sorry,You can't create a new category as you have to fill all the required fields"],404);
         }
-    }   
+    }  
+    
+    //delete a category from the database (categories table)
+    public function destroy(){
+        $category = category::find(request()->category);
+        if(is_null($category)){
+            return response()->json(["Error"=>"Record doesn't found in the datatabase!! Enter a valid id ^_^"],404);
+        }
+        $category->delete();
+        return response()->json(["Success"=>"You deleted this category successfully, This record isn't a part of the database anymore"],200);
+    }
+    
+    //update a category in the database (categories table)
+    public function update(Request $request, $categoryId){ 
+        $category = category::find($categoryId);
+        if(is_null($category)){
+            return response()->json(["Error"=>"Record doesn't found in the datatabase!! Enter a valid id ^_^"],404);
+        }
+        $category->update($request->all()); 
+        return response()->json(["Success"=>"category Updated successfully",
+                                    "New data:"=> new CategoryResource($category)],200);
+    }
 }
