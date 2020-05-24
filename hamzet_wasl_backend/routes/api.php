@@ -25,3 +25,14 @@ Route::group(['prefix' => 'categories'], function(){
     Route::delete('/{category}', 'API\Admins\CategoryController@destroy');
     Route::put('/{category}', 'API\Admins\CategoryController@update');
 });
+
+//Mentor
+Route::group(['prefix' => 'mentors'], function () {
+    Route::post('/', 'API\Admins\MentorController@store');
+    //destroy
+    Route::delete('/{mentor}', 'API\Admins\MentorController@destroy');
+    //update
+    Route::put('/{mentor}', 'API\Admins\MentorController@update');
+    //index
+    Route::get('/', 'API\Admins\MentorController@index');
+});
