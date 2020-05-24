@@ -36,3 +36,14 @@ Route::group(['prefix' => 'mentors'], function () {
     //index
     Route::get('/', 'API\Admins\MentorController@index');
 });
+
+//User
+Route::group(['prefix' => 'users'], function () {
+    Route::post('/', 'API\Admins\UserController@store');
+    //destroy
+    Route::delete('/{user}', 'API\Admins\UserController@destroy');
+    //update
+    Route::put('/{user}', 'API\Admins\UserController@update');
+    //index
+    Route::get('/', 'API\Admins\UserController@index');
+});
