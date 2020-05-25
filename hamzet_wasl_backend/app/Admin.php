@@ -13,4 +13,9 @@ class Admin extends Model
         'avatar',
         'isAdmin'
     ];
+
+    public function workshops()
+    {
+       return $this->hasMany('App\Workshop');
+    }
 }

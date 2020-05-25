@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//categories
 Route::group(['prefix' => 'categories'], function(){
     Route::get('/', 'API\Admins\CategoryController@index');
     Route::get('/{category}', 'API\Admins\CategoryController@show');
@@ -35,4 +36,11 @@ Route::group(['prefix' => 'mentors'], function () {
     Route::put('/{mentor}', 'API\Admins\MentorController@update');
     //index
     Route::get('/', 'API\Admins\MentorController@index');
+});
+
+//workshops
+Route::group(['prefix' => 'workshops'], function(){
+    Route::get('/', 'API\Mentors\WorkshopController@index');
+    Route::get('/{workshop}', 'API\Mentors\WorkshopController@show');
+    Route::post('/', 'API\Mentors\WorkshopController@store');
 });
