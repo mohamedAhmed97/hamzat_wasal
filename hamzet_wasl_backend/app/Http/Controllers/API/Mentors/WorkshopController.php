@@ -36,5 +36,27 @@ class WorkshopController extends Controller
         if(!$workshop){
             return response()->json(["Error"=>"Sorry,You can't create a new workshop as you have to fill all the required fields"],404);
         }
-    }  
+    }
+    
+    //delete a workshop from the database (workshops table)
+    public function destroy(){
+        $workshop = Workshop::find(request()->workshop);
+        if(is_null($workshop)){
+            return response()->json(["Error"=>"Record doesn't found in the datatabase!! Enter a valid id ^_^"],404);
+        }
+        $workshop->delete();
+        return response()->json(["Success"=>"You deleted this workshop successfully, This record isn't a part of the database anymore"],200);
+    }
+
+    //update a workshop in the database (workshops table)
+    public function update(Request $request, $workshopId){ 
+        $workshop = Workshop::find($workshopId);
+        if(is_null($workshop)){
+            return response()->json(["Error"=>"Record doesn't found in the datatabase!! Enter a valid id ^_^"],404);
+        }
+        $workshop->update($request->all()); 
+        return response()->json(["Success"=>"workshop Updated successfully",
+                                    "New data:"=> new WorkshopResource($workshop)],200);
+    }
+    
 }

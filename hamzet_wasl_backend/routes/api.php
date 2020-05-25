@@ -43,6 +43,8 @@ Route::group(['prefix' => 'workshops'], function(){
     Route::get('/', 'API\Mentors\WorkshopController@index');
     Route::get('/{workshop}', 'API\Mentors\WorkshopController@show');
     Route::post('/', 'API\Mentors\WorkshopController@store');
+    Route::delete('/{workshop}', 'API\Mentors\WorkshopController@destroy');
+    Route::put('/{workshop}', 'API\Mentors\WorkshopController@update');
 });
 
 //User
