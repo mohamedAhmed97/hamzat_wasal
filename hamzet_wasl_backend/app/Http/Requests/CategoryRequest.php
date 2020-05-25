@@ -32,7 +32,7 @@ class CategoryRequest extends FormRequest
         return [
             'name.min' => 'Category name has minimum of 3 chars',
             'name.required' => 'Category name is required, you have to fill it!',
-            'name.unique' => 'Category name is unique, you have to choose a different title!',
+            'name.unique' => 'Category name is unique, you have to choose a different name!',
         ] ;
     }
 }

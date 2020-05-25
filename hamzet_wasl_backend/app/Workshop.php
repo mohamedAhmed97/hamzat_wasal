@@ -9,7 +9,7 @@ class Workshop extends Model
     protected $fillable = [
         'title',
         'description',
-        'start_day',
+        'start_date',
         'end_date',
         'capcity',
         'workshop_price',

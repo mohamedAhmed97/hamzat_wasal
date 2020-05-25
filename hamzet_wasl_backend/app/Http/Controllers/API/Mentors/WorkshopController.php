@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Workshop;
 use App\Http\Resources\WorkshopResource;
+use App\Http\Requests\WorkshopRequest;
 
 class WorkshopController extends Controller
 {
@@ -25,7 +26,7 @@ class WorkshopController extends Controller
     }
 
     //add a new workshop to the database (workshops table)
-    public function store(Request $request){
+    public function store(WorkshopRequest $request){
         $workshop = workshop::create($request->all());
         if($workshop)
         {
@@ -49,7 +50,7 @@ class WorkshopController extends Controller
     }
 
     //update a workshop in the database (workshops table)
-    public function update(Request $request, $workshopId){ 
+    public function update(WorkshopRequest $request, $workshopId){ 
         $workshop = Workshop::find($workshopId);
         if(is_null($workshop)){
             return response()->json(["Error"=>"Record doesn't found in the datatabase!! Enter a valid id ^_^"],404);

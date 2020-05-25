@@ -18,7 +18,7 @@ class WorkshopResource extends JsonResource
         return[
             'title' => $this->title,
             'description' => $this->description,
-            'start_day' => $this->start_day,
+            'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'capcity' => $this->capcity,
             'category_id' => $this->category_id,
