@@ -19,11 +19,12 @@ class Workshop extends Model
 
     public function categories()
     {
-       return $this->belongsTo('App\Category');
+        return $this->belongsTo('App\Category', 'category_id', 'id');
     }
+    
 
     public function admins()
     {
-       return $this->belongsTo('App\Admin');
+        return $this->belongsTo('App\Admin', 'admin_id', 'id');
     }
 }

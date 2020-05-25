@@ -16,6 +16,7 @@ class Admin extends Model
 
     public function workshops()
     {
-       return $this->hasMany('App\Workshop');
+       return $this->hasMany('App\Workshop', 'admin_id', 'id');
     }
+   
 }
