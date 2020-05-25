@@ -12,6 +12,6 @@ class Category extends Model
 
     public function workshops()
     {
-       return $this->hasMany('App\Workshop');
+       return $this->hasMany('App\Workshop','category_id', 'id');
     }
 }
