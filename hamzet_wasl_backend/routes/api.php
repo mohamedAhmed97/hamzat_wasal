@@ -57,3 +57,12 @@ Route::group(['prefix' => 'users'], function () {
     //index
     Route::get('/', 'API\Admins\UserController@index');
 });
+
+//Post
+Route::group(['prefix' => 'posts'], function () {
+    Route::post('/', 'API\Admins\PostController@store');
+    Route::get('/{post}', 'API\Admins\PostController@show');
+    Route::delete('/{post}', 'API\Admins\PostController@destroy');
+    Route::put('/{post}', 'API\Admins\PostController@update');
+    Route::get('/', 'API\Admins\PostController@index');
+});
