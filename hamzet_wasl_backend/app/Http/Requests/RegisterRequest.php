@@ -26,15 +26,15 @@ class RegisterRequest extends FormRequest
         return [
             'name'=>'required|min:3',
             'email'=> 'required|unique:users|email|regex:/(.+)@(.+)\.(.+)/i' ,
-            'password'=>'required|min:6',
+            'password'=>'required|min:6|confirmed',
             'avatar'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
     public function messages()
     {
-    return [
-        'email.regex' => 'The email format is invalid, the format must be like EX: mayar@gmail.com',   
-    ] ;
+        return [
+            'email.regex' => 'The email format is invalid, the format must be like EX: mayar@gmail.com',   
+        ] ;
     }
 }
