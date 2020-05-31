@@ -7,6 +7,7 @@ function Register(){
             name:'',
             email: '',
             password:'',
+            password_confirmation: '',
             avatar: ''
         });
 
@@ -25,7 +26,7 @@ function Register(){
     
     const onSubmit = e => {
         e.preventDefault();   
-        // axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.post('http://localhost:8000/api/register',state).then(res => {
                 console.log(res.data);
@@ -33,7 +34,7 @@ function Register(){
             }).catch(error => {
                 console.log(error.response)
             }); 
-        // });
+        });
     };
         
     return ( 
@@ -76,6 +77,13 @@ function Register(){
                                     <input type="password" name="password" placeholder="password" 
                                         className="form-control" value={state.password} 
                                         onChange={handleChange}/> 
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password_confirmation" className="font-weight-bold
+                                           text-white"> Password Confirmation </label> 
+                                    <input type="password" name="password_confirmation"
+                                           placeholder="password confirmation" className="form-control" 
+                                           value={state.password_confirmation} onChange={handleChange}/> 
                                 </div>
                                 <div className="footer">
                                     <button type="submit" 
