@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use App\User;
 use Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\RegisterRequest;
 
 class RegisterController extends Controller
 {
     
-public function store(Request $request)
+public function store(RegisterRequest $request)
 {
     $user_avatar_name= time().$request->file('avatar')->getClientOriginalName();
     $path = $request->file('avatar')->storeAs(
