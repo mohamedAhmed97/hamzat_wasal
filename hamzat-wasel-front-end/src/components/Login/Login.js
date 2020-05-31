@@ -31,7 +31,7 @@ function Login(){
             <div className="container">
                 <div className="base-container bg-info m-1 text-center p-2 border border-primary">
                     <div className="header">
-                        <h1 className="badge-pill badge-primary font-weight-bold mt-3 p-1">Login</h1>
+                        <h2 className="badge-pill badge-primary font-weight-bold mt-3 p-1">Login</h2>
                         <img src="https://lh3.googleusercontent.com/proxy/XDkRnHNWPPiJ5-ihNBOLMsyiCrZ9BeVkXVJB0FSa2XzaULnHIoc7rCFJehfjv4d95wN4IWpFcHRES8r3cW1DUE_kBfajbcNEeG8MCpDorg"
                         className="rounded-circle m-3 p-1 img-fluid" alt="login" />
                     </div>
