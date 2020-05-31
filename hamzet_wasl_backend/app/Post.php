@@ -20,4 +20,9 @@ class Post extends Model
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
+
+    public function media()
+    {
+       return $this->hasMany('App\Media');
+    }
 }
