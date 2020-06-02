@@ -20,20 +20,23 @@ function Register(){
         console.log(target);
     };
 
-    // const onChange =(e)=>{
-    //     setState({ ...state, [e.name]: e.value });
-    //     console.log(e.target.files[0].name);
-    //     console.log(e.name);     
-    //     console.log(e.target.files[0].name);     
-    // }
-    
-    const onSubmit = data => {
-        // data.preventDefault();
-        console.log(data);
-         
+    const onAvatarChange = (e) =>{
+    console.log(e.target.files[0]); 
+      setState({ ...state, [e.target.name]: e.target.files[0]});
+    }
+
+    const onSubmit = e => {
+        // e.preventDefault();   
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
-            // console.log(response);
-            axios.post('http://localhost:8000/api/register', data).then(res => {
+          console.log(state);
+          var formData = new FormData(); 
+          formData.append("avatar", state.avatar); 
+          formData.append("email", state.email); 
+          formData.append("name", state.name); 
+          formData.append("password", state.password); 
+          formData.append("password_confirmation", state.password_confirmation);
+          axios({ method: 'post', url: 'http://localhost:8000/api/register', data: formData, 
+                  headers: {'Content-Type': 'multipart/form-data' } } ).then(res => {
                 console.log(res.data);
         
             }).catch(error => {
@@ -57,7 +60,7 @@ function Register(){
                                     <label htmlFor="name" className="font-weight-bold text-white"> 
                                         Username </label>
                                     <input type="text" name="name" placeholder="username" 
-                                        className="form-control" 
+                                        className="form-control" onChange={handleChange}
                                         ref={register({ required: true, minLength:3 })} />
                                     <span className="bg-danger m-5">
                                         {errors.name && errors.name.type ===  'required' && 
@@ -70,8 +73,9 @@ function Register(){
                                     <label htmlFor="email" className="font-weight-bold text-white"> 
                                         Email </label>
                                     <input type="email" name="email" placeholder="email" 
-                                        className="form-control" 
-                                        ref={register({ required: true, pattern: /(.+)@(.+)\.(.+)/i })} /> 
+                                        className="form-control" onChange={handleChange}
+                                        ref={register({ required: true, 
+                                        pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i })} /> 
                                         <span className="bg-danger m-5">
                                             {errors.email && errors.email.type ===  'required' && 
                                             'Email is required, you have to fill it!'}
@@ -82,26 +86,28 @@ function Register(){
                                 <div className="form-group">
                                     <label htmlFor="avatar" className="font-weight-bold text-white">
                                         Avatar </label> 
-                                    {/* <input type="file" name="avatar" placeholder="avatar" 
-                                        value={state.avatar} onChange={(e)=>onChange(e)} ref={register({ required: true })} />  */}
                                     <input type="file" name="avatar" placeholder="avatar" 
-                                            className="form-control-file" ref={register({ required: true })} /> 
+                                            className="form-control-file" onChange={onAvatarChange} 
+                                            ref={register({ required: true ,
+                                            pattern:/^([a-zA-Z0-9\s_\\.\-\\:])+(.jpeg|.png|.jpg|.gif|.svg)$/i })} /> 
                                     <span className="bg-danger m-5">
                                             {errors.avatar && errors.avatar.type ===  'required' && 
                                             'Avatar is required, you have to choose your avatar'}
+                                            {errors.avatar && errors.avatar.type ===  'pattern' && 
+                                            'Avatar must be a file of type: jpeg, png, jpg, gif, svg ONLY'}
                                     </span>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="password" className="font-weight-bold text-white"> 
                                     Password </label> 
                                     <input type="password" name="password" placeholder="password" 
-                                           className="form-control" 
+                                           className="form-control" onChange={handleChange}
                                            ref={register({ required: true , minLength:6})} /> 
                                     <span className="bg-danger m-5">
                                             {errors.password && errors.password.type ===  'required' && 
                                             'Password is required, you have to fill it!'}
                                             {errors.password && errors.password.type ===  'minLength' && 
-                                            'The password must be at least 6 characters'}
+                                            'Password must be at least 6 characters'}
                                     </span>
                                 </div>
                                 <div className="form-group">
@@ -109,6 +115,7 @@ function Register(){
                                            text-white"> Password Confirmation </label> 
                                     <input type="password" name="password_confirmation"
                                            placeholder="password confirmation" className="form-control" 
+                                           onChange={handleChange}
                                            ref={register({ required: true , minLength:6 ,validate: value =>
                                             value === password.current })} /> 
                                     <span className="bg-danger m-5">
