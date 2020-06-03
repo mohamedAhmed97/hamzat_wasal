@@ -64,3 +64,4 @@ class CategoryController extends Controller
                                     "New data:"=> new CategoryResource($category)],200);
     }
 }
+

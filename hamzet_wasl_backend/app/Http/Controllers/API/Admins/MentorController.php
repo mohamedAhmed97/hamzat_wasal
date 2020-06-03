@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
+
 use Hash;
 class MentorController extends Controller
 {
+    
     //create Mentor
     public function store(MentorRequest $request)
     {
@@ -32,7 +34,9 @@ class MentorController extends Controller
         if(!$admin)
         {   
             return response()->json(
-                ["Error"=>"Sorry,You can't create a new Mentor as you have to fill all the required fields"],404
+                [
+                    "status"=>404,
+                    "Error"=>"Sorry,You can't create a new Mentor as you have to fill all the required fields"],404
             );
         }
         else
@@ -42,7 +46,7 @@ class MentorController extends Controller
                 [
                  "status" => 200,   
                 "Success" => 'Mentor is added successfully ^_^ ',
-                "Data:"=> $admin],200
+                "Data:"=> new MentorResource($admin)],200
             );
         }
     }

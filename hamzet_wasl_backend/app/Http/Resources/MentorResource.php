@@ -17,9 +17,9 @@ class MentorResource extends JsonResource
         return [
                 'name'=>$this->name,
                 'email'=>$this->email,
-                'password'=>$this->password,
                 'avatar'=>$this->avatar,
                 'isAdmin'=>0,
+                //'role'=>$this->roles,
         ];
     }
 }

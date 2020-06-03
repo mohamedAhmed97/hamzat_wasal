@@ -22,10 +22,12 @@ class PermissionsSeeder extends Seeder
          Permission::create(['name' => 'edit posts']);
          Permission::create(['name' => 'delete posts']);
          Permission::create(['name' => 'add posts']);
+         Permission::create(['name' => 'show posts']);
          //workshop
          Permission::create(['name' => 'edit workshop']);
          Permission::create(['name' => 'delete workshop']);
          Permission::create(['name' => 'add workshop']);
+         Permission::create(['name' => 'show workshop']);
          //category
          Permission::create(['name' => 'edit category']);
          Permission::create(['name' => 'delete category']);
@@ -38,22 +40,31 @@ class PermissionsSeeder extends Seeder
          $role1->givePermissionTo('edit posts');
          $role1->givePermissionTo('delete posts');
          $role1->givePermissionTo('add posts');
+         $role1->givePermissionTo('show posts');
          $role1->givePermissionTo('show category');
+         $role1->givePermissionTo('show workshop');
+         
  
          $role2 = Role::create(['name' => 'mentor']);
          $role2->givePermissionTo('edit workshop');
          $role2->givePermissionTo('delete workshop');
          $role2->givePermissionTo('add workshop');
-         $role2->givePermissionTo('show category');   
+         $role2->givePermissionTo('show workshop');
+         $role2->givePermissionTo('show category');
+         $role2->givePermissionTo('show posts');
+            
          
  
          $role3 = Role::create(['name' => 'admin']);
-
-         $role3->givePermissionTo('delete workshop');
          $role3->givePermissionTo('delete category');
          $role3->givePermissionTo('edit category');
          $role3->givePermissionTo('add category');
          $role3->givePermissionTo('show category');
+         $role3->givePermissionTo('show posts');
+         $role3->givePermissionTo('edit posts');
+         $role3->givePermissionTo('delete posts');
+         $role3->givePermissionTo('show workshop');
+         $role3->givePermissionTo('delete workshop');
      }
     
 }
