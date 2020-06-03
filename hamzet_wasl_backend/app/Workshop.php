@@ -25,6 +25,6 @@ class Workshop extends Model
 
     public function admins()
     {
-        return $this->belongsTo('App\Admin', 'admin_id', 'id');
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }

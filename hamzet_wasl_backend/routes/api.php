@@ -84,7 +84,8 @@ Route::post('/login', function (Request $request) {
 
     if (!$user || !Hash::check($request->password, $user->password)) {
         return response([
-            'message' => ['These credentials do not match our records.']
+            'message' => ['These credentials do not match our records.'],
+            'status'=>404
         ], 404);
     }
 
@@ -92,6 +93,7 @@ Route::post('/login', function (Request $request) {
 
     $response = [
         'user' => $user,
+        'status'=>200
         // 'token' => $token
     ];
 

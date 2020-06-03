@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
-{
+{   
+    public function __construct()
+    {
+        $this->middleware(['role:user']);
+    }
     public function index(){
         $posts=Post::all();
         $postresource=PostResource::collection($posts);

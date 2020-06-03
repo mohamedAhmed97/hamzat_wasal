@@ -10,6 +10,10 @@ use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin','permission:show category']);
+    }
     //get all the categories in the database (categories table)
     public function index(){
         return CategoryResource::collection(Category::all()); 

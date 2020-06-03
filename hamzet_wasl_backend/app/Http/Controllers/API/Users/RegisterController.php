@@ -23,12 +23,16 @@ public function store(RegisterRequest $request)
          'email'=>$request->email,
          'password'=>Hash::make($request->password),   
          'avatar'=>$user_avatar_name,
+         'isAdmin'=>0,
      ]);
      
      if($user)
-        {
+        {   
+            $user->assignRole('user');
             return response()->json([
                 "Success" => 'User is added successfully ^_^ ',
+                "status"=>200,
+                "user"=>$user,
                 ],200);
         }
         if(!$user){
