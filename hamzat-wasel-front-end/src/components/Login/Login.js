@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import '../../Form.css'
 
 
 function Login(){
@@ -27,39 +28,35 @@ function Login(){
         });
     };
      
-    return ( 
-            <div className="container">
-                <div className="base-container bg-info m-1 text-center p-2 border border-primary">
-                    <div className="header">
-                        <h2 className="badge-pill badge-primary font-weight-bold mt-3 p-1">Login</h2>
-                        <img src="images/login.gif"
-                        className="rounded-circle m-3 p-1 img-fluid" alt="login" />
+return (
+<React.Fragment>
+    <div className="container mb-3">
+        <div className="page-content">
+		    <div className="form-v7-content">
+			        <div className="form-left">
+                        <img src="images/login.gif" className="m-lg-5 p-1" alt="login" />
+			        </div>
+                <form className="form-detail" onSubmit={onSubmit} id="myform">
+                    <h3 className="font-weight-bold mb-5 p-2 text-white text-center"
+                        style={{backgroundColor: "#24c0d1"}}>Login</h3>
+                    <div className="form-row">
+                        <label htmlFor="email" > E-mail </label> 
+                        <input type="email" name="email" id="your_email" className="input-text"
+                               value={state.email} onChange={handleChange}/> 
                     </div>
-                    <div className="container">
-                        <form className="form" onSubmit={onSubmit}>
-                            <div className="form-group">
-                                <label htmlFor="username" className="font-weight-bold text-white">
-                                       Email </label> 
-                                <input type="email" name="email" placeholder="email"
-                                       className="form-control" value={state.email} 
-                                       onChange={handleChange}/> 
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password" className="font-weight-bold text-white"> 
-                                       Password </label> 
-                                <input type="password" name="password" placeholder="password"
-                                       className="form-control" value={state.password} 
-                                       onChange={handleChange}/> 
-                            </div>
-                            <div className="footer">
-                                <button type="submit" value="Login" 
-                                        className="btn btn-primary font-weight-bold btn-lg"> Login
-                                </button>
-                            </div>   
-                        </form>
-                    </div>     
-                </div>
+                    <div className="form-row">
+                        <label htmlFor="password" className="font-weight-bold"> Password </label> 
+                        <input type="password" name="password" id="password" className="input-text" 
+                        value={state.password} onChange={handleChange}/> 
+                    </div>
+                    <div className="form-row-last">
+                        <input type="submit" value="Login" className="login btn font-weight-bold"/>
+                    </div>
+                </form>
             </div>
+	    </div>
+    </div>
+</React.Fragment>
          );
 }
 

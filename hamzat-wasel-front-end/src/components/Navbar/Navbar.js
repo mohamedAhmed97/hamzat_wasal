@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,
@@ -11,6 +10,8 @@ import {
 import Login from '../Login/Login'
 import Register from '../Login/Register'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,9 +19,9 @@ const Navbar1 = (props) => {
 
   return (
     <div>
-      <Navbar color="primary" light expand="md">
+      <Navbar className="mb-3" style={{backgroundColor: "#24c0d1" }} expand="md">
         <NavbarBrand href="/" className="font-weight-bold text-light">Hamzet Wasl</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
+        <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{color:"white"}} onClick={toggle}  />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto font-weight-bold" navbar>
             <NavItem >
