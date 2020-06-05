@@ -1,5 +1,6 @@
 import React,{ Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class AllCategories extends Component {
     constructor(props){
@@ -68,6 +69,9 @@ render() {
                             (window.confirm('Are you sure you want to delete this category?'))
                             this.onCategoryDeleted(category.category_id)}} 
                             className="btn btn-danger font-weight-bold m-1"> Delete </button>
+                            <Link to={`/categories/edit/${category.category_id}`}>
+                                <button className="btn btn-info font-weight-bold m-1">Edit</button>
+                            </Link>
                         </td>
                     </tr>
                     );
