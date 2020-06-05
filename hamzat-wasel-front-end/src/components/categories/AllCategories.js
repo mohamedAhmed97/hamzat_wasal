@@ -54,7 +54,8 @@ render() {
             <thead className="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Category Name</th>   
+                    <th scope="col">Category Name</th> 
+                    <th scope="col">Actions</th>   
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +63,12 @@ render() {
                     <tr key={category.category_id} className="m-1">
                         <td>{category.category_id}</td>
                         <td>{category.category_name}</td>
+                        <td>
+                            <button onClick={()=>{ if 
+                            (window.confirm('Are you sure you want to delete this category?'))
+                            this.onCategoryDeleted(category.category_id)}} 
+                            className="btn btn-danger font-weight-bold m-1"> Delete </button>
+                        </td>
                     </tr>
                     );
                 })
