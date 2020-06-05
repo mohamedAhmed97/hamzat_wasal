@@ -18,6 +18,10 @@ class Add extends Component {
         console.log(target);   
     };
 
+    componentDidUpdate(){
+        setTimeout(() => this.setState({alert_message:''}), 7000);
+    }
+
     onCategoryAdded = e => {
         e.preventDefault();  
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {

@@ -26,6 +26,10 @@ class Edit extends Component {
         });
     };
 
+    componentDidUpdate(){
+        setTimeout(() => this.setState({alert_message:''}), 7000);
+    }
+
     handleChange = ({target}) =>{
         this.setState({ ...this.state, [target.name]: target.value });
         console.log(target);   
