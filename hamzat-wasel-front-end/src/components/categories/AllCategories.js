@@ -1,6 +1,7 @@
 import React,{ Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import AlertSuccess from './AlertSuccess';
 
 class AllCategories extends Component {
     constructor(props){
@@ -8,6 +9,7 @@ class AllCategories extends Component {
             
         this.state = { 
             categories: [], 
+            alert_message: ''
         }
     }
 
@@ -40,17 +42,20 @@ class AllCategories extends Component {
                     return category.category_id !== value; });
                 }
             
-                this.setState({categories:removeCategory(categories,categoryId)});     
+                this.setState({categories:removeCategory(categories,categoryId), alert_message: "success"});     
                        
-        }).catch(error => {
-            console.log(error.response)
-        }); 
-    });
-};
+            }).catch(error => {
+                this.setState({alert_message: "error"});
+                console.log(error.response)
+            });
+        });
+    };
 
 render() { 
     return ( 
     <div className="container">
+        {this.state.alert_message === "success" ? <AlertSuccess message=
+        {"You deleted this category successfully, This record isn't a part of the database anymore"} /> : ""}
         <table className="table border border-dark">
             <thead className="thead-dark">
                 <tr>
