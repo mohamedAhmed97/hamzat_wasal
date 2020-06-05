@@ -1,26 +1,46 @@
 import React from 'react';
 import axios from 'axios';
 import '../../Form.css'
-
+import { Redirect } from 'react-router-dom'
+import Cookies from 'universal-cookie';
 
 function Login(){
+    const cookies = new Cookies();
+    let role='';
     const [state, setState] = React.useState(
         {
             email: '',
-            password: ''
+            password: '',
+            redirect:false,
         });
 
     const handleChange = ({target}) =>{
         setState({ ...state, [target.name]: target.value });
-        console.log(target);   
     };
+    //redirect function
+    const ProtectedComponent = (data) => {
+        if (state.redirect)
+        {
+            if (data===0)
+          {          
+            return <Redirect to='/register'  />
+          }
+          return <div> My Protected Component </div>
+        }
+  
+      }
 
     const onSubmit = e => {
         e.preventDefault();  
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
-            // console.log(response);
             axios.post('http://localhost:8000/api/login',state).then(res => {
-                console.log(res.data);
+                //save cookie
+                cookies.set('UserData', res.data.user,{ path: '/' });
+                role=cookies.get('UserData');
+                setState({ ...state, redirect:true})
+                
+                ProtectedComponent(role.isAdmin);
+                
                 
             }).catch(error => {
                 console.log(error.response)
@@ -30,6 +50,7 @@ function Login(){
      
 return (
 <React.Fragment>
+    {role!==null? ProtectedComponent(0):null}
     <div className="container mb-3">
         <div className="page-content">
 		    <div className="form-v7-content">
