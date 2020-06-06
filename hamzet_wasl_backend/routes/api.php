@@ -31,7 +31,7 @@ Route::group(['prefix' => 'categories', 'middleware' => ['auth:sanctum', 'role:a
     Route::delete('/{category}', 'API\Admins\CategoryController@destroy');
     Route::put('/{category}', 'API\Admins\CategoryController@update');
 });
-Route::group(['prefix' => 'categories', 'middleware' => ['auth:sanctum','permission:show category']], function () {
+Route::group(['prefix' => 'categories'], function () {
     Route::get('/', 'API\Admins\CategoryController@index');
 });
 
@@ -74,7 +74,7 @@ Route::group(['prefix' => 'posts','middleware' => ['auth:sanctum','role:user']],
     Route::put('/{post}', 'API\Admins\PostController@update');
 });
 //Post
-Route::group(['prefix' => 'posts','middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'posts'], function () {
     Route::get('/', 'API\Admins\PostController@index');
 });
 
