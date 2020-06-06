@@ -15,7 +15,7 @@ class PostController extends Controller
 {   
     public function __construct()
     {
-        $this->middleware(['role:user']);
+        //$this->middleware(['role:user']);
     }
     public function index(){
         $posts=Post::all();
@@ -38,6 +38,7 @@ class PostController extends Controller
             'title'=>$request->title ,
             'user_id'=>$request->user_id ,
             'category_id'=>$request->category_id,
+            'description'=>$request->description
         ]);
         
        
