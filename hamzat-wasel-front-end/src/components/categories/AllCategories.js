@@ -31,9 +31,6 @@ class AllCategories extends Component {
         });
     };
 
-    componentDidUpdate(){
-        setTimeout(() => this.setState({alert_message:''}), 9000);
-    }
 
     onCategoryDeleted = categoryId => { 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
@@ -47,9 +44,11 @@ class AllCategories extends Component {
                 }
             
                 this.setState({categories:removeCategory(categories,categoryId), alert_message: "success"});     
-                       
+                setTimeout(() => this.setState({alert_message:''}), 9000);
+
             }).catch(error => {
                 this.setState({alert_message: "error"});
+                setTimeout(() => this.setState({alert_message:''}), 9000);
                 console.log(error.response)
             });
         });

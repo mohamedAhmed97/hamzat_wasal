@@ -18,10 +18,6 @@ class Add extends Component {
         console.log(target);   
     };
 
-    componentDidUpdate(){
-        setTimeout(() => this.setState({alert_message:''}), 7000);
-    }
-
     onCategoryAdded = e => {
         e.preventDefault();  
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
@@ -29,9 +25,11 @@ class Add extends Component {
             axios.post('http://localhost:8000/api/categories',this.state).then(res => {
                 console.log(res.data);
                 this.setState({alert_message: "success"});
+                setTimeout(() => this.setState({alert_message:''}), 7000);
                 
             }).catch(error => { 
                 this.setState({alert_message: "error"});
+                setTimeout(() => this.setState({alert_message:''}), 7000);
                 console.log(error)
             }); 
         });
