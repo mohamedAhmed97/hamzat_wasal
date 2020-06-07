@@ -12,6 +12,7 @@ import Register from '../Login/Register'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import {Blogs} from '../Blogs/Blogs';
 
 
 
@@ -31,6 +32,9 @@ const Navbar1 = (props) => {
             <NavItem>
               <NavLink href="/login" className="text-light mr-3">Login</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/blogs" className="text-light mr-3">Blogs</NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
@@ -38,7 +42,8 @@ const Navbar1 = (props) => {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/Register" component={Register} />
-          <Route path="/" component={Register} />
+          <Route exact path="/" component={Register} />
+          <Route path="/blogs" component={Blogs} />
         </Switch>
       </Router>
     </div>
