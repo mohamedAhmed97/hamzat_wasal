@@ -7,8 +7,9 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import Login from '../Login/Login'
-import Register from '../Login/Register'
+import Login from '../Login/Login';
+import Register from '../Login/Register';
+import Categories from '../categories/Index';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Test from '../test';
@@ -26,6 +27,9 @@ const Navbar1 = (props) => {
         <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{color:"white"}} onClick={toggle}  />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto font-weight-bold" navbar>
+            <NavItem>
+              <NavLink href="/categories" className="text-light">Categories</NavLink>
+            </NavItem>
             <NavItem >
               <NavLink href="/register" className="text-light">Register</NavLink>
             </NavItem>
@@ -48,6 +52,7 @@ const Navbar1 = (props) => {
           <Route path="/404" component={NotFound} />
           <Route path="/" component={Register} />
           
+          <Route path="/categories" component={Categories} />
         </Switch>
       </Router>
     </div>
