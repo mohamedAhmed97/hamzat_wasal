@@ -10,6 +10,7 @@ import {
 import Login from '../Login/Login';
 import Register from '../Login/Register';
 import Categories from '../categories/Index';
+import Workshops from '../workshops/Index';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Test from '../test';
@@ -29,6 +30,9 @@ const Navbar1 = (props) => {
           <Nav className="ml-auto font-weight-bold" navbar>
             <NavItem>
               <NavLink href="/categories" className="text-light">Categories</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/workshops" className="text-light">Workshops</NavLink>
             </NavItem>
             <NavItem >
               <NavLink href="/register" className="text-light">Register</NavLink>
@@ -52,9 +56,9 @@ const Navbar1 = (props) => {
             <Test></Test>
           </Route>
           <Route path="/404" component={NotFound} />
+          <Route path="/categories" component={Categories} />
+          <Route path="/workshops" component={Workshops} />
           <Route path="/" component={Register} />
-          
-          
         </Switch>
       </Router>
     </div>
