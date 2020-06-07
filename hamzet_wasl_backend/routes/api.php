@@ -47,14 +47,15 @@ Route::group(['prefix' => 'mentors'], function () {
 });
 
 //workshops
-Route::group(['prefix' => 'workshops'], function () {
-    Route::get('/', 'API\Mentors\WorkshopController@index');
+Route::group(['prefix' => 'workshops','middleware' =>['auth:sanctum', 'role:mentor']], function () {
     Route::get('/{workshop}', 'API\Mentors\WorkshopController@show');
     Route::post('/', 'API\Mentors\WorkshopController@store');
     Route::delete('/{workshop}', 'API\Mentors\WorkshopController@destroy');
     Route::put('/{workshop}', 'API\Mentors\WorkshopController@update');
 });
-
+Route::group(['prefix' => 'workshops'], function () {
+    Route::get('/', 'API\Mentors\WorkshopController@index');
+});
 //User
 Route::group(['prefix' => 'users'], function () {
     Route::post('/', 'API\Admins\UserController@store');
