@@ -16,6 +16,7 @@ class WorkshopResource extends JsonResource
     {
         // return parent::toArray($request);
         return[
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'start_date' => $this->start_date,
