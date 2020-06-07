@@ -40,7 +40,7 @@ function Register(){
           formData.append("password_confirmation", state.password_confirmation);
           axios({ method: 'post', url: 'http://localhost:8000/api/register', data: formData, 
                   headers: {'Content-Type': 'multipart/form-data' } } ).then(res => {
-                console.log(res.data);
+                console.log(res);
         
             }).catch(error => {
                 console.log(error.response)

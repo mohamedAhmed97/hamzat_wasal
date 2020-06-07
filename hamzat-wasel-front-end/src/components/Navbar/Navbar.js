@@ -11,8 +11,9 @@ import Login from '../Login/Login'
 import Register from '../Login/Register'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Test from '../test';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-
+import NotFound from '../templates/404';
 
 
 const Navbar1 = (props) => {
@@ -31,6 +32,9 @@ const Navbar1 = (props) => {
             <NavItem>
               <NavLink href="/login" className="text-light mr-3">Login</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/test" className="text-light mr-3">test</NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
@@ -38,7 +42,12 @@ const Navbar1 = (props) => {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/Register" component={Register} />
+          <Route path="/test">
+            <Test></Test>
+          </Route>
+          <Route path="/404" component={NotFound} />
           <Route path="/" component={Register} />
+          
         </Switch>
       </Router>
     </div>
