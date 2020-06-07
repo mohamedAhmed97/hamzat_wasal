@@ -26,8 +26,8 @@ class WorkshopRequest extends FormRequest
         return [
             'title' => 'required|min:3|unique:workshops,title,'.$this->workshop,
             'description' => 'required|min:10',
-            'start_date' => 'required|date_format:Y-m-d H:i|after:today  ',
-            'end_date' => 'required|date_format:Y-m-d H:i|after:today',
+            'start_date' => 'required|date|after:today  ',
+            'end_date' => 'required|date|after:today',
             'capcity' => 'required|numeric',
             'workshop_price' => 'required|numeric', 
             'admin_id' => 'required|exists:admins,id|numeric',
@@ -39,8 +39,6 @@ class WorkshopRequest extends FormRequest
     {
         return [
             'title.unique' => 'Workshop title is unique, you have to choose a different title!',
-            'start_date.date_format' => 'The start date does not match the format Y-m-d H:i     EX: 2020-05-25 09:30',
-            'end_date.date_format' => 'The end date does not match the format Y-m-d H:i       EX: 2020-05-25 11:30',
         ] ;
     }
 }
