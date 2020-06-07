@@ -7,13 +7,16 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import Login from '../Login/Login'
-import Register from '../Login/Register'
+import Login from '../Login/Login';
+import Register from '../Login/Register';
+import Categories from '../categories/Index';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Test from '../test';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import {Blogs} from '../Blogs/Blogs';
 
+import NotFound from '../templates/404';
 
 
 const Navbar1 = (props) => {
@@ -26,6 +29,9 @@ const Navbar1 = (props) => {
         <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{color:"white"}} onClick={toggle}  />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto font-weight-bold" navbar>
+            <NavItem>
+              <NavLink href="/categories" className="text-light">Categories</NavLink>
+            </NavItem>
             <NavItem >
               <NavLink href="/register" className="text-light">Register</NavLink>
             </NavItem>
@@ -34,6 +40,7 @@ const Navbar1 = (props) => {
             </NavItem>
             <NavItem>
               <NavLink href="/blogs" className="text-light mr-3">Blogs</NavLink>
+              <NavLink href="/test" className="text-light mr-3">test</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
@@ -44,6 +51,13 @@ const Navbar1 = (props) => {
           <Route path="/Register" component={Register} />
           <Route exact path="/" component={Register} />
           <Route path="/blogs" component={Blogs} />
+          <Route path="/test">
+            <Test></Test>
+          </Route>
+          <Route path="/404" component={NotFound} />
+          <Route path="/" component={Register} />
+          
+          <Route path="/categories" component={Categories} />
         </Switch>
       </Router>
     </div>

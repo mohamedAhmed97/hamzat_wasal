@@ -11,6 +11,7 @@ function Login(){
         {
             email: '',
             password: '',
+            device_name:'web',
             redirect:false,
         });
 
@@ -35,11 +36,11 @@ function Login(){
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             axios.post('http://localhost:8000/api/login',state).then(res => {
                 //save cookie
-                cookies.set('UserData', res.data.user,{ path: '/' });
+                cookies.set('UserData', res.data,{ path: '/' ,expires: new Date(Date.now()+2592000)});
                 role=cookies.get('UserData');
                 setState({ ...state, redirect:true})
-                
-                ProtectedComponent(role.isAdmin);
+                //console.log(res);
+
                 
                 
             }).catch(error => {
