@@ -70,6 +70,10 @@ return (
                         <input type="password" name="password" id="password" className="input-text" 
                         value={state.password} onChange={handleChange}/> 
                     </div>
+                    <div className="form-row">
+                        <input type="hidden" name="device_name" id="password" className="input-text" 
+                        value={state.device_name} onChange={handleChange}/> 
+                    </div>
                     <div className="form-row-last">
                         <input type="submit" value="Login" className="login btn font-weight-bold"/>
                     </div>
