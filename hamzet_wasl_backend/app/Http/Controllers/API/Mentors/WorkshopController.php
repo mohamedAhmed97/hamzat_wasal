@@ -9,7 +9,12 @@ use App\Http\Resources\WorkshopResource;
 use App\Http\Requests\WorkshopRequest;
 
 class WorkshopController extends Controller
-{
+{   
+    public function __construct()
+    {
+        $this->middleware(['role:mentor']);
+    }
+    
     //get all the workshops in the database (workshops table)
     public function index(){
         return WorkshopResource::collection(Workshop::all()); 

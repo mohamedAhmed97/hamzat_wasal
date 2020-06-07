@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,18 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|min:3',
-            'email'=> 'required|unique:users|email|regex:/(.+)@(.+)\.(.+)/i' ,
-            'password'=>'required|min:6|confirmed',
-            'avatar'=>'required',
+            'title' => 'required|max:255|unique:posts,title,'.$this->post,
+            'user_id' => 'required|exists:users,id|numeric',
+            'category_id' => 'required|exists:categories,id|numeric',
         ];
     }
 
     public function messages()
     {
         return [
-            'email.regex' => 'The email format is invalid, the format must be like EX: mayar@gmail.com',   
+            'title.required' => 'Post title is required, you have to fill it!',
+            'title.unique' => 'Post title is unique, you have to choose a different title!',
+            
         ] ;
     }
 }

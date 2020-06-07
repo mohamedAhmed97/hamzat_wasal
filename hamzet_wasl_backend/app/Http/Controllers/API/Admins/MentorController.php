@@ -4,12 +4,18 @@ namespace App\Http\Controllers\API\Admins;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Admin;
+use App\User;
 use App\Http\Requests\MentorRequest;
 use App\Http\Resources\MentorResource;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
+
+use Hash;
 class MentorController extends Controller
 {
+    
     //create Mentor
     public function store(MentorRequest $request)
     {
@@ -18,31 +24,36 @@ class MentorController extends Controller
         $path = $request->file('avatar')->storeAs(
             'Users/Mentors/',$pic_name
         );
-        $admin=Admin::create([
+        $admin=User::create([
             'name'=>$request->name,
             'email'=>$request->email,
-            'password'=>$request->password,
+            'password'=>Hash::make($request->password),
             'avatar'=>$pic_name,
-            'isAdmin'=>0,
+            'isAdmin'=>1,
         ]);
         if(!$admin)
-        {
+        {   
             return response()->json(
-                ["Error"=>"Sorry,You can't create a new Mentor as you have to fill all the required fields"],404
+                [
+                    "status"=>404,
+                    "Error"=>"Sorry,You can't create a new Mentor as you have to fill all the required fields"],404
             );
         }
         else
-        {
+        {   
+            $admin->assignRole('mentor');
             return response()->json(
-                ["Success" => 'Mentor is added successfully ^_^ ',
-                "Data:"=> $admin],200
+                [
+                 "status" => 200,   
+                "Success" => 'Mentor is added successfully ^_^ ',
+                "Data:"=> new MentorResource($admin)],200
             );
         }
     }
     //delete Mentor
     public function destroy($mentor)
     {
-        $mentor=Admin::find($mentor);
+        $mentor=User::find($mentor);
         if($mentor)
         {
             Storage::delete('/Users/Mentors/'.$mentor->avatar);
@@ -61,7 +72,7 @@ class MentorController extends Controller
     //update
     public function update(Request $request,$mentor)
     {
-       $mentor=Admin::findOrFail($mentor);
+       $mentor=User::findOrFail($mentor);
        if($mentor)
        {   //delete image
            Storage::delete('/Users/Mentors/'.$mentor->avatar);
@@ -75,7 +86,7 @@ class MentorController extends Controller
                 'email'=>$request->email,
                 'password'=>$request->password,
                 'avatar'=>$pic_name,
-                'isAdmin'=>0,
+                'isAdmin'=>1,
            ]);
        }
     }
@@ -83,7 +94,7 @@ class MentorController extends Controller
     //index
     public function index()
     {
-       return MentorResource::collection(Admin::where('isAdmin',0)->get());
+       return MentorResource::collection(User::where('isAdmin',1)->get());
 
     }
 }

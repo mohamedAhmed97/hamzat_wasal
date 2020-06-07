@@ -17,10 +17,11 @@ class PostResource extends JsonResource
         return [
           
             'title'=>$this->title,
+            'description'=>$this->description,
             'category info'=> new CategoryResource($this->categories),
-            'user info'=> new UserResource($this->users)
-                
-                
+            'user info'=> new UserResource($this->users) ,
+            'media' => MediaResource::collection($this->media)
+                 
         ];
     }
 }

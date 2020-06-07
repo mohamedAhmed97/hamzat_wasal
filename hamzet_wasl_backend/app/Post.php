@@ -9,7 +9,8 @@ class Post extends Model
     protected $fillable = [
         'title',
         'category_id',
-        'user_id'
+        'user_id',
+        'description'
     ];
     
     public function categories()
@@ -19,5 +20,10 @@ class Post extends Model
     public function users()
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+
+    public function media()
+    {
+       return $this->hasMany('App\Media');
     }
 }

@@ -23,6 +23,7 @@ class UserController extends Controller
             'email'=>$request->email,
             'password'=>$request->password,
             'avatar'=>$pic_name,
+            'isAdmin'=>0,
             
         ]);
         if(!$user)
@@ -33,6 +34,7 @@ class UserController extends Controller
         }
         else
         {
+            $user->assignRole('user');
             return response()->json(
                 ["Success" => 'User is added successfully ^_^ ',
                 "Data:"=> $user],200

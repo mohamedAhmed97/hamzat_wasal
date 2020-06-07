@@ -20,7 +20,7 @@ class CreateWorkshopsTable extends Migration
             $table->dateTime('start_day',0);
             $table->dateTime('end_date',0);
             $table->integer('capcity');
-            $table->foreignId('admin_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });

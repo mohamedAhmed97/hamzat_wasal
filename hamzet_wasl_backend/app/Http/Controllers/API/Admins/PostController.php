@@ -7,10 +7,16 @@ use Illuminate\Http\Request;
 use App\Post; 
 use App\Http\Resources\PostResource;
 use App\Http\Requests\PostRequest;
-
+use App\Media;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
-{
+{   
+    public function __construct()
+    {
+        //$this->middleware(['role:user']);
+    }
     public function index(){
         $posts=Post::all();
         $postresource=PostResource::collection($posts);
@@ -19,14 +25,45 @@ class PostController extends Controller
     }
     public function show(){
         $post = Post::find(request()->post);
+        $media=Media::where(request()->post);
         
         if(is_null($post)){
             return response()->json(["Error"=>"No such a post with this id"],404);
         }
-        return new PostResource($post);
+        return new PostResource($post , $media);
     }
-    public function store(PostRequest $request){
-        $post = Post::create($request->all());
+    public function store(request $request){
+
+        $post = Post::create([
+            'title'=>$request->title ,
+            'user_id'=>$request->user_id ,
+            'category_id'=>$request->category_id,
+            'description'=>$request->description
+        ]);
+        
+       
+
+        $files = $request->file('photos');
+       
+        
+        if($files)
+        {   
+            
+             
+              foreach ($files as $file) {
+                
+                $pic_name=time().$file->getClientOriginalName();
+                
+                $path = $file->storeAs(
+                        'Media/Posts',$pic_name
+                     );
+                $media = Media::create([
+                    'file'=>$path ,
+                    'post_id'=>$post->id
+                ]);
+                }
+             
+        }     
         if($post)
         {
             return response()->json([
@@ -38,10 +75,17 @@ class PostController extends Controller
         }
     }
     public function destroy(){
+        $medias = Media::where('post_id' , request()->post);
         $post = Post::find(request()->post);
+        
         if(is_null($post)){
             return response()->json(["Error"=>"Post is not recorded"],404);
+        } 
+        foreach($medias as $media){
+        Storage::delete('Media/Posts'.$media);
         }
+        
+        $medias->delete();
         $post->delete();
         return response()->json(["Success"=>"Post deleted successfully"],200);
     }
@@ -49,10 +93,43 @@ class PostController extends Controller
     
     public function update(PostRequest $request, $postId){ 
         $post = Post::find($postId);
+        $mediaFiles= $post->media;
         if(is_null($post)){
             return response()->json(["Error"=>"Record doesn't found in the datatabase!! Enter a valid id ^_^"],404);
         }
-        $post->update($request->all()); 
+       
+        
+        $post->update([
+            'title'=>$request->title ,
+            'user_id'=>$request->user_id ,
+            'category_id'=>$request->category_id,
+        ]);
+        $files = $request->file('photos');
+        
+       
+        
+        if($files)
+        {   
+            $medias = Media::where('post_id' , request()->post)->delete();
+            foreach($mediaFiles as $media){
+                Storage::delete('Media/Posts'.$media);
+            }
+             
+              foreach ($files as $file) {
+                  
+                
+                $pic_name=time().$file->getClientOriginalName();
+                
+                $path = $file->storeAs(
+                        'Media/Posts',$pic_name
+                     );
+                $media = Media::create([
+                    'file'=>$path ,
+                    'post_id'=>$post->id
+                ]);
+                }
+             
+        }     
         return response()->json(["Success"=>"Post is Updated",
                                     "New data:"=> new PostResource($post)],200);
     }
