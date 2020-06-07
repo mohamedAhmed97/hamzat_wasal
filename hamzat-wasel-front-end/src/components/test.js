@@ -1,54 +1,23 @@
-import React from 'react';
-import axios from 'axios';
-import config from './token/token';
-import { Redirect } from 'react-router-dom'
-export default class Test extends React.Component
-{
-    constructor()
-    {
-        super();
-        this.state=
-        {
-            redirect:false
-        }
-    }
+import React, { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-    test=()=>{
-            console.log(config);
-            
-            axios.get('http://localhost:8000/api/categories',config).then(res => {
-             
-                console.log(res);
-                
-            }).catch(error => {
-                console.log(error.response)
-                if(error.response.status===403)
-                {
-                    this.setState({redirect:true})
-                    this.ProtectedComponent();
-                }
-                //console.log(this.state);
-                
-            }); 
-        
-    }
-    ProtectedComponent = () => {
-        if (this.state.redirect)
-        {
-   
-            return <Redirect to='/404'  />
-        }
-  
-      }
+import SideBar from "./sidebar/SideBar";
+import Content from "./content/Content";
+import "./sidebar/test.css";
 
-    render()
-    {
-       
-        return (
-             <div>
-                {this.ProtectedComponent()}
-                <button onClick={this.test}>tt </button>
-            </div>   
-        );
-    }
-}
+const App = () => {
+  const [sidebarIsOpen, setSidebarOpen] = useState(true);
+  const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
+
+  return (
+    <Router>
+      <div className="App wrapper">
+        <SideBar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
+        <Content toggleSidebar={toggleSidebar} sidebarIsOpen={sidebarIsOpen} />
+      </div>
+    </Router>
+  );
+};
+
+export default App;

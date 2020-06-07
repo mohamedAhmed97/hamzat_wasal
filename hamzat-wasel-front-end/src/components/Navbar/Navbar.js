@@ -45,6 +45,8 @@ const Navbar1 = (props) => {
       <Router>
         <Switch>
           <Route path="/login" component={Login} />
+          <Route path="/categories" component={Categories} />
+      
           <Route path="/Register" component={Register} />
           <Route path="/test">
             <Test></Test>
@@ -52,7 +54,7 @@ const Navbar1 = (props) => {
           <Route path="/404" component={NotFound} />
           <Route path="/" component={Register} />
           
-          <Route path="/categories" component={Categories} />
+          
         </Switch>
       </Router>
     </div>

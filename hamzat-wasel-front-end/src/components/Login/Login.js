@@ -51,7 +51,7 @@ function Login(){
      
 return (
 <React.Fragment>
-    {role!==null? ProtectedComponent(0):null}
+    {ProtectedComponent(0)}
     <div className="container mb-3">
         <div className="page-content">
 		    <div className="form-v7-content">
