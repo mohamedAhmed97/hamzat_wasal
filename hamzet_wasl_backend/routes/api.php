@@ -79,8 +79,9 @@ Route::group(['prefix' => 'posts'], function () {
     Route::get('/', 'API\Admins\PostController@index');
 });
 
-
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 //registe
 Route::post('/register', 'API\Users\RegisterController@store');
 Route::post('/login', function (Request $request) {
