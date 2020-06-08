@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../../Form.css'
 import { Redirect } from 'react-router-dom'
 import Cookies from 'universal-cookie';
+import UserData from '../token/userdata';
 
 function Login(){
     const cookies = new Cookies();
@@ -36,13 +37,10 @@ function Login(){
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             axios.post('http://localhost:8000/api/login',state).then(res => {
                 //save cookie
-                cookies.set('UserData', res.data,{ path: '/' ,expires: new Date(Date.now()+2592000)});
-                role=cookies.get('UserData');
-                setState({ ...state, redirect:true})
-                //console.log(res);
-
-                
-                
+                cookies.set('UserToken', res.data,{ path: '/' ,expires: new Date(Date.now()+2592000)});
+                role=cookies.get('UserToken');
+                UserData();
+                setState({ ...state, redirect:true}) 
             }).catch(error => {
                 console.log(error.response)
             }); 
