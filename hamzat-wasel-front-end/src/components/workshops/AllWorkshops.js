@@ -1,5 +1,6 @@
 import React,{ Component} from 'react';
 import axios from 'axios';
+import config from '../token/token';
 
 class AllWorkshops extends Component {
     constructor(props){
@@ -25,6 +26,28 @@ class AllWorkshops extends Component {
             }).catch(error => {
                 console.log(error.response)
             }); 
+        });
+    };
+
+    onWorkshopDeleted = workshopId => { 
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.delete('http://localhost:8000/api/workshops/'+ workshopId,config).then(res => {
+                console.log(res.data);
+			    let workshops = this.state.workshops;
+                function removeWorkshop(arr, value) {
+                    return arr.filter((workshop)=>{
+                    return workshop.id !== value; });
+                }
+            
+                this.setState({workshops:removeWorkshop(workshops,workshopId)});     
+                // setTimeout(() => this.setState({alert_message:''}), 9000);
+
+            }).catch(error => {
+                // this.setState({alert_message: "error"});
+                // setTimeout(() => this.setState({alert_message:''}), 9000);
+                console.log(error)
+            });
         });
     };
 
@@ -69,6 +92,10 @@ render() {
                                 </span>
                                 {workshop.workshop_price} EGP
                             </h5>
+                            <button onClick={()=>{ if 
+                            (window.confirm('Are you sure you want to delete this workshop?'))
+                            this.onWorkshopDeleted(workshop.id)}} 
+                            className="btn btn-danger font-weight-bold m-1"> Delete </button>
                         </div>
                         <div className="card-footer bg-transparent border-info">
                                 <small className="text-info m-2">From:  {workshop.start_date}</small>

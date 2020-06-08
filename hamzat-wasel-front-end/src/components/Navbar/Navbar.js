@@ -54,10 +54,9 @@ const Navbar1 = (props) => {
             <Test></Test>
           </Route>
           <Route path="/404" component={NotFound} />
-          <Route path="/" component={Register} />
-          
           <Route path="/categories" component={Categories} />
           <Route path="/workshops" component={Workshops} />
+          <Route path="/" component={Register} />
         </Switch>
       </Router>
     </div>
