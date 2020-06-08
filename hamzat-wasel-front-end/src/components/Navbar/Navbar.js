@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Test from '../test';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import NotFound from '../templates/404';
-
+import EnhancedTable from '../table/view';
 
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,6 +49,7 @@ const Navbar1 = (props) => {
       <Router>
         <Switch>
           <Route path="/login" component={Login} />
+          <Route path="/categories" component={Categories} />
           <Route path="/Register" component={Register} />
           <Route path="/test">
             <Test></Test>
@@ -56,6 +57,7 @@ const Navbar1 = (props) => {
           <Route path="/404" component={NotFound} />
           <Route path="/categories" component={Categories} />
           <Route path="/workshops" component={Workshops} />
+          <Route path="/table" component={EnhancedTable} />
           <Route path="/" component={Register} />
         </Switch>
       </Router>
