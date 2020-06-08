@@ -1,6 +1,7 @@
 import React,{ Component} from 'react';
 import axios from 'axios';
 import config from '../token/token';
+import AlertSuccess from '../categories/AlertSuccess';
 
 class AllWorkshops extends Component {
     constructor(props){
@@ -8,6 +9,7 @@ class AllWorkshops extends Component {
             
         this.state = { 
             workshops: [], 
+            alert_message: ''
         }
     }
 
@@ -40,12 +42,12 @@ class AllWorkshops extends Component {
                     return workshop.id !== value; });
                 }
             
-                this.setState({workshops:removeWorkshop(workshops,workshopId)});     
-                // setTimeout(() => this.setState({alert_message:''}), 9000);
+                this.setState({workshops:removeWorkshop(workshops,workshopId), alert_message: "success"});     
+                setTimeout(() => this.setState({alert_message:''}), 9000);
 
             }).catch(error => {
-                // this.setState({alert_message: "error"});
-                // setTimeout(() => this.setState({alert_message:''}), 9000);
+                this.setState({alert_message: "error"});
+                setTimeout(() => this.setState({alert_message:''}), 9000);
                 console.log(error)
             });
         });
@@ -55,6 +57,8 @@ class AllWorkshops extends Component {
 render() { 
     return ( 
     <div className="container">
+        {this.state.alert_message === "success" ? <AlertSuccess message=
+        {"You deleted this workshop successfully, This record isn't a part of the database anymore"} /> : ""}
         <div className="row">
             {this.state.workshops.map(workshop => { return (
             <div className="col-md-6 col-xs-12" key={workshop.id}>
