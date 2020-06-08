@@ -2,6 +2,7 @@ import React,{ Component} from 'react';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import AllWorkshops from './AllWorkshops';
 import Add from './Add';
+import Edit from './Edit';
 
 
 class Index extends Component {
@@ -18,6 +19,7 @@ render(){
                 <Switch>
                         <Route exact path="/workshops" component={AllWorkshops} /> 
                         <Route exact path="/workshops/add" component={Add} /> 
+                        <Route path="/workshops/edit/:id" component={Edit} />  
                 </Switch>
             </div>
         </Router>   

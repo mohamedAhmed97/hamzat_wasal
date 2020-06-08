@@ -2,6 +2,7 @@ import React,{ Component} from 'react';
 import axios from 'axios';
 import config from '../token/token';
 import AlertSuccess from '../categories/AlertSuccess';
+import { Link } from 'react-router-dom';
 
 class AllWorkshops extends Component {
     constructor(props){
@@ -100,6 +101,9 @@ render() {
                             (window.confirm('Are you sure you want to delete this workshop?'))
                             this.onWorkshopDeleted(workshop.id)}} 
                             className="btn btn-danger font-weight-bold m-1"> Delete </button>
+                            <Link to={`/workshops/edit/${workshop.id}`}>
+                                <button className="btn btn-info font-weight-bold m-1">Edit</button>
+                            </Link>
                         </div>
                         <div className="card-footer bg-transparent border-info">
                                 <small className="text-info m-2">From:  {workshop.start_date}</small>
