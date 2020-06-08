@@ -30,7 +30,7 @@ class WorkshopRequest extends FormRequest
             'end_date' => 'required|date|after:today',
             'capcity' => 'required|numeric',
             'workshop_price' => 'required|numeric', 
-            'admin_id' => 'required|exists:admins,id|numeric',
+            'user_id' => 'required|exists:users,id|numeric',
             'category_id' => 'required|exists:categories,id|numeric',
         ];
     }
