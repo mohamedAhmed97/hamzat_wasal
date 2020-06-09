@@ -75,7 +75,7 @@ Route::group(['prefix' => 'posts','middleware' => ['auth:sanctum','role:admin']]
 //Post
 Route::group(['prefix' => 'posts','middleware' => ['auth:sanctum','role:user']], function () {
     Route::post('/', 'API\Admins\PostController@store');
-    Route::get('/{post}', 'API\Admins\PostController@show');
+    
     Route::put('/{post}', 'API\Admins\PostController@update');
 });
 
@@ -85,6 +85,7 @@ Route::group(['prefix' => 'posts'], function () {
     
     Route::put('/approve/{post}', 'API\Admins\PostController@approval');
     Route::delete('/{post}', 'API\Admins\PostController@destroy');
+    Route::get('/{post}', 'API\Admins\PostController@show');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
