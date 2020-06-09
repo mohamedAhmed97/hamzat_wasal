@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
-use Hash;
+
 class CreateAdmin extends Seeder
 {
     /**

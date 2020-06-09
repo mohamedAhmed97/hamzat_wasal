@@ -24,7 +24,7 @@ class WorkshopResource extends JsonResource
             'capcity' => $this->capcity,
             'category_id' => $this->category_id,
             'workshop_price' => $this->workshop_price,
-            'mentor_info' => new MentorResource($this->admins),
+            'mentor_info' => new MentorResource($this->users),
             'category_info' => new CategoryResource($this->categories)
         ];
     }

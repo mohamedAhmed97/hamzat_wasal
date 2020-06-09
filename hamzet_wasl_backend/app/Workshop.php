@@ -13,7 +13,7 @@ class Workshop extends Model
         'end_date',
         'capcity',
         'workshop_price',
-        'admin_id',
+        'user_id',
         'category_id',
     ];
 
@@ -23,7 +23,7 @@ class Workshop extends Model
     }
     
 
-    public function admins()
+    public function users()
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
