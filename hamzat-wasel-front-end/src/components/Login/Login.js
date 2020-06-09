@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../../Form.css'
 import { Redirect } from 'react-router-dom'
 import Cookies from 'universal-cookie';
+import UserData from '../token/userdata';
 
 function Login(){
     const cookies = new Cookies();
@@ -36,13 +37,12 @@ function Login(){
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             axios.post('http://localhost:8000/api/login',state).then(res => {
                 //save cookie
-                cookies.set('UserData', res.data,{ path: '/' ,expires: new Date(Date.now()+2592000)});
-                role=cookies.get('UserData');
-                setState({ ...state, redirect:true})
-                //console.log(res);
-
+                console.log(res.data);
                 
-                
+                cookies.set('UserToken', res.data,{ path: '/' ,expires: new Date(Date.now()+2592000)});
+                role=cookies.get('UserToken');
+                UserData(res.data);
+                /* setState({ ...state, redirect:true})  */
             }).catch(error => {
                 console.log(error.response)
             }); 
@@ -51,7 +51,7 @@ function Login(){
      
 return (
 <React.Fragment>
-    {role!==null? ProtectedComponent(0):null}
+    {ProtectedComponent(0)}
     <div className="container mb-3">
         <div className="page-content">
 		    <div className="form-v7-content">
@@ -70,6 +70,10 @@ return (
                         <label htmlFor="password" className="font-weight-bold"> Password </label> 
                         <input type="password" name="password" id="password" className="input-text" 
                         value={state.password} onChange={handleChange}/> 
+                    </div>
+                    <div className="form-row">
+                        <input type="hidden" name="device_name" id="password" className="input-text" 
+                        value={state.device_name} onChange={handleChange}/> 
                     </div>
                     <div className="form-row-last">
                         <input type="submit" value="Login" className="login btn font-weight-bold"/>
