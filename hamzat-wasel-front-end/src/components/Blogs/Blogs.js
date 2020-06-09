@@ -1,0 +1,142 @@
+import React from 'react'; 
+import axios from 'axios';
+import '../blog/blog.css';
+
+/*export class Blogs extends React.Component
+{
+    constructor(props) 
+    {
+        super(props)
+        this.state ={
+            blogs: []
+        }
+    }
+    
+    componentDidMount() {
+        axios.get("http://localhost:8000/api/posts")
+        .then(res=> {
+            console.log(res.data)
+            this.setState({
+                blogs: res.data.data
+                //blogs: res.data
+            })
+        })
+        console.log(this.state.blogs);
+    }
+    
+    render(){    
+         return(
+             
+            <div>
+                {this.state.blogs.map((blog)=>
+                
+                (
+                    <p>Hello from!</p>
+                )
+           
+            
+            )}
+            </div>
+        );
+            
+    }
+    
+}*/
+
+
+export class Blogs extends React.Component
+{
+    state={
+        blogs: []
+    }
+     
+    componentDidMount() {
+        axios.get("http://localhost:8000/api/posts")
+        .then(res=> {
+            console.log(res.data)
+            this.setState({
+                blogs: res.data.data
+                //blogs: res.data
+            })
+        })
+        console.log(this.state.blogs);
+    }
+
+    render()
+    {
+        const{blogs}=this.state
+        const blogItem = blogs.map((blog,index)=>{
+            return(
+                <div key={index}>
+                <div class="container">
+                           <div class="grid_12">
+                           <article class="post post-blog">
+                             <a href="#" class="post-image">
+                            <img src="http://placehold.it/960x250/efefef" />
+                            </a>
+                               <div class="details">
+                               <h2><a href="#">Title: {blog.title}</a></h2>
+                               <div class="meta">
+                                   <h4>Category: <strong> </strong> <span class="verified"></span></h4>
+                               </div>
+                               </div>
+                           </article> 
+                           </div>          
+                   </div>
+                   </div>
+            )});
+        return blogItem;
+    }
+}
+
+       /*
+         <div key={index}>
+         <div class="container">
+                    <div class="grid_12">
+                    <article class="post post-blog">
+                        <div class="details">
+                        <h2><a href="#">Title: {blog.title}</a></h2>
+                        <div class="meta">
+                            <h4>Category: <strong> </strong> <span class="verified"></span></h4>
+                        </div>
+                        </div>
+                    </article> 
+                    </div>          
+            </div>
+            </div>
+       */
+
+       /*
+       <div key={index}>
+                   
+                    <div className="content">
+                        
+                        <div> <h3>Title: {blog.title}</h3>
+                            <h3> Description: {blog.description}</h3>
+                            <h4>Category:  </h4></div>
+                           
+                   
+                                
+                    </div>
+                    
+                </div>
+                */
+
+                /*
+                <div class="container">
+                    <div class="grid_12">
+                    <article class="post post-blog">
+                        <a href="#" class="post-image">
+                        <img src="http://placehold.it/960x250/efefef" />
+                        </a>
+                        <div class="details">
+                        <h2><a href="#">iOS Game / Slots</a></h2>
+                        <div class="meta">
+                            <p>Written by <strong>Mike | Creative Mints</strong> <span class="verified"></span></p>
+                        </div>
+                        <p>Get your coins ready, it's slots time! Check out the attachment for instant jackpot! :) <br />_<br /><br />P.S The game concept is for sale, please contact me if you're interested.</p>        
+                        </div>
+                    </article> 
+                    </div>          
+            </div>
+            */
