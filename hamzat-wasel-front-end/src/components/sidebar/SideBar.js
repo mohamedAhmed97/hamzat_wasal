@@ -85,7 +85,7 @@ let submenus = [
   ]
 ];
 
-if (user.isAdmin == 2) {
+if (user && user.isAdmin == 2) {
   submenus[2].push(
     {
       title: "Approve Post",

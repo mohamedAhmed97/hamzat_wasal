@@ -19,16 +19,16 @@ import Cookies from 'universal-cookie';
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
 import Posts from '../admin/posts';
-
-const cookies = new Cookies();
-
-const is_auth = cookies.get('UserData');
+import {ProtectedRoute} from '../protected/navitem'
+import  {ProtectedLogin} from '../protected/protectedlogin';
+import {ProtectedRegsiter} from '../protected/protectedregister';
 
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   return (
     <div>
+
       <Navbar className="mb-3" style={{ backgroundColor: "#24c0d1" }} expand="md">
         <NavbarBrand href="/" className="font-weight-bold text-light">Hamzet Wasl</NavbarBrand>
         <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{ color: "white" }} onClick={toggle} />
@@ -40,15 +40,10 @@ const Navbar1 = (props) => {
             <NavItem>
               <NavLink href="/workshops" className="text-light">Workshops</NavLink>
             </NavItem>
-            <NavItem >
-              <NavLink href="/register" className="text-light">Register</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/login" className="text-light mr-3">Login</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/home" className="text-light mr-3">home</NavLink>
-            </NavItem>
+            <ProtectedRegsiter></ProtectedRegsiter>
+            <ProtectedLogin></ProtectedLogin>
+            <ProtectedRoute></ProtectedRoute>
+          
           </Nav>
         </Collapse>
       </Navbar>

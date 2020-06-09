@@ -25,7 +25,7 @@ function Login(){
         {
             if (data===0)
           {          
-            return <Redirect to='/register'  />
+            return <Redirect to='/home'  />
           }
           return <div> My Protected Component </div>
         }
@@ -42,9 +42,7 @@ function Login(){
                 cookies.set('UserToken', res.data,{ path: '/' ,expires: new Date(Date.now()+2592000)});
                 role=cookies.get('UserToken');
                 UserData(res.data);
-               
-                
-                /* setState({ ...state, redirect:true})  */
+                setState({ ...state, redirect:true}) 
             }).catch(error => {
                 console.log(error.response)
             }); 

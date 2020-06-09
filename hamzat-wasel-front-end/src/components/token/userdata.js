@@ -18,7 +18,7 @@ const UserData = (role) => {
         cookies.set('UserData', res.data, { path: '/', expires: new Date(Date.now() + 2592000) });
         const current_user = cookies.get('UserData');
         console.log(current_user);
-
+        window.location.reload(false);
     }).catch(error => {
         console.log(error.response)
     });
