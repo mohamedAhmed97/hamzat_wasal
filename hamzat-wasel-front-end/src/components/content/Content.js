@@ -6,6 +6,7 @@ import Blog from '../blog/blog';
 import Login from '../Login/Login';
 import Topbar from "./Topbar";
 import EnhancedTable from '../table/view';
+import Posts from '../admin/posts';
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => (
   <Container
@@ -17,6 +18,7 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
       <Route exact path="/" component={() => "Hello"} />
       <Route exact path="/about" component={Login} />
       <Route exact path="/Pages" component={() => "blog"} />
+      <Route exact path="/posts/requests" component={Posts} />
       <Route exact path="/faq" component={EnhancedTable} />
       <Route exact path="/contact" component={() => "Contact"} />
       <Route exact path="/Home-1" component={() => "Home-1"} />

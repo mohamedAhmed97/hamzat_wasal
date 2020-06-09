@@ -17,7 +17,7 @@ import Test from '../test';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
-
+import Posts from '../admin/posts';
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -41,7 +41,7 @@ const Navbar1 = (props) => {
               <NavLink href="/login" className="text-light mr-3">Login</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/test" className="text-light mr-3">test</NavLink>
+              <NavLink href="/home" className="text-light mr-3">home</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
@@ -51,7 +51,7 @@ const Navbar1 = (props) => {
           <Route path="/login" component={Login} />
           <Route path="/categories" component={Categories} />
           <Route path="/Register" component={Register} />
-          <Route path="/test">
+          <Route path="/home">
             <Test></Test>
           </Route>
           <Route path="/404" component={NotFound} />
@@ -59,6 +59,7 @@ const Navbar1 = (props) => {
           <Route path="/workshops" component={Workshops} />
           <Route path="/table" component={EnhancedTable} />
           <Route path="/" component={Register} />
+          <Route exact path="/posts/requests" component={Posts} />
         </Switch>
       </Router>
     </div>
