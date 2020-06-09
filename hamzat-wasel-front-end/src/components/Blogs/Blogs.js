@@ -1,5 +1,6 @@
 import React from 'react'; 
 import axios from 'axios';
+import '../blog/blog.css';
 
 /*export class Blogs extends React.Component
 {
@@ -67,6 +68,46 @@ export class Blogs extends React.Component
         const blogItem = blogs.map((blog,index)=>{
             return(
                 <div key={index}>
+                <div class="container">
+                           <div class="grid_12">
+                           <article class="post post-blog">
+                             <a href="#" class="post-image">
+                            <img src="http://placehold.it/960x250/efefef" />
+                            </a>
+                               <div class="details">
+                               <h2><a href="#">Title: {blog.title}</a></h2>
+                               <div class="meta">
+                                   <h4>Category: <strong> </strong> <span class="verified"></span></h4>
+                               </div>
+                               </div>
+                           </article> 
+                           </div>          
+                   </div>
+                   </div>
+            )});
+        return blogItem;
+    }
+}
+
+       /*
+         <div key={index}>
+         <div class="container">
+                    <div class="grid_12">
+                    <article class="post post-blog">
+                        <div class="details">
+                        <h2><a href="#">Title: {blog.title}</a></h2>
+                        <div class="meta">
+                            <h4>Category: <strong> </strong> <span class="verified"></span></h4>
+                        </div>
+                        </div>
+                    </article> 
+                    </div>          
+            </div>
+            </div>
+       */
+
+       /*
+       <div key={index}>
                    
                     <div className="content">
                         
@@ -79,9 +120,23 @@ export class Blogs extends React.Component
                     </div>
                     
                 </div>
-            )});
-        return blogItem;
-    }
-}
+                */
 
-       
+                /*
+                <div class="container">
+                    <div class="grid_12">
+                    <article class="post post-blog">
+                        <a href="#" class="post-image">
+                        <img src="http://placehold.it/960x250/efefef" />
+                        </a>
+                        <div class="details">
+                        <h2><a href="#">iOS Game / Slots</a></h2>
+                        <div class="meta">
+                            <p>Written by <strong>Mike | Creative Mints</strong> <span class="verified"></span></p>
+                        </div>
+                        <p>Get your coins ready, it's slots time! Check out the attachment for instant jackpot! :) <br />_<br /><br />P.S The game concept is for sale, please contact me if you're interested.</p>        
+                        </div>
+                    </article> 
+                    </div>          
+            </div>
+            */
