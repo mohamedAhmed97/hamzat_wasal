@@ -1,55 +1,87 @@
 import React from 'react'; 
 import axios from 'axios';
 
-export class Blogs extends React.Component
+/*export class Blogs extends React.Component
 {
-    state ={
-        users: []
+    constructor(props) 
+    {
+        super(props)
+        this.state ={
+            blogs: []
+        }
     }
+    
     componentDidMount() {
-        axios.get("https://jsonplaceholder.typicode.com/users")
+        axios.get("http://localhost:8000/api/posts")
         .then(res=> {
             console.log(res.data)
             this.setState({
-                users: res.data
+                blogs: res.data.data
                 //blogs: res.data
             })
         })
+        console.log(this.state.blogs);
     }
     
-
-    /*test=()=>{
-    
-    
-        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
-        axios.get('https://jsonplaceholder.typicode.com/users')
-        .then(res=>
-            {
-                console.log(res);
-            }).catch(error=>{
-                console.log(error.response)
-            });
-    });
-    }*/
-    render(){
-        
-        //const{blogs}=this.stat
-        const {users}=this.state
-        let userList
-        //let blogList
-        //return bloglist=blogs.map(blog=> )
-        return userList= users.map(user => {
+    render(){    
          return(
-            <div key={user.id}>
+             
+            <div>
+                {this.state.blogs.map((blog)=>
                 
-                <div className="content">
-                    
-                    <div> <h3>Title: {user.name}</h3></div>
-                    <div> <h5>Category:{user.username}</h5></div>           
-                  </div>
+                (
+                    <p>Hello from!</p>
+                )
+           
+            
+            )}
             </div>
         );
-    })
+            
+    }
+    
+}*/
+
+
+export class Blogs extends React.Component
+{
+    state={
+        blogs: []
+    }
+     
+    componentDidMount() {
+        axios.get("http://localhost:8000/api/posts")
+        .then(res=> {
+            console.log(res.data)
+            this.setState({
+                blogs: res.data.data
+                //blogs: res.data
+            })
+        })
+        console.log(this.state.blogs);
+    }
+
+    render()
+    {
+        const{blogs}=this.state
+        const blogItem = blogs.map((blog,index)=>{
+            return(
+                <div key={index}>
+                   
+                    <div className="content">
+                        
+                        <div> <h3>Title: {blog.title}</h3>
+                            <h3> Description: {blog.description}</h3>
+                            <h4>Category:  </h4></div>
+                           
+                   
+                                
+                    </div>
+                    
+                </div>
+            )});
+        return blogItem;
     }
 }
+
        
