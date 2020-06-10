@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Test from '../test';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import {Blogs} from '../Blogs/Blogs';
+import {Singleblog} from '../Blogs/Singleblog';
 
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
@@ -55,7 +56,9 @@ const Navbar1 = (props) => {
           <Route path="/categories" component={Categories} />
           <Route path="/Register" component={Register} />
           <Route exact path="/" component={Register} />
+          <Route path="/blogs/:id"  component={Singleblog}/>
           <Route path="/blogs" component={Blogs} />
+
           <Route path="/test">
             <Test></Test>
           </Route>
