@@ -101,3 +101,15 @@ Route::post('/login', function (Request $request) {
     //dd($user->hasRole('admin'));
     return $user->createToken($request->device_name)->plainTextToken;
 });
+
+
+
+// Route::group(['prefix' => 'workshopUser'], function () {
+//     Route::post('/', 'API\Mentors\WorkshopUserController@store');
+//     //destroy
+//     Route::delete('/{user}', 'API\Mentors\WorkshopUserController@destroy');
+//     //update
+//     Route::put('/{user}', 'API\Mentors\WorkshopUserController@update');
+//     //index
+//     Route::get('/', 'API\Mentors\WorkshopUserController@index');
+// });
