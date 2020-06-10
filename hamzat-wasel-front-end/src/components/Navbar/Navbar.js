@@ -11,24 +11,33 @@ import Login from '../Login/Login';
 import Register from '../Login/Register';
 import Categories from '../categories/Index';
 import Workshops from '../workshops/Index';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Test from '../test';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+<<<<<<< HEAD
 import {Blogs} from '../Blogs/Blogs';
 import {Singleblog} from '../Blogs/Singleblog';
 
+=======
+import Cookies from 'universal-cookie';
+>>>>>>> eb6788e2e541b602ea7a4856cedad2b14fdceff1
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
+import Posts from '../admin/posts';
+import {ProtectedRoute} from '../protected/navitem'
+import  {ProtectedLogin} from '../protected/protectedlogin';
+import {ProtectedRegsiter} from '../protected/protectedregister';
 
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   return (
     <div>
-      <Navbar className="mb-3" style={{backgroundColor: "#24c0d1" }} expand="md">
+
+      <Navbar className="mb-3" style={{ backgroundColor: "#24c0d1" }} expand="md">
         <NavbarBrand href="/" className="font-weight-bold text-light">Hamzet Wasl</NavbarBrand>
-        <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{color:"white"}} onClick={toggle}  />
+        <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{ color: "white" }} onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto font-weight-bold" navbar>
             <NavItem>
@@ -37,16 +46,10 @@ const Navbar1 = (props) => {
             <NavItem>
               <NavLink href="/workshops" className="text-light">Workshops</NavLink>
             </NavItem>
-            <NavItem >
-              <NavLink href="/register" className="text-light">Register</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/login" className="text-light mr-3">Login</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/blogs" className="text-light mr-3">Blogs</NavLink>
-              <NavLink href="/test" className="text-light mr-3">test</NavLink>
-            </NavItem>
+            <ProtectedRegsiter></ProtectedRegsiter>
+            <ProtectedLogin></ProtectedLogin>
+            <ProtectedRoute></ProtectedRoute>
+          
           </Nav>
         </Collapse>
       </Navbar>
@@ -60,6 +63,7 @@ const Navbar1 = (props) => {
           <Route path="/blogs" component={Blogs} />
 
           <Route path="/test">
+          <Route path="/home">
             <Test></Test>
           </Route>
           <Route path="/404" component={NotFound} />
@@ -67,6 +71,7 @@ const Navbar1 = (props) => {
           <Route path="/workshops" component={Workshops} />
           <Route path="/table" component={EnhancedTable} />
           <Route path="/" component={Register} />
+          <Route exact path="/posts/requests" component={Posts} />
         </Switch>
       </Router>
     </div>

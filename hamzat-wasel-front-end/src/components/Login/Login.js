@@ -25,7 +25,7 @@ function Login(){
         {
             if (data===0)
           {          
-            return <Redirect to='/register'  />
+            return <Redirect to='/home'  />
           }
           return <div> My Protected Component </div>
         }
@@ -37,12 +37,12 @@ function Login(){
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             axios.post('http://localhost:8000/api/login',state).then(res => {
                 //save cookie
-                console.log(res.data);
+                /* console.log(res.data); */
                 
                 cookies.set('UserToken', res.data,{ path: '/' ,expires: new Date(Date.now()+2592000)});
                 role=cookies.get('UserToken');
                 UserData(res.data);
-                /* setState({ ...state, redirect:true})  */
+                setState({ ...state, redirect:true}) 
             }).catch(error => {
                 console.log(error.response)
             }); 

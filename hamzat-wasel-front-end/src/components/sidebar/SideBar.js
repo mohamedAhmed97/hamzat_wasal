@@ -11,9 +11,12 @@ import {
 import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
-
+import UserData from '../token/userdata';
+import Cookies from 'universal-cookie';
 import SubMenu from "./SubMenu";
 
+const cookies = new Cookies();
+const user=cookies.get('UserData');
 const SideBar = ({ isOpen, toggle }) => (
   <div className={classNames("sidebar", { "is-open": isOpen })}>
     <div className="sidebar-header">
@@ -26,12 +29,7 @@ const SideBar = ({ isOpen, toggle }) => (
       <Nav vertical className="list-unstyled pb-3">
         <p>Dummy Heading</p>
         <SubMenu title="Home" icon={faHome} items={submenus[0]} />
-        <NavItem>
-          <NavLink tag={Link} to={"/about"}>
-            <FontAwesomeIcon icon={faBriefcase} className="mr-2" />
-            About
-          </NavLink>
-        </NavItem>
+        <SubMenu title="posts" icon={faBriefcase} items={submenus[2]} />
         <SubMenu title="Pages" icon={faCopy} items={submenus[1]} />
         <NavItem>
           <NavLink tag={Link} to={"/pages"}>
@@ -56,12 +54,13 @@ const SideBar = ({ isOpen, toggle }) => (
   </div>
 );
 
-const submenus = [
+let submenus = [
   [
     {
       title: "Home 1",
       target: "Home-1",
     },
+
     {
       title: "Home 2",
       target: "Home-2",
@@ -81,6 +80,21 @@ const submenus = [
       target: "Page-2",
     },
   ],
+  [
+
+  ]
 ];
+
+if (user && user.isAdmin == 2) {
+  submenus[2].push(
+    {
+      title: "Approve Post",
+      target: "/posts/requests",
+    }
+
+  )
+}
+
+
 
 export default SideBar;
