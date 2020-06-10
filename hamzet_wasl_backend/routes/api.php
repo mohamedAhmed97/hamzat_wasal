@@ -16,10 +16,10 @@ use Illuminate\Validation\ValidationException;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
@@ -68,15 +68,24 @@ Route::group(['prefix' => 'users'], function () {
 });
 
 //Post
+Route::group(['prefix' => 'posts','middleware' => ['auth:sanctum','role:admin']], function () {
+    Route::get('/waiting','API\Admins\PostController@waiting');
+    
+});
+//Post
 Route::group(['prefix' => 'posts','middleware' => ['auth:sanctum','role:user']], function () {
     Route::post('/', 'API\Admins\PostController@store');
-    Route::get('/{post}', 'API\Admins\PostController@show');
-    Route::delete('/{post}', 'API\Admins\PostController@destroy');
+    
     Route::put('/{post}', 'API\Admins\PostController@update');
 });
+
 //Post
 Route::group(['prefix' => 'posts'], function () {
     Route::get('/', 'API\Admins\PostController@index');
+    
+    Route::put('/approve/{post}', 'API\Admins\PostController@approval');
+    Route::delete('/{post}', 'API\Admins\PostController@destroy');
+    Route::get('/{post}', 'API\Admins\PostController@show');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

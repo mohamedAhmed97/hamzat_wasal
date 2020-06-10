@@ -134,4 +134,24 @@ class PostController extends Controller
                                     "New data:"=> new PostResource($post)],200);
     }
 
+    //Approve
+    public function approval($post)
+    {
+        $post=Post::find($post);
+        $post->update([
+            'approval'=>1,
+        ]);
+        return response()->json(["status"=>200]);
+    }
+
+    //waiting
+    public function waiting()
+    {
+        $posts=Post::where('approval',0)->get();
+        return response()->json([
+            "status"=>200,
+            "data"=>PostResource::collection($posts)
+        ]);
+    }
+
 }
