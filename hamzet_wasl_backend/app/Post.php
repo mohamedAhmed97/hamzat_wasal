@@ -10,7 +10,8 @@ class Post extends Model
         'title',
         'category_id',
         'user_id',
-        'description'
+        'description',
+        'approval'
     ];
     
     public function categories()
