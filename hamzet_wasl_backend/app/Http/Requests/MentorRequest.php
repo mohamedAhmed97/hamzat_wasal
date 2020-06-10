@@ -26,7 +26,7 @@ class MentorRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'email' => 'required|unique:users|email',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:6|confirmed',
             'avatar' => 'required|mimes:jpeg,bmp,png',
         ];
     }
@@ -42,7 +42,7 @@ class MentorRequest extends FormRequest
             'email.unique'=>'Mentor email is already existed',
             'email.email'=>'You should enter correct email',
             'password.required'=>'password is required, you have to fill it!',
-            'password.min'=>'The password should be greater than 7 digite',
+            'password.min'=>'The password should be greater than 5 digits',
             'password.confirmed'=>'Password not confirmed',
             'avatar.required'=>'image is required',
             'avatar.mimes'=>'image should be jpeg , bmp of png',
