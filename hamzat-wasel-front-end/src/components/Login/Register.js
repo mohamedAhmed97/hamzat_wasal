@@ -32,7 +32,7 @@ function Register() {
 
     const onSubmit = e => {
         // e.preventDefault();   
-        if (!state.choose || state.choose == "user") {
+        if (!state.choose || state.choose === "user") {
             axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
                 console.log(state);
                 var formData = new FormData();
@@ -52,7 +52,7 @@ function Register() {
                 });
             });
         }
-        else if(state.choose == "mentor")
+        else if(state.choose === "mentor")
         {
             axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
                 console.log(state);
