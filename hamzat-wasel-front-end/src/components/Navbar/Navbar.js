@@ -15,13 +15,11 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Test from '../test';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-<<<<<<< HEAD
 import {Blogs} from '../Blogs/Blogs';
 import {Singleblog} from '../Blogs/Singleblog';
+import {Addblog} from '../Blogs/Addblog';
 
-=======
 import Cookies from 'universal-cookie';
->>>>>>> eb6788e2e541b602ea7a4856cedad2b14fdceff1
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
 import Posts from '../admin/posts';
@@ -46,6 +44,9 @@ const Navbar1 = (props) => {
             <NavItem>
               <NavLink href="/workshops" className="text-light">Workshops</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/Blogs" className="text-light">Blogs</NavLink>
+            </NavItem>
             <ProtectedRegsiter></ProtectedRegsiter>
             <ProtectedLogin></ProtectedLogin>
             <ProtectedRoute></ProtectedRoute>
@@ -59,10 +60,11 @@ const Navbar1 = (props) => {
           <Route path="/categories" component={Categories} />
           <Route path="/Register" component={Register} />
           <Route exact path="/" component={Register} />
+          <Route exact path="/blogs/addblog"  component={Addblog}/>
           <Route path="/blogs/:id"  component={Singleblog}/>
           <Route path="/blogs" component={Blogs} />
 
-          <Route path="/test">
+          <Route path="/test" />
           <Route path="/home">
             <Test></Test>
           </Route>
@@ -70,9 +72,10 @@ const Navbar1 = (props) => {
           <Route path="/categories" component={Categories} />
           <Route path="/workshops" component={Workshops} />
           <Route path="/table" component={EnhancedTable} />
+          <Route path="/posts/requests" component={Posts} />
           <Route path="/" component={Register} />
-          <Route exact path="/posts/requests" component={Posts} />
-        </Switch>
+         
+          </Switch>
       </Router>
     </div>
   );
