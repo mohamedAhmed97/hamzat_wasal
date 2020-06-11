@@ -1,6 +1,7 @@
 import React,{ Component} from 'react';
 import axios from 'axios';
 import AlertSuccess from './AlertSuccess';
+import config from '../token/token';
 
 
 class Add extends Component {
@@ -22,7 +23,7 @@ class Add extends Component {
         e.preventDefault();  
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.post('http://localhost:8000/api/categories',this.state).then(res => {
+            axios.post('http://localhost:8000/api/categories',this.state,config).then(res => {
                 console.log(res.data);
                 this.setState({alert_message: "success"});
                 setTimeout(() => this.setState({alert_message:''}), 7000);

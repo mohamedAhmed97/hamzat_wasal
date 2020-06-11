@@ -2,6 +2,7 @@ import React,{ Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AlertSuccess from './AlertSuccess';
+import config from '../token/token';
 
 class AllCategories extends Component {
     constructor(props){
@@ -21,7 +22,7 @@ class AllCategories extends Component {
     componentDidMount (){ 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.get('http://localhost:8000/api/categories').then(res => {
+            axios.get('http://localhost:8000/api/categories',config).then(res => {
                 console.log(res.data.data);
                 this.setState({ categories: res.data.data})
                     
@@ -35,7 +36,7 @@ class AllCategories extends Component {
     onCategoryDeleted = categoryId => { 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.delete('http://localhost:8000/api/categories/'+ categoryId).then(res => {
+            axios.delete('http://localhost:8000/api/categories/'+ categoryId,config).then(res => {
                 console.log(res.data);
 			    let categories = this.state.categories;
                 function removeCategory(arr, value) {
