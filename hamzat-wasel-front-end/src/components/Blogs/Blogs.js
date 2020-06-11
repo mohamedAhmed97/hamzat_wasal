@@ -1,6 +1,8 @@
 import React from 'react'; 
 import axios from 'axios';
 import '../blog/blog.css';
+import {Singleblog} from '../Blogs/Singleblog';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
 /*export class Blogs extends React.Component
 {
@@ -60,36 +62,59 @@ export class Blogs extends React.Component
             })
         })
         console.log(this.state.blogs);
+        
     }
-
+    
     render()
     {
+        
         const{blogs}=this.state
         const blogItem = blogs.map((blog,index)=>{
             return(
                 <div key={index}>
+                    
                 <div class="container">
                            <div class="grid_12">
                            <article class="post post-blog">
-                             <a href="#" class="post-image">
+                             <a href="#" className="post-image">
                             <img src="http://placehold.it/960x250/efefef" />
                             </a>
                                <div class="details">
-                               <h2><a href="#">Title: {blog.title}</a></h2>
+                               <Link to={`/blogs/${blog.id}`}>
+                               <h2>Title: {blog.title}</h2> 
+                                </Link>  
+                               
+                               
                                <div class="meta">
-                                   <h4>Category: <strong> </strong> <span class="verified"></span></h4>
+                                   <h4>Category: <strong> {blog.categoryinfo.category_name} </strong> <span class="verified"></span></h4>
                                </div>
                                </div>
                            </article> 
                            </div>          
                    </div>
+                   
                    </div>
+
             )});
         return blogItem;
     }
 }
 
        /*
+
+        <Router>
+            <div className="text-center">
+                    <Link to="/categories">
+                        <button className="btn btn-primary m-3 p-2"> All Categories</button></Link>
+                    <Link to="/categories/add">
+                        <button className="btn btn-success p-2">Add Category</button></Link>
+                <Switch>
+                        <Route exact path="/categories" component={AllCategories} />  
+                        <Route exact path="/categories/add" component={Add} /> 
+                        <Route path="/categories/edit/:id" component={Edit} />        
+                </Switch>
+            </div>
+        </Router>   
          <div key={index}>
          <div class="container">
                     <div class="grid_12">

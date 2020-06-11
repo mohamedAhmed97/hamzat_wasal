@@ -1,6 +1,7 @@
 import React,{ Component} from 'react';
 import axios from 'axios';
 import AlertSuccess from './AlertSuccess';
+import config from '../token/token';
 
 class Edit extends Component {
     constructor(props){
@@ -16,7 +17,7 @@ class Edit extends Component {
     componentDidMount (){ 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.get('http://localhost:8000/api/categories/'+this.props.match.params.id).then(res => {
+            axios.get('http://localhost:8000/api/categories/'+this.props.match.params.id,config).then(res => {
                 console.log(res.data.data.category_name);
                 this.setState({ name: res.data.data.category_name})
             
@@ -35,7 +36,7 @@ class Edit extends Component {
         e.preventDefault();  
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.put('http://localhost:8000/api/categories/'+this.props.match.params.id,this.state)
+            axios.put('http://localhost:8000/api/categories/'+this.props.match.params.id,this.state,config)
             .then(res => {
                 console.log(res.data);
                 this.setState({alert_message: "success"});

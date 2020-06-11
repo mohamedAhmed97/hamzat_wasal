@@ -15,6 +15,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Test from '../home';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import {Blogs} from '../Blogs/Blogs';
+import {Singleblog} from '../Blogs/Singleblog';
+import Test from '../test';
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
 import Posts from '../admin/posts';
@@ -32,7 +36,8 @@ const Navbar1 = (props) => {
 
       <Navbar className="mb-3" style={{ backgroundColor: "#24c0d1" }} expand="md">
         <NavbarBrand href="/" className="font-weight-bold text-light">Hamzet Wasl</NavbarBrand>
-        <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{ color: "white" }} onClick={toggle} />
+        <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{ color: "white" }}
+           onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto font-weight-bold" navbar>
             <NavItem>
@@ -54,9 +59,11 @@ const Navbar1 = (props) => {
           <Route path="/login" component={Login} />
           <Route path="/categories" component={Categories} />
           <Route path="/Register" component={Register} />
-          <Route path="/home">
-            <Test></Test>
-          </Route>
+          <Route exact path="/" component={Register} />
+          <Route path="/blogs/:id"  component={Singleblog}/>
+          <Route path="/blogs" component={Blogs} />
+          <Route path="/test" />
+          <Route path="/home" component={Test} />
           <Route path="/404" component={NotFound} />
           <Route path="/categories" component={Categories} />
           <Route path="/workshops" component={Workshops} />

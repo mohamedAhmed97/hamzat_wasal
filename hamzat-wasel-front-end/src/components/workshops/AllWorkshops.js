@@ -3,6 +3,8 @@ import axios from 'axios';
 import config from '../token/token';
 import AlertSuccess from '../categories/AlertSuccess';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 class AllWorkshops extends Component {
     constructor(props){
@@ -10,7 +12,8 @@ class AllWorkshops extends Component {
             
         this.state = { 
             workshops: [], 
-            alert_message: ''
+            alert_message: '',
+            search: ''
         }
     }
 
@@ -18,6 +21,10 @@ class AllWorkshops extends Component {
         this.setState({ ...this.state, [target.name]: target.value });
         console.log(target);   
     };
+
+    handleSearch(event) {
+        this.setState({ search: event.target.value.substr(0,20) });
+    }
         
     componentDidMount (){ 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
@@ -56,12 +63,22 @@ class AllWorkshops extends Component {
 
 
 render() { 
+    let workshops = this.state.workshops.filter((workshop) => {
+        return workshop.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+    });
+    
     return ( 
     <div className="container">
+        <div className="text-left ml-2">
+        <FontAwesomeIcon className="bg-light" icon={faSearch} style={{color:"Blue"}} />  
+            <input type="search" className="mb-3 ml-2 p-2" placeholder="Search workshop by name"
+                style={{width:198}} onChange={this.handleSearch.bind(this)}/>
+             
+        </div>
         {this.state.alert_message === "success" ? <AlertSuccess message=
         {"You deleted this workshop successfully, This record isn't a part of the database anymore"} /> : ""}
         <div className="row">
-            {this.state.workshops.map(workshop => { return (
+            {workshops.map(workshop => { return (
             <div className="col-md-6 col-xs-12" key={workshop.id}>
                 <div className="card border-info mb-3">
                     <div className="bg-transparent border-info">
