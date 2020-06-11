@@ -13,16 +13,19 @@ import Categories from '../categories/Index';
 import Workshops from '../workshops/Index';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Test from '../home';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import {Blogs} from '../Blogs/Blogs';
 import {Singleblog} from '../Blogs/Singleblog';
-import Test from '../test';
+import Home from '../home';
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
 import Posts from '../admin/posts';
 import {ProtectedRoute} from '../protected/navitem'
 import  {ProtectedLogin} from '../protected/protectedlogin';
 import {ProtectedRegsiter} from '../protected/protectedregister';
+import {ProtectedLogout} from '../protected/protectedlogout';
+import Logout from '../Login/logout';
 
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +48,7 @@ const Navbar1 = (props) => {
             <ProtectedRegsiter></ProtectedRegsiter>
             <ProtectedLogin></ProtectedLogin>
             <ProtectedRoute></ProtectedRoute>
+            <ProtectedLogout></ProtectedLogout>
           
           </Nav>
         </Collapse>
@@ -58,11 +62,12 @@ const Navbar1 = (props) => {
           <Route path="/blogs/:id"  component={Singleblog}/>
           <Route path="/blogs" component={Blogs} />
           <Route path="/test" />
-          <Route path="/home" component={Test} />
+          <Route path="/home" component={Home} />
           <Route path="/404" component={NotFound} />
           <Route path="/categories" component={Categories} />
           <Route path="/workshops" component={Workshops} />
           <Route path="/table" component={EnhancedTable} />
+          <Route path="/logout" component={Logout} />
           <Route path="/" component={Register} />
           <Route exact path="/posts/requests" component={Posts} />
         </Switch>
