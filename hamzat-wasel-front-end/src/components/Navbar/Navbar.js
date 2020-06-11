@@ -9,7 +9,6 @@ import {
 } from 'reactstrap';
 import Login from '../Login/Login';
 import Register from '../Login/Register';
-import Categories from '../categories/Index';
 import Workshops from '../workshops/Index';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,9 +39,6 @@ const Navbar1 = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto font-weight-bold" navbar>
             <NavItem>
-              <NavLink href="/categories" className="text-light">Categories</NavLink>
-            </NavItem>
-            <NavItem>
               <NavLink href="/workshops" className="text-light">Workshops</NavLink>
             </NavItem>
             <ProtectedRegsiter></ProtectedRegsiter>
@@ -56,7 +52,6 @@ const Navbar1 = (props) => {
       <Router>
         <Switch>
           <Route path="/login" component={Login} />
-          <Route path="/categories" component={Categories} />
           <Route path="/Register" component={Register} />
           <Route exact path="/" component={Register} />
           <Route path="/blogs/:id"  component={Singleblog}/>
@@ -64,7 +59,6 @@ const Navbar1 = (props) => {
           <Route path="/test" />
           <Route path="/home" component={Home} />
           <Route path="/404" component={NotFound} />
-          <Route path="/categories" component={Categories} />
           <Route path="/workshops" component={Workshops} />
           <Route path="/table" component={EnhancedTable} />
           <Route path="/logout" component={Logout} />
