@@ -43,7 +43,11 @@ function Login() {
                 setState({ ...state, redirect: true })
             }).catch(error => {
                 console.log(error.response);
-                alert.show(error.response.data.message);
+                if(error.response.status)
+                {
+                    alert.error(error.response.data.message);
+                }
+                        
             });
         });
     };

@@ -15,10 +15,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Test from '../home';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import {Blogs} from '../Blogs/Blogs';
 import {Singleblog} from '../Blogs/Singleblog';
-import Test from '../test';
+import Home from '../home';
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
 import Posts from '../admin/posts';
@@ -63,7 +62,7 @@ const Navbar1 = (props) => {
           <Route path="/blogs/:id"  component={Singleblog}/>
           <Route path="/blogs" component={Blogs} />
           <Route path="/test" />
-          <Route path="/home" component={Test} />
+          <Route path="/home" component={Home} />
           <Route path="/404" component={NotFound} />
           <Route path="/categories" component={Categories} />
           <Route path="/workshops" component={Workshops} />

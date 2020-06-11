@@ -89,7 +89,7 @@ if (user && user.isAdmin == 2) {
   submenus[2].push(
     {
       title: "Approve Post",
-      target: "/posts/requests",
+      target: "/posts_requests",
     }
 
   )

@@ -6,7 +6,6 @@ import { Switch, Route } from "react-router-dom";
 import Category from '../admin/category'
 import Login from '../Login/Login';
 import Topbar from "./Topbar";
-import EnhancedTable from '../table/view';
 import Posts from '../admin/posts';
 import Workshops from '../workshops/Index';
 const Content = ({ sidebarIsOpen, toggleSidebar }) => (
@@ -19,7 +18,7 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
       <Route exact path="/" component={() => "Hello"} />
       <Route exact path="/about" component={Login} />
       <Route exact path="/Pages" component={() => "blog"} />
-      <Route exact path="/posts/requests" component={Posts} />
+      <Route exact path="/posts_requests" component={Posts} />
       <Route exact path="/faq" component={Workshops} />
       <Route exact path="/contact" component={() => "Contact"} />
       <Route exact path="/Home-1" component={() => "Home-1"} />
