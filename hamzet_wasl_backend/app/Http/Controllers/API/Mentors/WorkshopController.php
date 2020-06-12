@@ -13,7 +13,7 @@ class WorkshopController extends Controller
   
     //get all the workshops in the database (workshops table)
     public function index(){
-        return WorkshopResource::collection(Workshop::all()); 
+        return WorkshopResource::collection(Workshop::paginate(2)); 
     }
 
     //get one workshop in the database (workshops table)
