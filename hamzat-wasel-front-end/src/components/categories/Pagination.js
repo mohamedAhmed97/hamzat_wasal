@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export class Pagination extends Component {
     render() {
-        const { per_page, total, paginate, nextPage, prevPage } = this.props;
+        const { per_page, total, paginate, nextPage, prevPage, last_page, current_page} = this.props;
 
         const pageNumbers = [];
 
@@ -14,15 +14,15 @@ export class Pagination extends Component {
             <nav>
                 <ul className="pagination justify-content-center">
                     <li className="page-item">
-                        <a className="page-link"  onClick={() => prevPage()}>Previous</a>
+                        <button className="page-link"  onClick={() => prevPage()}>Previous</button>
                     </li>
                     {pageNumbers.map(num => (
                         <li className="page-item" key={num}>
-                            <a onClick={() => paginate(num)}  className="page-link">{num}</a>
+                            <button onClick={() => paginate(num)}  className="page-link">{num}</button>
                         </li>
                     ))}
                     <li className="page-item">
-                        <a className="page-link"  onClick={() => nextPage()}>Next</a>
+                        <button className="page-link" onClick={() => nextPage()}>Next</button>
                     </li>
                 </ul>
             </nav>

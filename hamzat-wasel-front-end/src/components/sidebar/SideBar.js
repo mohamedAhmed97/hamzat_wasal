@@ -4,7 +4,7 @@ import {
   faHome,
   faBriefcase,
   faPaperPlane,
-  faQuestion,
+  faPen,
   faImage,
   faCopy,
 } from "@fortawesome/free-solid-svg-icons";
@@ -39,8 +39,8 @@ const SideBar = ({ isOpen, toggle }) => (
         </NavItem>
         <NavItem>
           <NavLink tag={Link} to={"/faq"}>
-            <FontAwesomeIcon icon={faQuestion} className="mr-2" />
-            FAQ
+            <FontAwesomeIcon icon={faPen} className="mr-2" />
+            Workshops
           </NavLink>
         </NavItem>
         <NavItem>

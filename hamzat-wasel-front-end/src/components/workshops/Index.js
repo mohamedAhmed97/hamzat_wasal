@@ -9,21 +9,23 @@ class Index extends Component {
   
 render(){
     return(     
-    <div>
+    <React.Fragment>
         <Router>
-            <div className="text-center">
+        <div className="text-center">
                     <Link to="/workshops">
-                        <button className="btn btn-primary m-3 p-2"> All Workshops</button></Link>
+                        <button className="btn btn-primary mr-2 "> All Workshops</button></Link>
                     <Link to="/workshops/add">
-                        <button className="btn btn-success p-2">Add Workshop</button></Link>
+                        <button className="btn btn-success">Add Workshop</button></Link>
+                    <Link to="/workshops" />
                 <Switch>
                         <Route exact path="/workshops" component={AllWorkshops} /> 
                         <Route exact path="/workshops/add" component={Add} /> 
                         <Route path="/workshops/edit/:id" component={Edit} />  
+                        <Route to="/workshops" component={AllWorkshops} /> 
                 </Switch>
             </div>
         </Router>   
-    </div> 
+    </React.Fragment>
     )
     }
 }

@@ -14,7 +14,8 @@ class AllCategories extends Component {
             alert_message: '',
             total: '',
             current_page: 1,
-            per_page: ''
+            per_page: '',
+            last_page: ''
         }
     }
 
@@ -33,6 +34,7 @@ class AllCategories extends Component {
                     total: res.data.meta.total,
                     current_page: res.data.meta.current_page,
                     per_page: res.data.meta.per_page,
+                    last_page: res.data.meta.last_page
                 })
                     
             }).catch(error => {
@@ -65,10 +67,10 @@ class AllCategories extends Component {
     };
 
 render() { 
-    const { current_page, per_page } = this.state;
-    const indexOfLastCategory = current_page * per_page;
+    const { last_page, per_page } = this.state;
+    const indexOfLastCategory = last_page;
     const indexOfFirstCategory = indexOfLastCategory - per_page;
-    const currentCategory = this.state.categories.slice(indexOfFirstCategory, indexOfLastCategory);
+    this.state.categories.slice(indexOfFirstCategory, indexOfLastCategory);
 
     const paginate = pageNum => {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
@@ -97,7 +99,7 @@ render() {
                     categories: res.data.data,
                     total: res.data.meta.total,
                     per_page: res.data.meta.per_page,
-                    current_page: res.data.meta.current_page + 1  
+                    current_page: this.state.current_page + 1  
                 })
                     
             }).catch(error => {
@@ -116,7 +118,7 @@ render() {
                     categories: res.data.data,
                     total: res.data.meta.total,
                     per_page: res.data.meta.per_page,
-                    current_page: res.data.meta.current_page - 1  
+                    current_page: this.state.current_page - 1  
                 })
                     
             }).catch(error => {

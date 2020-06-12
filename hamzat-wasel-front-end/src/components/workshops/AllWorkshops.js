@@ -3,8 +3,9 @@ import axios from 'axios';
 import config from '../token/token';
 import AlertSuccess from '../categories/AlertSuccess';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Pagination from '../categories/Pagination';
 
 class AllWorkshops extends Component {
     constructor(props){
@@ -13,7 +14,11 @@ class AllWorkshops extends Component {
         this.state = { 
             workshops: [], 
             alert_message: '',
-            search: ''
+            // search: '',
+            total: '',
+            current_page: 1,
+            per_page: '',
+            last_page: ''
         }
     }
 
@@ -29,9 +34,15 @@ class AllWorkshops extends Component {
     componentDidMount (){ 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.get('http://localhost:8000/api/workshops').then(res => {
+            axios.get('http://localhost:8000/api/workshops?page='+this.state.current_page,config).then(res => {
                 console.log(res.data.data);
-                this.setState({ workshops: res.data.data})
+                this.setState({ 
+                    workshops: res.data.data,
+                    total: res.data.meta.total,
+                    current_page: res.data.meta.current_page,
+                    per_page: res.data.meta.per_page,
+                    last_page: res.data.meta.last_page
+                }) 
                     
             }).catch(error => {
                 console.log(error.response)
@@ -63,23 +74,84 @@ class AllWorkshops extends Component {
 
 
 render() { 
-    let workshops = this.state.workshops.filter((workshop) => {
-        return workshop.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
-    });
+    const {  per_page, last_page } = this.state;
+    const indexOfLastWorkshop = last_page;
+    const indexOfFirstWorkshop = indexOfLastWorkshop - per_page;
+    this.state.workshops.slice(indexOfFirstWorkshop, indexOfLastWorkshop);
+
+    const paginate = pageNum => {
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.get('http://localhost:8000/api/workshops?page='+(this.state.current_page=pageNum),config).then(res => {
+                console.log(res.data);
+                this.setState({ 
+                    workshops: res.data.data,
+                    total: res.data.meta.total,
+                    per_page: res.data.meta.per_page,
+                    current_page: pageNum,
+                })
+                    
+            }).catch(error => {
+                console.log(error.response)
+            }); 
+        });
+    };
+
+    const nextPage = () => { 
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.get('http://localhost:8000/api/workshops?page='+(this.state.current_page+1),config).then(res => {
+                console.log(res.data);
+                if(!res.data.meta.last_page < this.state.current_page + 1){
+                this.setState({ 
+                    workshops: res.data.data,
+                    total: res.data.meta.total,
+                    per_page: res.data.meta.per_page,
+                    current_page: this.state.current_page + 1,
+                })
+            }
+                    
+            }).catch(error => {
+                console.log(error.response)
+            }); 
+        });
+    }
+        
+    const prevPage = () => {
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.get('http://localhost:8000/api/workshops?page='+(this.state.current_page-1),config).then(res => {
+                console.log(res.data);
+                this.setState({ 
+                    workshops: res.data.data,
+                    total: res.data.meta.total,
+                    per_page: res.data.meta.per_page,
+                    current_page: this.state.current_page - 1 
+                })
+                    
+            }).catch(error => {
+                console.log(error.response)
+            }); 
+        });
+    }
+
+    // let workshops = this.state.workshops.filter((workshop) => {
+    //     return workshop.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+    // });
     
     return ( 
     <div className="container">
-        <div className="text-left ml-2">
+        {/* <div className="text-right ml-2">
         <FontAwesomeIcon className="bg-light" icon={faSearch} style={{color:"Blue"}} />  
-            <input type="search" className="mb-3 ml-2 p-2" placeholder="Search workshop by name"
+            <input type="search" className="m-3" placeholder="Search workshop by name"
                 style={{width:198}} onChange={this.handleSearch.bind(this)}/>
              
-        </div>
+        </div> */}
         {this.state.alert_message === "success" ? <AlertSuccess message=
         {"You deleted this workshop successfully, This record isn't a part of the database anymore"} /> : ""}
-        <div className="row">
-            {workshops.map(workshop => { return (
-            <div className="col-md-6 col-xs-12" key={workshop.id}>
+        <div className="row mt-3">
+            {this.state.workshops.map(workshop => { return (
+            <div className="col-md-6 col-xs-4" key={workshop.id}>
                 <div className="card border-info mb-3">
                     <div className="bg-transparent border-info">
                         <div className="card-header bg-transparent border-info">          
@@ -91,26 +163,26 @@ render() {
                         </div>
                         <div className="card-body bg-transparent border-info text-left">  
                             <h5 className="card-text">
-                                <span className="badge badge-info p-1 m-1"> 
-                                Description:
+                                <span className="badge badge-info mr-1"> 
+                                Description
                                 </span> 
                                 {workshop.description}
                             </h5> 
                             <h5 className="card-text">
-                                <span className="badge badge-info p-1 m-1">
-                                Number of attendees: 
+                                <span className="badge badge-info mr-1">
+                                Number of attendees 
                                 </span> 
                                 {workshop.capcity}
                             </h5> 
                             <h5 className="card-text">
-                                <span className="badge badge-info p-1 m-1">
-                                Mentor: 
+                                <span className="badge badge-info mr-1">
+                                Mentor 
                                 </span> 
                                 {workshop.mentor_info.name}
                             </h5> 
                             <h5 className="card-text">
-                                <span className="badge badge-info p-1 m-1">  
-                                price: 
+                                <span className="badge badge-info mr-1">  
+                                price 
                                 </span>
                                 {workshop.workshop_price} EGP
                             </h5>
@@ -133,7 +205,11 @@ render() {
                 );
                 })
             }    
-        </div>        
+        </div>
+        <div className="mt-3">
+        <Pagination per_page={per_page} total={this.state.total} paginate={paginate} 
+            nextPage={nextPage} prevPage={prevPage} />        
+    </div>
     </div>  
     );
     }
