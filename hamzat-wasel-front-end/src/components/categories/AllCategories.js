@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AlertSuccess from './AlertSuccess';
 import config from '../token/token';
+import Pagination from './Pagination';
 
 class AllCategories extends Component {
     constructor(props){
@@ -10,7 +11,10 @@ class AllCategories extends Component {
             
         this.state = { 
             categories: [], 
-            alert_message: ''
+            alert_message: '',
+            total: '',
+            current_page: 1,
+            per_page: ''
         }
     }
 
@@ -22,9 +26,14 @@ class AllCategories extends Component {
     componentDidMount (){ 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.get('http://localhost:8000/api/categories',config).then(res => {
-                console.log(res.data.data);
-                this.setState({ categories: res.data.data})
+            axios.get('http://localhost:8000/api/categories?page='+this.state.current_page,config).then(res => {
+                // console.log(res.data);
+                this.setState({ 
+                    categories: res.data.data,
+                    total: res.data.meta.total,
+                    current_page: res.data.meta.current_page,
+                    per_page: res.data.meta.per_page,
+                })
                     
             }).catch(error => {
                 console.log(error.response)
@@ -56,6 +65,67 @@ class AllCategories extends Component {
     };
 
 render() { 
+    const { current_page, per_page } = this.state;
+    const indexOfLastCategory = current_page * per_page;
+    const indexOfFirstCategory = indexOfLastCategory - per_page;
+    const currentCategory = this.state.categories.slice(indexOfFirstCategory, indexOfLastCategory);
+
+    const paginate = pageNum => {
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.get('http://localhost:8000/api/categories?page='+(this.state.current_page=pageNum),config).then(res => {
+                console.log(res.data);
+                this.setState({ 
+                    categories: res.data.data,
+                    total: res.data.meta.total,
+                    per_page: res.data.meta.per_page,
+                    current_page: pageNum  
+                })
+                    
+            }).catch(error => {
+                console.log(error.response)
+            }); 
+        });
+    };
+
+    const nextPage = () => { 
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.get('http://localhost:8000/api/categories?page='+(this.state.current_page+1),config).then(res => {
+                console.log(res.data);
+                this.setState({ 
+                    categories: res.data.data,
+                    total: res.data.meta.total,
+                    per_page: res.data.meta.per_page,
+                    current_page: res.data.meta.current_page + 1  
+                })
+                    
+            }).catch(error => {
+                console.log(error.response)
+            }); 
+        });
+    }
+        
+
+    const prevPage = () => {
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.get('http://localhost:8000/api/categories?page='+(this.state.current_page-1),config).then(res => {
+                console.log(res.data);
+                this.setState({ 
+                    categories: res.data.data,
+                    total: res.data.meta.total,
+                    per_page: res.data.meta.per_page,
+                    current_page: res.data.meta.current_page - 1  
+                })
+                    
+            }).catch(error => {
+                console.log(error.response)
+            }); 
+        });
+
+    }
+    
     return ( 
     <div className="container">
         {this.state.alert_message === "success" ? <AlertSuccess message=
@@ -88,6 +158,8 @@ render() {
                 }
             </tbody>
         </table>
+        <Pagination per_page={per_page} total={this.state.total} paginate={paginate} 
+            nextPage={nextPage} prevPage={prevPage} />
     </div>
     );
     }
