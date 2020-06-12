@@ -132,8 +132,8 @@ render() {
     <div className="container">
         {this.state.alert_message === "success" ? <AlertSuccess message=
         {"You deleted this category successfully, This record isn't a part of the database anymore"} /> : ""}
-        <table className="table border border-dark">
-            <thead className="thead-dark">
+        <table className="table bg-light">
+            <thead className="thead-white">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Category Name</th> 

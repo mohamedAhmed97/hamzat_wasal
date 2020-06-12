@@ -174,7 +174,7 @@ function Register() {
                             </div>
                             <div className="form-row">
                                 <label htmlFor="choose" className=" font-weight-bold "> Select... </label>
-                                <select onChange={handleChange} class="form-control" name="choose">
+                                <select onChange={handleChange} className="form-control" name="choose">
                                     <option value="user" selected="selected">user</option>
                                     <option value="mentor">mentor</option>
                                 </select>

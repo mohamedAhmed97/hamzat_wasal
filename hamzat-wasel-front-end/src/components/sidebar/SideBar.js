@@ -30,7 +30,7 @@ const SideBar = ({ isOpen, toggle }) => (
         <p>Dummy Heading</p>
         <SubMenu title="Home" icon={faHome} items={submenus[0]} />
         <SubMenu title="posts" icon={faBriefcase} items={submenus[2]} />
-        <SubMenu title="Pages" icon={faCopy} items={submenus[1]} />
+        <SubMenu title="categories" icon={faCopy} items={submenus[1]} />
         <NavItem>
           <NavLink tag={Link} to={"/pages"}>
             <FontAwesomeIcon icon={faImage} className="mr-2" />
@@ -71,14 +71,7 @@ let submenus = [
     },
   ],
   [
-    {
-      title: "Page 1",
-      target: "Page-1",
-    },
-    {
-      title: "Page 2",
-      target: "Page-2",
-    },
+    
   ],
   [
 
@@ -90,6 +83,14 @@ if (user && user.isAdmin == 2) {
     {
       title: "Approve Post",
       target: "/posts_requests",
+    }
+
+  )
+
+  submenus[1].push(
+    {
+      title: "Categories",
+      target: "/categories",
     }
 
   )
