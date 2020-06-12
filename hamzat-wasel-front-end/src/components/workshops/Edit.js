@@ -3,6 +3,7 @@ import axios from 'axios';
 import config from '../token/token';
 import Cookies from 'universal-cookie';
 import AlertSuccess from '../alert/AlertSuccess';
+import moment from 'moment';
 
 
 class Edit extends Component {
@@ -46,12 +47,13 @@ class Edit extends Component {
             axios.get('http://localhost:8000/api/workshops/'+this.props.match.params.id,config).then(res => {
                 console.log(res.data.data);
                 console.log(res.data.data.start_date);
-                
+                let startDate = moment(res.data.data.start_date);
+                let endDate = moment(res.data.data.end_date);
                 this.setState({ 
                     title: res.data.data.title,
                     description: res.data.data.description,
-                    start_date: res.data.data.start_date,
-                    end_date: res.data.data.end_date,
+                    start_date: startDate.format('yyyy-MM-DDThh:mm'),
+                    end_date: endDate.format('yyyy-MM-DDThh:mm'),
                     capcity: res.data.data.capcity,
                     workshop_price: res.data.data.workshop_price,
                     category_id: res.data.data.category_id,
