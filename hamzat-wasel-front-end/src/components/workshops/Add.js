@@ -2,7 +2,7 @@ import React,{ Component} from 'react';
 import axios from 'axios';
 import config from '../token/token';
 import Cookies from 'universal-cookie';
-import AlertSuccess from '../categories/AlertSuccess';
+import AlertSuccess from '../alert/AlertSuccess';
 
 
 class Add extends Component {

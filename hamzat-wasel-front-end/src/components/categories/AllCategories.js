@@ -1,7 +1,7 @@
 import React,{ Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import AlertSuccess from './AlertSuccess';
+import AlertSuccess from '../alert/AlertSuccess';
 import config from '../token/token';
 import Pagination from './Pagination';
 

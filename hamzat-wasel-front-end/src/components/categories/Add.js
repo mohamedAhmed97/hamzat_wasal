@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import AlertSuccess from './AlertSuccess';
+import AlertSuccess from '../alert/AlertSuccess';
 import config from '../token/token';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
