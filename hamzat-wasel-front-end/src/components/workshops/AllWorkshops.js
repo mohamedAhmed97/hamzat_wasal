@@ -184,7 +184,8 @@ render() {
                                 <span className="badge badge-info mr-1">  
                                 price 
                                 </span>
-                                {workshop.workshop_price} EGP
+                               <del> {workshop.workshop_price} EGP </del>
+                               <span className="ml-2 text-danger"> Free</span>
                             </h5>
                             <button onClick={()=>{ if 
                             (window.confirm('Are you sure you want to delete this workshop?'))
