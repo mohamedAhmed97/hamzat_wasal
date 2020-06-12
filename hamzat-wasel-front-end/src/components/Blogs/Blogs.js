@@ -1,8 +1,8 @@
 import React from 'react'; 
 import axios from 'axios';
 import '../blog/blog.css';
-import {Singleblog} from '../Blogs/Singleblog';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Link } from 'react-router-dom';
+import {Addblog} from '../Blogs/Addblog';
 
 /*export class Blogs extends React.Component
 {
@@ -68,9 +68,17 @@ export class Blogs extends React.Component
     render()
     {
         
-        const{blogs}=this.state
+        
+        const{blogs}=this.state;
+        
         const blogItem = blogs.map((blog,index)=>{
             return(
+                <div class="text-center container"> 
+                  
+                    
+
+
+                 
                 <div key={index}>
                     
                 <div class="container">
@@ -94,14 +102,29 @@ export class Blogs extends React.Component
                    </div>
                    
                    </div>
+                   </div>
 
             )});
-        return blogItem;
+            
+            
+        return (
+            <div class="container">
+                <div className="mb-3 text-center"> 
+            <Link to ={`/blogs/addblog`}>
+                <button type="button" className="btn btn-info btn-lg mr-3 mybtn2" >Add a new post? </button>
+            </Link>
+            </div>
+            {blogItem}
+            </div>
+            );
+
+
+        
     }
 }
 
        /*
-
+  
         <Router>
             <div className="text-center">
                     <Link to="/categories">

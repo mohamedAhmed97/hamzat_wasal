@@ -16,6 +16,9 @@ import Test from '../home';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import {Blogs} from '../Blogs/Blogs';
 import {Singleblog} from '../Blogs/Singleblog';
+import {Addblog} from '../Blogs/Addblog';
+
+import Cookies from 'universal-cookie';
 import Home from '../home';
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
@@ -41,6 +44,9 @@ const Navbar1 = (props) => {
             <NavItem>
               <NavLink href="/workshops" className="text-light">Workshops</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/Blogs" className="text-light">Blogs</NavLink>
+            </NavItem>
             <ProtectedRegsiter></ProtectedRegsiter>
             <ProtectedLogin></ProtectedLogin>
             <ProtectedRoute></ProtectedRoute>
@@ -54,6 +60,7 @@ const Navbar1 = (props) => {
           <Route path="/login" component={Login} />
           <Route path="/Register" component={Register} />
           <Route exact path="/" component={Register} />
+          <Route exact path="/blogs/addblog"  component={Addblog}/>
           <Route path="/blogs/:id"  component={Singleblog}/>
           <Route path="/blogs" component={Blogs} />
           <Route path="/test" />
@@ -61,10 +68,11 @@ const Navbar1 = (props) => {
           <Route path="/404" component={NotFound} />
           <Route path="/workshops" component={Workshops} />
           <Route path="/table" component={EnhancedTable} />
+          <Route path="/posts/requests" component={Posts} />
           <Route path="/logout" component={Logout} />
           <Route path="/" component={Register} />
-          <Route exact path="/posts/requests" component={Posts} />
-        </Switch>
+         
+          </Switch>
       </Router>
     </div>
   );
