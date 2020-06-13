@@ -17,6 +17,11 @@ class CategoryController extends Controller
     //get all the categories in the database (categories table)
     public function index()
     {
+        return CategoryResource::collection(Category::all());
+    }
+
+    public function pagination()
+    {
         return CategoryResource::collection(Category::paginate(3));
     }
 
