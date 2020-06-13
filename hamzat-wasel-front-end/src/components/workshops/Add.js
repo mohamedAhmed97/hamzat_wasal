@@ -22,7 +22,7 @@ class Add extends Component {
             capcity: '',
             workshop_price: '',
             user_id: current_user.id,
-            category_id: '1',
+            category_id: '',
             categories:[],
             alert_message: '',
         }
@@ -33,7 +33,10 @@ class Add extends Component {
             // console.log(response);
             axios.get('http://localhost:8000/api/categories',config).then(res => {
                 console.log(res.data.data);
-                this.setState({ categories: res.data.data})
+                this.setState({ 
+                    categories: res.data.data,
+                    category_id:res.data.data[0].category_id
+                })
                     
             }).catch(error => {
                 console.log(error.response)

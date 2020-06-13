@@ -25,7 +25,7 @@ class Edit extends Component {
             capcity: '',
             workshop_price: '',
             user_id: current_user.id,
-            category_id: '1',
+            category_id: '',
             categories:[],
             alert_message: '',
         }
