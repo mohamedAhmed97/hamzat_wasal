@@ -118,7 +118,7 @@ Route::post('/login', function (Request $request) {
 
 
 // Join Workshop
-Route::group(['prefix' => 'workshopUser','middleware' => ['auth:sanctum','role:user']], function () {
+Route::group(['prefix' => 'workshopUser','middleware' => ['auth:sanctum']], function () {
     
     Route::post('/', 'API\Mentors\WorkshopUserController@store');
 });
