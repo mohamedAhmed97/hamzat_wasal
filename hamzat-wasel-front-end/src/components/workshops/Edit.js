@@ -3,6 +3,8 @@ import axios from 'axios';
 import config from '../token/token';
 import Cookies from 'universal-cookie';
 import AlertSuccess from '../alert/AlertSuccess';
+import moment from 'moment';
+import './form.css';
 
 
 class Edit extends Component {
@@ -23,7 +25,7 @@ class Edit extends Component {
             capcity: '',
             workshop_price: '',
             user_id: current_user.id,
-            category_id: '1',
+            category_id: '',
             categories:[],
             alert_message: '',
         }
@@ -46,12 +48,13 @@ class Edit extends Component {
             axios.get('http://localhost:8000/api/workshops/'+this.props.match.params.id,config).then(res => {
                 console.log(res.data.data);
                 console.log(res.data.data.start_date);
-                
+                let startDate = moment(res.data.data.start_date);
+                let endDate = moment(res.data.data.end_date);
                 this.setState({ 
                     title: res.data.data.title,
                     description: res.data.data.description,
-                    start_date: res.data.data.start_date,
-                    end_date: res.data.data.end_date,
+                    start_date: startDate.format('yyyy-MM-DDThh:mm'),
+                    end_date: endDate.format('yyyy-MM-DDThh:mm'),
                     capcity: res.data.data.capcity,
                     workshop_price: res.data.data.workshop_price,
                     category_id: res.data.data.category_id,
@@ -79,9 +82,11 @@ class Edit extends Component {
             .then(res => {
                 console.log(res.data);
                 this.setState({alert_message: "success"});
+                setTimeout(() => this.setState({alert_message:''}), 2000);
 
             }).catch(error => {
                 this.setState({alert_message: "error"});
+                setTimeout(() => this.setState({alert_message:''}), 2000);
                 console.log(error);
             }); 
         });
@@ -91,49 +96,49 @@ class Edit extends Component {
 render() {
     console.log(this.state);  
     return (     
-    <div className="container">
+    <div className="container  mt-3">
         {this.state.alert_message === "success" ? 
                 <AlertSuccess message="Workshop Updated successfully" /> : ""}
-        <div className="page-content">
-		    <div className="form-v7-content">
-                <form className="border border-success p-3 form-detail" onSubmit={this.onSubmit}>
-                    <div className="form-row ml-2">
+        <div className="row">
+		    <div className="col-12">
+                <form className="form-info p-3 m-2" onSubmit={this.onSubmit}>
+                    <div className="form-row m-1">
                         <label htmlFor="title" className="font-weight-bold mr-2">
                             Name: </label>
-                        <input type="text" name="title" className="mr-2 input-text" 
+                        <input type="text" name="title" className="mr-2 input-description" 
                             value={this.state.title} onChange={this.handleChange}/>
                     </div> 
-                    <div className="form-row ml-2">
+                    <div className="form-row m-1">
                         <label htmlFor="workshops" className="font-weight-bold mr-2">
                             Description: </label>
-                        <input type="text" name="description" className="mr-2 input-text" 
+                        <input type="text" name="description" className="mr-2 input-description" 
                             value={this.state.description} onChange={this.handleChange}/>
                     </div> 
-                    <div className="form-row ml-2">
+                    <div className="form-row m-1">
                         <label htmlFor="start_date" className="font-weight-bold mr-2">
                             Start Date: </label>
-                        <input type="datetime-local" name="start_date" className="mr-2 input-text" 
+                        <input type="datetime-local" name="start_date" className="mr-2 input-date" 
                             value={this.state.start_date} onChange={this.handleChange}/>
                     </div> 
-                    <div className="form-row ml-2">
+                    <div className="form-row m-1">
                         <label htmlFor="end_date" className="font-weight-bold mr-2">
                             End Date: </label>
                         <input type="datetime-local" name="end_date" value={this.state.end_date}
-                            className="mr-2 input-text" onChange={this.handleChange}/>
+                            className="mr-2 input-date" onChange={this.handleChange}/>
                     </div> 
-                    <div className="form-row ml-2">
+                    <div className="form-row m-1">
                         <label htmlFor="capcity" className="font-weight-bold mr-2">
                             Number of attendees: </label>
-                        <input type="number" name="capcity" className="mr-2 input-text"
+                        <input type="number" name="capcity" className="mr-2 input-date"
                             value={this.state.capcity} onChange={this.handleChange}/>
                     </div>
-                    <div className="form-row ml-2">
+                    <div className="form-row m-1">
                         <label htmlFor="workshop_price" className="font-weight-bold mr-2">
                             Price: </label>
-                        <input type="number" name="workshop_price" className="mr-2 input-text" 
+                        <input type="number" name="workshop_price" className="mr-2 input-date" 
                             value={this.state.workshop_price} onChange={this.handleChange}/>
                     </div>
-                    <div className="form-row ml-2">
+                    <div className="form-row m-1">
                         <label htmlFor="workshop_price" className="font-weight-bold mr-2">
                                 Category: </label>
                         <select name="category_id" className="form-control" style={{width:"200px"}} 

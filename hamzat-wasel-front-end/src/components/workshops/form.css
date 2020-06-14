@@ -1,0 +1,68 @@
+.form-info {
+	background: #fff;
+	box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+	-o-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+	-ms-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+	-webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.form-info .form-row label {
+	color: #24c0d1;
+	font-weight: 600;
+	font-size: 15px;
+	margin-bottom: 10px;
+	font-family: 'Fjalla One', sans-serif !important;
+}
+
+.form-info .input-description {
+    width: 80%;
+    margin-bottom: 3px;
+}
+
+.form-info .form-row span.errors {
+    color: red;
+	font-family: 'Fjalla One', sans-serif !important;
+	font-size: small;
+	margin-bottom: 30px;  
+}
+
+.form-info .input-date {
+	border-bottom: none;
+	margin: 3px;
+    color:black !important; 
+    background-color: #e5e5e5;  
+}
+
+.form-info input {
+    padding: 5px 15px 10px 15px;
+    border: 2px solid transparent;
+    border-bottom: 2px solid #e5e5e5;
+    appearance: unset;
+    -moz-appearance: unset;
+    -webkit-appearance: unset;
+    -o-appearance: unset;
+    -ms-appearance: unset;
+    outline: none;
+    -moz-outline: none;
+    -webkit-outline: none;
+    -o-outline: none;
+    -ms-outline: none;
+    font-family: 'Fjalla One', sans-serif !important;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.form-info .form-row .input-text:focus {
+	border-bottom: 3px solid #24c0d1;
+}
+
+.form-info .form-row .input-description:focus {
+	border-bottom: 3px solid #24c0d1;
+}

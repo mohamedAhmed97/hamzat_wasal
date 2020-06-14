@@ -6,11 +6,15 @@ import { Link } from 'react-router-dom';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../categories/Pagination';
+import Cookies from 'universal-cookie';
 
 class AllWorkshops extends Component {
     constructor(props){
         super(props)
             
+        const cookies = new Cookies();
+        const current_user=cookies.get('UserData'); 
+
         this.state = { 
             workshops: [], 
             alert_message: '',
@@ -18,7 +22,8 @@ class AllWorkshops extends Component {
             total: '',
             current_page: 1,
             per_page: '',
-            last_page: ''
+            last_page: '',
+            current_user_id: current_user.id
         }
     }
 
@@ -184,15 +189,18 @@ render() {
                                 <span className="badge badge-info mr-1">  
                                 price 
                                 </span>
-                                {workshop.workshop_price} EGP
+                               <del> {workshop.workshop_price} EGP </del>
+                               <span className="ml-2 text-danger"> Free</span>
                             </h5>
+                            {(this.state.current_user_id === workshop.mentor_info.id)?
                             <button onClick={()=>{ if 
                             (window.confirm('Are you sure you want to delete this workshop?'))
                             this.onWorkshopDeleted(workshop.id)}} 
-                            className="btn btn-danger font-weight-bold m-1"> Delete </button>
+                            className="btn btn-danger font-weight-bold m-1"> Delete </button> : "" }
+                            {(this.state.current_user_id === workshop.mentor_info.id)?
                             <Link to={`/workshops/edit/${workshop.id}`}>
                                 <button className="btn btn-info font-weight-bold m-1">Edit</button>
-                            </Link>
+                            </Link> : "" }
                         </div>
                         <div className="card-footer bg-transparent border-info">
                                 <small className="text-info m-2">From:  {workshop.start_date}</small>

@@ -27,7 +27,7 @@ class AllCategories extends Component {
     componentDidMount (){ 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.get('http://localhost:8000/api/categories?page='+this.state.current_page,config).then(res => {
+            axios.get('http://localhost:8000/api/pagination?page='+this.state.current_page,config).then(res => {
                 // console.log(res.data);
                 this.setState({ 
                     categories: res.data.data,
@@ -75,7 +75,7 @@ render() {
     const paginate = pageNum => {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.get('http://localhost:8000/api/categories?page='+(this.state.current_page=pageNum),config).then(res => {
+            axios.get('http://localhost:8000/api/pagination?page='+(this.state.current_page=pageNum),config).then(res => {
                 console.log(res.data);
                 this.setState({ 
                     categories: res.data.data,
@@ -93,7 +93,7 @@ render() {
     const nextPage = () => { 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.get('http://localhost:8000/api/categories?page='+(this.state.current_page+1),config).then(res => {
+            axios.get('http://localhost:8000/api/pagination?page='+(this.state.current_page+1),config).then(res => {
                 console.log(res.data);
                 this.setState({ 
                     categories: res.data.data,
@@ -112,7 +112,7 @@ render() {
     const prevPage = () => {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.get('http://localhost:8000/api/categories?page='+(this.state.current_page-1),config).then(res => {
+            axios.get('http://localhost:8000/api/pagination?page='+(this.state.current_page-1),config).then(res => {
                 console.log(res.data);
                 this.setState({ 
                     categories: res.data.data,
