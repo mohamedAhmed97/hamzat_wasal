@@ -36,6 +36,10 @@ Route::group(['prefix' => 'categories'], function () {
     Route::get('/', 'API\Admins\CategoryController@index');
 });
 
+Route::group(['prefix' => 'pagination'], function () {
+    Route::get('/', 'API\Admins\CategoryController@pagination');
+});
+
 //Mentor
 Route::group(['prefix' => 'mentors'], function () {
     Route::post('/', 'API\Admins\MentorController@store');
