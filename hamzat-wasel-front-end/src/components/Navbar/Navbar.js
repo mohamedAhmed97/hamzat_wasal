@@ -28,6 +28,7 @@ import {ProtectedRegsiter} from '../protected/protectedregister';
 import {ProtectedLogout} from '../protected/protectedlogout';
 import Logout from '../Login/logout';
 
+
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);

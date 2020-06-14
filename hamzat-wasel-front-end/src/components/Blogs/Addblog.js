@@ -3,8 +3,9 @@ import axios from 'axios';
 import '../blog/blog.css';
 import config from '../token/token';
 import Cookies from 'universal-cookie';
-import UserData from '../token/userdata';
-import { TextField } from '@material-ui/core';
+import AlertSuccess from '../alert/AlertSuccess';
+//import UserData from '../token/userdata';
+//import { TextField } from '@material-ui/core';
 
 export class Addblog extends React.Component
 {
@@ -19,7 +20,8 @@ export class Addblog extends React.Component
         user_id : current_user.id, 
         category_id : '',
         description :'',
-        categories:[]
+        categories:[], 
+        alert_message: ''
     }
     }
     componentDidMount (){ 
@@ -48,8 +50,11 @@ export class Addblog extends React.Component
         formdata.append('user_id', this.state.user_id);
         axios.post('http://localhost:8000/api/posts', formdata ,config).then(res => {
             console.log(res.data);
+            this.setState({alert_message: "success"}); 
+            setTimeout(()=> this.setState({alert_message:''}),7000);
         }).catch(error => { 
             this.setState({alert_message: "error"});
+            setTimeout(()=> this.setState({alert_message:''}),7000);
             
 
         }
@@ -61,6 +66,9 @@ export class Addblog extends React.Component
     render()
     {
         return(
+            <div className="container"> 
+             {this.state.alert_message === "success" ? 
+                <AlertSuccess message="your post was added successfully, you can check it in Blogs section" /> : ""}
             <div className="page-content">
 		        <div className="form-v7-content">
                     <form className="border border-success p-3 form-detail" onSubmit={this.onSubmit}>
@@ -91,7 +99,7 @@ export class Addblog extends React.Component
                     <div className="form-row ml-2">
                     <label htmlFor="workshops" className="font-weight-bold mr-2">
                             Article body </label>
-                    <input type="textarea" rows="3" cols="50"  name="description" className="mr-2 input-text" onChange={this.handleChange}/>
+                    <textarea rows="10" cols="90"  name="description" className="mr-2 input-text" onChange={this.handleChange}/>
                     </div> 
                     <br/>
 
@@ -101,6 +109,7 @@ export class Addblog extends React.Component
                
                     </form>
                 </div>
+            </div>
             </div>
             
         )

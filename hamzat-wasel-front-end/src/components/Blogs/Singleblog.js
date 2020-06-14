@@ -47,8 +47,11 @@ export class Singleblog extends React.Component
                     <h3>Writter name: {this.state.userinfo.name} </h3>
                     <h5>Category name: {this.state.categoryinfo.category_name}</h5>
                      <p>article description: 
-                            {this.state.blog.description}
+                            
                     </p>
+                    <pre> 
+                    {this.state.blog.description}
+                    </pre>
                 </div> 
             </article>   
         </div>
