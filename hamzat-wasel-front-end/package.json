@@ -21,6 +21,7 @@
     "react-alert-template-mui": "^1.0.4",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.8.1",
+    "react-form-input-validation": "^2.0.3",
     "react-hook-form": "^5.7.2",
     "react-images-upload": "^1.2.8",
     "react-router": "^5.2.0",

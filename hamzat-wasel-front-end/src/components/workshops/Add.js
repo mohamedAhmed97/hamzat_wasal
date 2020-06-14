@@ -4,6 +4,8 @@ import config from '../token/token';
 import Cookies from 'universal-cookie';
 import AlertSuccess from '../alert/AlertSuccess';
 import './form.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 class Add extends Component {
@@ -25,6 +27,8 @@ class Add extends Component {
             category_id: '',
             categories:[],
             alert_message: '',
+            titleError: '',
+            descriptionError: '',
         }
     }
 
@@ -51,8 +55,39 @@ class Add extends Component {
         console.log(this.state);   
     };
 
+    validate = () => {
+        let titleError = '';
+        let descriptionError = '';
+       
+        if (!this.state.title){
+            titleError = "Name is required, you have to fill it!";
+        }
+
+        if (this.state.title && this.state.title.length < 3){
+            titleError = "Name must be at least 3 characters";
+        }
+
+        if (!this.state.description){
+            descriptionError = "Description is required, you have to fill it!";
+        }
+
+        if (this.state.description && this.state.description.length < 10){
+            descriptionError = "Description must be at least 10 characters";
+        }
+
+        if( titleError || descriptionError){
+            this.setState({ 
+                titleError, descriptionError
+            })
+            return false;
+        }
+        return true;
+    }
+
     onWorkshopAdded = e => {
-        e.preventDefault();  
+        e.preventDefault();
+        const isValid = this.validate();
+        if (isValid) { 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.post('http://localhost:8000/api/workshops',this.state,config).then(res => {
@@ -67,7 +102,12 @@ class Add extends Component {
                 console.log(error)
             }); 
         });
+        this.setState({
+            titleError: '',
+            descriptionError: '',
+        });
     };
+}
 
 
 render() {
@@ -84,12 +124,20 @@ render() {
                             Name: </label>
                         <input type="text" name="title" className="mr-2 input-description" 
                             value={this.state.title} onChange={this.handleChange}/>
+                        <span className="errors">
+                            {this.state.titleError}    
+                            {this.state.titleError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
                     </div> 
                     <div className="form-row m-1">
                         <label htmlFor="workshops" className="font-weight-bold mr-2">
                             Description: </label>
                         <input type="text" name="description" className="mr-2 input-description" 
                             value={this.state.description} onChange={this.handleChange}/>
+                        <span className="errors">
+                            {this.state.descriptionError}    
+                            {this.state.descriptionError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
                     </div> 
                     <div className="form-row m-1">
                         <label htmlFor="start_date" className="font-weight-bold mr-2">

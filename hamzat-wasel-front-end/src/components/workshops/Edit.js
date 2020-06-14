@@ -5,6 +5,8 @@ import Cookies from 'universal-cookie';
 import AlertSuccess from '../alert/AlertSuccess';
 import moment from 'moment';
 import './form.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 class Edit extends Component {
@@ -28,6 +30,8 @@ class Edit extends Component {
             category_id: '',
             categories:[],
             alert_message: '',
+            titleError: '',
+            descriptionError: '',
         }
     }
 
@@ -74,8 +78,62 @@ class Edit extends Component {
         console.log(this.state);   
     };
 
+    validate = () => {
+        let titleError = '';
+        let descriptionError = '';
+        let start_dateError = '';
+        let end_dateError = '';
+        let capcityError = '';
+        let workshop_priceError = '';
+        
+
+        if (!this.state.title){
+            titleError = "Name is required, you have to fill it!";
+        }
+
+        if (this.state.title && this.state.title.length < 3){
+            titleError = "Name must be at least 3 characters";
+        }
+
+        if (!this.state.description){
+            descriptionError = "Description is required, you have to fill it!";
+        }
+
+        if (this.state.description && this.state.description.length < 10){
+            descriptionError = "Description must be at least 10 characters";
+        }
+
+        if (!this.state.start_dateError){
+            start_dateError = "Start date is required, you have to choose it!";
+        }
+
+        if (!this.state.end_dateError){
+            end_dateError = "End date is required, you have to choose it!";
+        }
+
+        if (!this.state.capcityError){
+            capcityError = "Number of attendees is required, you have to fill it!";
+        }
+
+        if (!this.state.workshop_priceError){
+            workshop_priceError = "Price is required, you have to fill it!";
+        }
+
+        if(titleError || descriptionError || start_dateError || end_dateError 
+            || capcityError || workshop_priceError ){
+            this.setState({ 
+                titleError, descriptionError, 
+                start_dateError, end_dateError,
+                capcityError,workshop_priceError})
+            return false;
+        }
+        return true;
+    }
+
     onSubmit = e => {
         e.preventDefault();  
+        const isValid = this.validate();
+        if (isValid) { 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.put('http://localhost:8000/api/workshops/'+this.props.match.params.id,this.state,config)
@@ -90,7 +148,12 @@ class Edit extends Component {
                 console.log(error);
             }); 
         });
+        this.setState({
+            titleError: '',
+            descriptionError: '',
+        });
     };
+}
 
 
 render() {
@@ -107,12 +170,20 @@ render() {
                             Name: </label>
                         <input type="text" name="title" className="mr-2 input-description" 
                             value={this.state.title} onChange={this.handleChange}/>
+                        <span className="errors">
+                            {this.state.titleError}    
+                            {this.state.titleError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
                     </div> 
                     <div className="form-row m-1">
                         <label htmlFor="workshops" className="font-weight-bold mr-2">
                             Description: </label>
                         <input type="text" name="description" className="mr-2 input-description" 
                             value={this.state.description} onChange={this.handleChange}/>
+                        <span className="errors">
+                            {this.state.descriptionError}    
+                            {this.state.descriptionError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
                     </div> 
                     <div className="form-row m-1">
                         <label htmlFor="start_date" className="font-weight-bold mr-2">
