@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import '../blog/blog.css';
 import {BrowserRouter as Router, Link } from 'react-router-dom';
-import {Addblog} from '../Blogs/Addblog';
+import Cookies from 'universal-cookie';
+import config from '../token/token';
+//import {Addblog} from '../Blogs/Addblog';
 
 /*export class Blogs extends React.Component
 {
@@ -42,15 +44,31 @@ import {Addblog} from '../Blogs/Addblog';
         );
             
     }
-    
+     <button onClick={()=>{ if 
+                            (window.confirm('Are you sure you want to delete this post?'))
+                            this.onWorkshopDeleted(workshop.id)}} 
+                            className="btn btn-danger font-weight-bold m-1"> Delete </button>
+
+                             <button onClick={()=>{
+                            (window.confirm('Are you sure you want to delete this post?'))} 
+                            className="btn btn-danger font-weight-bold m-1"> Delete </button>
 }*/
 
 
 export class Blogs extends React.Component
 {
-    state={
-        blogs: []
+    constructor(props)
+    {
+        super(props);
+        const cookies = new Cookies();
+        const current_user = cookies.get('UserData');
+    
+    this.state={
+        blogs: [],
+        currentusername : current_user.name
+
     }
+}
      
     componentDidMount() {
         axios.get("http://localhost:8000/api/posts")
@@ -61,9 +79,35 @@ export class Blogs extends React.Component
                 //blogs: res.data
             })
         })
-        console.log(this.state.blogs);
+        
+        console.log(this.state.currentusername);
         
     }
+    
+    onBlogDelete=(id)=>{
+       axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+        
+        axios.delete('http://localhost:8000/api/posts/'+ id,config).then(res => {
+        console.log(res.data);
+         let blogs = this.state.blogs;
+        function removeblog(arr, value) {
+            return arr.filter((blog)=>{
+            return blog.id !== value; });
+             }
+    
+        this.setState({blogs:removeblog(blogs,id), alert_message: "success"});     
+        setTimeout(() => this.setState({alert_message:''}), 9000);
+
+    }).catch(error => {
+        this.setState({alert_message: "error"});
+       setTimeout(() => this.setState({alert_message:''}), 9000);
+        console.log(error)
+    }
+    );   
+
+ });
+    }
+
     
     render()
     {
@@ -72,6 +116,7 @@ export class Blogs extends React.Component
         const{blogs}=this.state;
         
         const blogItem = blogs.map((blog,index)=>{
+            
             return(
                 <div class="text-center container"> 
                   
@@ -95,6 +140,14 @@ export class Blogs extends React.Component
                                
                                <div class="meta">
                                    <h4>Category: <strong> {blog.categoryinfo.category_name} </strong> <span class="verified"></span></h4>
+                               </div>
+                               <div>
+                               {  
+                               (this.state.currentusername===blog.userinfo.name)?   
+                               
+                               <button onClick={()=>this.onBlogDelete(blog.id)} className="btn btn-danger font-weight-bold m-1 mybtn3"> 
+                               it's one of your posts, do you want to delete it? </button>
+                                    : "" }
                                </div>
                                </div>
                            </article> 
