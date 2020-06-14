@@ -1023,16 +1023,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.14.1",
+            "version": "v7.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "469b7719a8dca40841a74f59f2e9f30f01d3a106"
+                "reference": "739c44a3f7041430a3fb357f2dcfdb78f55005d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/469b7719a8dca40841a74f59f2e9f30f01d3a106",
-                "reference": "469b7719a8dca40841a74f59f2e9f30f01d3a106",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/739c44a3f7041430a3fb357f2dcfdb78f55005d7",
+                "reference": "739c44a3f7041430a3fb357f2dcfdb78f55005d7",
                 "shasum": ""
             },
             "require": {
@@ -1175,20 +1175,20 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-06-02T22:34:18+00:00"
+            "time": "2020-06-09T14:00:25+00:00"
         },
         {
             "name": "laravel/sanctum",
-            "version": "v2.3.3",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sanctum.git",
-                "reference": "ecdcd8bff16ba97434da332afc41e4160659feb1"
+                "reference": "f85928a54d82c0ccd55e972aea435761bf07b2dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sanctum/zipball/ecdcd8bff16ba97434da332afc41e4160659feb1",
-                "reference": "ecdcd8bff16ba97434da332afc41e4160659feb1",
+                "url": "https://api.github.com/repos/laravel/sanctum/zipball/f85928a54d82c0ccd55e972aea435761bf07b2dd",
+                "reference": "f85928a54d82c0ccd55e972aea435761bf07b2dd",
                 "shasum": ""
             },
             "require": {
@@ -1235,7 +1235,7 @@
                 "laravel",
                 "sanctum"
             ],
-            "time": "2020-05-26T18:42:04+00:00"
+            "time": "2020-06-09T19:57:15+00:00"
         },
         {
             "name": "laravel/tinker",

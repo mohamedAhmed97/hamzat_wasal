@@ -22,9 +22,13 @@ class Workshop extends Model
         return $this->belongsTo('App\Category', 'category_id', 'id');
     }
     
-
+    // this is a function for many users can join many workshops(pivot table)
     public function users()
     {
-        return $this->belongsToMany('App\User', 'user_id', 'id');
+        return $this->belongsToMany('App\User');
+    }
+    // function for mentor can create workshop
+    public function user(){
+        return $this->belongsTo('App\User');
     }
 }

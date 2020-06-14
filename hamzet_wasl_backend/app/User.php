@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function workshops()
     {
-       return $this->hasMany('App\Workshop', 'user_id', 'id');
+       return $this->belongsToMany('App\Workshop');
     }
 }

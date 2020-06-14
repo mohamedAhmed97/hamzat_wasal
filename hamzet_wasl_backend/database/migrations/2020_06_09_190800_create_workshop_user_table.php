@@ -13,7 +13,7 @@ class CreateWorkshopUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('workshop_user', function (Blueprint $table) {
+        Schema::create('user_workshop', function (Blueprint $table) {
             $table->id();
             $table->foreignId('workshop_id')->references('id')->on('workshops')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');

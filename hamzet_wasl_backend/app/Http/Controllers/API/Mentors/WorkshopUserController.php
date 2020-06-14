@@ -1,33 +1,43 @@
 <?php
 
-namespace App\Http\Controllers;
+
+namespace App\Http\Controllers\API\Mentors;
+
+use App\Http\Controllers\Controller;
 
 use App\Http\Resources\WorkshopUserResource;
+use App\User;
 use App\Workshop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class workshopUserController extends Controller
+class WorkshopUserController extends Controller
 {
-    public function index(){
-        $users = DB::table('workshop_user')->get(); 
-        return view('Mentors.workshopUser.index' , ['users'=>$users]);
+    public function index($id){
+        $users = DB::table('user_workshop')->join('users' , 'users.id' , 'user_workshop.user_id')->where('user_workshop.workshop_id',$id)->get();
+        return response()->json([
+            "status"=>200,
+            "users"=>($users)
+        ]);
     }
 
-    public function store($user_id , $workshop_id){
-        DB::table('workshop_user')->insert(
-            ['workshop_id' => $workshop_id , 'user_id' => $user_id]
+
+    public function store(request $request){
+        DB::table('user_workshop')->insert(
+            ['workshop_id' => $request->workshop_id , 'user_id' => $request->user_id]
         );
         return response()->json(["status"=>200]);
     }
 
-    public function update($user_id , $workshop_id){
-        DB::table('workshop_user')->where('workshop_id',$workshop_id)->where('user_id' , $user_id)->update(['status'=>false]);
+    public function update($id){
+        $x=DB::table('user_workshop')->where('uw_id',$id)->update(['status'=>0]);
+        // dd($x);
         return response()->json(["status"=>200]);
     }
 
-    public function destroy($user_id , $workshop_id){
-        DB::table('workshop_user')->where('workshop_id',$workshop_id)->where('user_id' , $user_id)->delete();
+    public function destroy($id){
+        $record=DB::table('user_workshop')->where('uw_id',$id)->delete();
+        
         return response()->json(["status"=>200]);
     }
 

@@ -18,8 +18,10 @@ class WorkshopUserResource extends JsonResource
         return[
             'id' => $this->id,
             'workshop_id' => $this->workshop_id,
-            'user_id' => $this->user_id,
-            'status' => $this->status,
+            'user_id' => $this->user_id,    
+            'status' => $this->status, 
+            'userinfo'=> new UserResource($this->user_id),
+            // 'workshopinfo'=>new WorkshopResource(($this->workshop_id))
         ];
     }
 }

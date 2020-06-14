@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\User;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -112,13 +113,18 @@ Route::post('/login', function (Request $request) {
 });
 
 
-
-// Route::group(['prefix' => 'workshopUser'], function () {
-//     Route::post('/', 'API\Mentors\WorkshopUserController@store');
-//     //destroy
-//     Route::delete('/{user}', 'API\Mentors\WorkshopUserController@destroy');
-//     //update
-//     Route::put('/{user}', 'API\Mentors\WorkshopUserController@update');
-//     //index
-//     Route::get('/', 'API\Mentors\WorkshopUserController@index');
-// });
+// Join Workshop
+Route::group(['prefix' => 'workshopUser','middleware' => ['auth:sanctum','role:user']], function () {
+    
+    Route::post('/', 'API\Mentors\WorkshopUserController@store');
+});
+// Mentor view workshop join requests
+Route::group(['prefix' => 'workshopUser','middleware' => ['auth:sanctum','role:mentor']], function () {
+    //destroy(reject joining)
+    Route::delete('/{id}', 'API\Mentors\WorkshopUserController@destroy');
+    //update (accept joining)
+    // Route::put('/{id}', 'API\Mentors\WorkshopUserController@update');
+    //index
+    Route::get('/{workshop_id}', 'API\Mentors\WorkshopUserController@index');
+});
+Route::put('/approve/{id}' , 'API\Mentors\WorkshopUserController@update');
