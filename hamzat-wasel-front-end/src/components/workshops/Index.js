@@ -16,10 +16,10 @@ render(){
     <React.Fragment>
         <Router>
         <div className="text-center">
-            {(current_user && current_user.isAdmin == 1) ?
+            {(current_user && current_user.isAdmin === 1) ?
                     <Link to="/workshops">
                         <button className="btn btn-primary mr-2 "> All Workshops</button></Link> : "" }
-            {(current_user && current_user.isAdmin == 1) ?
+            {(current_user && current_user.isAdmin === 1) ?
                     <Link to="/workshops/add">
                         <button className="btn btn-success">Add Workshop</button></Link> : "" }
                     <Link to="/workshops" />
