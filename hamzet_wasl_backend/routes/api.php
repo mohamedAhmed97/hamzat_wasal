@@ -87,10 +87,15 @@ Route::group(['prefix' => 'posts','middleware' => ['auth:sanctum','role:user']],
 //Post
 Route::group(['prefix' => 'posts'], function () {
     Route::get('/', 'API\Admins\PostController@index');
-    
     Route::put('/approve/{post}', 'API\Admins\PostController@approval');
     Route::delete('/{post}', 'API\Admins\PostController@destroy');
     Route::get('/{post}', 'API\Admins\PostController@show');
+});
+
+//profile
+Route::group(['prefix' => 'profile'], function () {
+    Route::get('/posts/{user}', 'API\ProfileController@getPosts');
+    Route::get('/workshops/{user}', 'API\ProfileController@getWorkshops');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
