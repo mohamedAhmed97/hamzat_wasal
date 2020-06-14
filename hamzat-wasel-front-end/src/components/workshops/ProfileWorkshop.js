@@ -5,15 +5,22 @@ import AlertSuccess from '../alert/AlertSuccess';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'universal-cookie';
 
 class ProfileWorkshops extends Component {
     constructor(props){
         super(props)
+        
+        const cookies = new Cookies();
+        const current_user=cookies.get('UserData'); 
             
         this.state = { 
             workshops: [], 
             alert_message: '',
-            search: ''
+            search: '',
+            current_user_id: current_user.id,
+            current_user_isAdmin: current_user.isAdmin
+
         }
     }
 
@@ -121,6 +128,17 @@ render() {
                             <Link to={`/workshops/edit/${workshop.id}`}>
                                 <button className="btn btn-info font-weight-bold m-1">Edit</button>
                             </Link>
+
+                            {(this.state.current_user_id === workshop.mentor_info.id)?
+                            <Link to={`/workshopUser/WorkshopUser/${workshop.id}`}>
+                                <button className="btn btn-info font-weight-bold m-1">Manage Users</button>
+                            </Link> : "" }
+
+                        
+                            {(this.state.current_user_id && this.state.current_user_isAdmin == 0)?
+                            
+                                <button onClick= {() => {this.onUserJoinedWorkshop(workshop.id)}} className="btn btn-info font-weight-bold m-1">Join Workshop</button>
+                                 :""}
                         </div>
                         <div className="card-footer bg-transparent border-info">
                                 <small className="text-info m-2">From:  {workshop.start_date}</small>

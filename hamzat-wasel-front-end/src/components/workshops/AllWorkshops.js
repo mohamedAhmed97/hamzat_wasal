@@ -218,6 +218,8 @@ render() {
                             <Link to={`/workshops/edit/${workshop.id}`}>
                                 <button className="btn btn-info font-weight-bold m-1">Edit</button>
                             </Link> : "" }
+                           
+                           
                             {(this.state.current_user_id === workshop.mentor_info.id)?
                             <Link to={`/workshopUser/WorkshopUser/${workshop.id}`}>
                                 <button className="btn btn-info font-weight-bold m-1">Manage Users</button>
