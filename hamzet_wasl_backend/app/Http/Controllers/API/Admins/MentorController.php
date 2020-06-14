@@ -22,7 +22,7 @@ class MentorController extends Controller
         $pic_name=time().$request->file('avatar')->getClientOriginalName();
         
         $path = $request->file('avatar')->storeAs(
-            'Users/Mentors/',$pic_name
+            'public/Mentors/',$pic_name
         );
         $admin=User::create([
             'name'=>$request->name,

@@ -16,7 +16,7 @@ class UserController extends Controller
         $pic_name=time().$request->file('avatar')->getClientOriginalName();
         
         $path = $request->file('avatar')->storeAs(
-            'Users/Users/',$pic_name
+            'public/Users/',$pic_name
         );
         $user=User::create([
             'name'=>$request->name,
