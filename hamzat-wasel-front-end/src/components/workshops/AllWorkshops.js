@@ -121,6 +121,9 @@ render() {
                             <Link to={`/workshops/edit/${workshop.id}`}>
                                 <button className="btn btn-info font-weight-bold m-1">Edit</button>
                             </Link>
+                            <Link to={`/workshopUser/WorkshopUser/${workshop.id}`}>
+                                <button className="btn btn-info font-weight-bold m-1">Manage Users</button>
+                            </Link>
                         </div>
                         <div className="card-footer bg-transparent border-info">
                                 <small className="text-info m-2">From:  {workshop.start_date}</small>

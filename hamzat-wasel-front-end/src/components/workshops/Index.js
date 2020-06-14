@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import AllWorkshops from './AllWorkshops';
 import Add from './Add';
 import Edit from './Edit';
+import WorkshopUser from '../workshopUser/WorkshopUser';
 
 
 class Index extends Component {
@@ -19,7 +20,8 @@ render(){
                 <Switch>
                         <Route exact path="/workshops" component={AllWorkshops} /> 
                         <Route exact path="/workshops/add" component={Add} /> 
-                        <Route path="/workshops/edit/:id" component={Edit} />  
+                        <Route path="/workshops/edit/:id" component={Edit} />
+                        <Route path="/workshopUser/workshopUser/:id" component={WorkshopUser}/> 
                 </Switch>
             </div>
         </Router>   

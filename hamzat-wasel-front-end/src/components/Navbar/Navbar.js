@@ -24,6 +24,7 @@ import {ProtectedRoute} from '../protected/navitem'
 import  {ProtectedLogin} from '../protected/protectedlogin';
 import {ProtectedRegsiter} from '../protected/protectedregister';
 
+
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
