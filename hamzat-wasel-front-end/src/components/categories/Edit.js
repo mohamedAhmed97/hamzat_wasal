@@ -47,13 +47,13 @@ const Edit = props =>{
 
     onSubmit = onSubmit.bind(this);
     return ( 
-    <div className="container mt-5">
+    <div className="container mt-3">
         {state.alert_message === "success" ? 
             <AlertSuccess message={"Category Updated successfully"} /> : ""}
-        <div className="page-content">
-		    <div className="form-v7-content">
-                <form className="border border-info p-3 form-detail" onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-row ml-2">
+        <div className="row">
+		    <div className="col-12">
+                <form className="form-info p-3 m-2" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="form-row m-1">
                         <label htmlFor="categories" className="font-weight-bold mr-2">
                                 Category name: </label>             
                         <input type="text" name="name" className="input-text mr-2" 
@@ -67,7 +67,7 @@ const Edit = props =>{
                             {errors.name ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
                         </span>  
                     </div>
-                    <button type="submit" className="btn btn-success font-weight-bold mr-2"> 
+                    <button type="submit" className="btn btn-success font-weight-bold m-2"> 
                         Update 
                     </button>          
                 </form>
