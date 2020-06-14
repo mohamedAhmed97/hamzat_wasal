@@ -1,7 +1,6 @@
 import React from 'react'; 
 import axios from 'axios';
 import '../blog/blog.css';
-import queryString from 'querystring';
 import '../blog/blog.css';
 
 export class Singleblog extends React.Component
@@ -30,28 +29,29 @@ export class Singleblog extends React.Component
     }
     render()
     {
-        
-       
             return(
                 
           <div>  
             <article class="container">
                 <div class="container"> 
-                  <h1>Title: {this.state.blog.title}</h1>
+                    <h1>Title: {this.state.blog.title}</h1>
                 </div>
+
                 <div>
-                <a href="#" className="post-image">
-                <img src="http://placehold.it/960x250/efefef" />
-                </a>
+                    <a href="#" className="post-image">
+                    <img src="http://placehold.it/960x250/efefef" />
+                    </a>
                 </div>
+
                 <div class="browser">
                     <h3>Writter name: {this.state.userinfo.name} </h3>
                     <h5>Category name: {this.state.categoryinfo.category_name}</h5>
                      <p>article description: 
-                            {this.state.blog.description}
-                           
-                           </p>
-                    
+                            
+                    </p>
+                    <pre> 
+                    {this.state.blog.description}
+                    </pre>
                 </div> 
             </article>   
         </div>

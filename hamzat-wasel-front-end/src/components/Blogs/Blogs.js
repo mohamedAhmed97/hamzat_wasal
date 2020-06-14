@@ -3,11 +3,24 @@ import axios from 'axios';
 import '../blog/blog.css';
 import {Singleblog} from '../Blogs/Singleblog';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-export  class Blogs extends React.Component
+
+import Cookies from 'universal-cookie';
+import config from '../token/token';
+
+export class Blogs extends React.Component
 {
-    state={
-        blogs: []
+    constructor(props)
+    {
+        super(props);
+        const cookies = new Cookies();
+        const current_user = cookies.get('UserData');
+    
+    this.state={
+        blogs: [],
+        currentusername : current_user.name
+
     }
+}
      
     componentDidMount() {
         axios.get("http://localhost:8000/api/posts")
@@ -18,16 +31,51 @@ export  class Blogs extends React.Component
                 //blogs: res.data
             })
         })
-        console.log(this.state.blogs);
+        
+        console.log(this.state.currentusername);
         
     }
+    
+    onBlogDelete=(id)=>{
+       axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+        
+        axios.delete('http://localhost:8000/api/posts/'+ id,config).then(res => {
+        console.log(res.data);
+         let blogs = this.state.blogs;
+        function removeblog(arr, value) {
+            return arr.filter((blog)=>{
+            return blog.id !== value; });
+             }
+    
+        this.setState({blogs:removeblog(blogs,id), alert_message: "success"});     
+        setTimeout(() => this.setState({alert_message:''}), 9000);
+
+    }).catch(error => {
+        this.setState({alert_message: "error"});
+       setTimeout(() => this.setState({alert_message:''}), 9000);
+        console.log(error)
+    }
+    );   
+
+ });
+    }
+
     
     render()
     {
         
-        const{blogs}=this.state
+        
+        const{blogs}=this.state;
+        
         const blogItem = blogs.map((blog,index)=>{
+            
             return(
+                <div class="text-center container"> 
+                  
+                    
+
+
+                 
                 <div key={index}>
                     
                 <div class="container">
@@ -45,14 +93,37 @@ export  class Blogs extends React.Component
                                <div class="meta">
                                    <h4>Category: <strong> {blog.categoryinfo.category_name} </strong> <span class="verified"></span></h4>
                                </div>
+                               <div>
+                               {  
+                               (this.state.currentusername===blog.userinfo.name)?   
+                               
+                               <button onClick={()=>this.onBlogDelete(blog.id)} className="btn btn-danger font-weight-bold m-1 mybtn3"> 
+                               it's one of your posts, do you want to delete it? </button>
+                                    : "" }
+                               </div>
                                </div>
                            </article> 
                            </div>          
                    </div>
                    
                    </div>
+                   </div>
 
             )});
-        return blogItem;
+            
+            
+        return (
+            <div class="container">
+                <div className="mb-3 text-center"> 
+            <Link to ={`/blogs/addblog`}>
+                <button type="button" className="btn btn-info btn-lg mr-3 mybtn2" >Add a new post? </button>
+            </Link>
+            </div>
+            {blogItem}
+            </div>
+            );
+
+
+        
     }
 }

@@ -15,10 +15,12 @@ render(){
                         <button className="btn btn-primary m-3 p-2"> All Categories</button></Link>
                     <Link to="/categories/add">
                         <button className="btn btn-success p-2">Add Category</button></Link>
+                    <Link to="/categories" />
                 <Switch>
                         <Route exact path="/categories" component={AllCategories} />  
                         <Route exact path="/categories/add" component={Add} /> 
-                        <Route path="/categories/edit/:id" component={Edit} />        
+                        <Route path="/categories/edit/:id" component={Edit} />
+                        <Route to="/categories" component={AllCategories} />        
                 </Switch>
             </div>
         </Router>   

@@ -1,10 +1,20 @@
 import React from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faBriefcase,
+  faPaperPlane,
+  faPen,
+  faImage,
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
+
 import classNames from "classnames";
 
 import MentorSideBar from './roles/MentorSideBar'
 import Cookies from 'universal-cookie';
-import SubMenu from "./SubMenu";
+
 import AdminSideBar from './roles/AdminSideBar';
 import UserSideBar from "./roles/UserSideBar"
 const cookies = new Cookies();
@@ -34,14 +44,7 @@ let submenus = [
     
   ],
   [
-    {
-      title: "Page 1",
-      target: "Page-1",
-    },
-    {
-      title: "Page 2",
-      target: "Page-2",
-    },
+    
   ],
   [
 

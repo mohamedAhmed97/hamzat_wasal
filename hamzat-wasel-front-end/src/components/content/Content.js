@@ -4,6 +4,8 @@ import { Container } from "reactstrap";
 import { Switch, Route } from "react-router-dom";
 import {Blogs} from '../Blogs/Blogs'; 
 import Category from '../admin/category'
+/* import {Blogs} from '../Blogs/Blogs'; */
+import Categories from '../categories/Index';
 import Login from '../Login/Login';
 import Topbar from "./Topbar";
 import Posts from '../admin/posts';
@@ -26,6 +28,10 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
       <Route exact path="/contact" component={() => "Contact"} />
       <Route exact path="/Home-1" component={Profile} />
       <Route exact path="/Page-1" component={Category} />
+      <Route exact path="/Home-1" component={() => "Home-1"} />
+      <Route exact path="/Home-2" component={() => "Home-2"} />
+      <Route exact path="/Home-3" component={() => "Home-3"} />
+      <Route exact path="/categories" component={Categories} />
       <Route exact path="/Page-2" component={() => "Page-2"} />
       <Route exact path="/page-1" component={() => "page-1"} />
       <Route exact path="/page-2" component={() => "page-2"} />
