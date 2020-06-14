@@ -20,6 +20,11 @@ class CategoryController extends Controller
         return CategoryResource::collection(Category::all());
     }
 
+    public function pagination()
+    {
+        return CategoryResource::collection(Category::paginate(3));
+    }
+
     //get one category in the database (categories table)
     public function show()
     {
