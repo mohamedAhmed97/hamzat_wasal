@@ -1,15 +1,4 @@
 import React from "react";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHome,
-  faBriefcase,
-  faPaperPlane,
-  faPen,
-  faImage,
-  faCopy,
-} from "@fortawesome/free-solid-svg-icons";
-
 import classNames from "classnames";
 
 import MentorSideBar from './roles/MentorSideBar'

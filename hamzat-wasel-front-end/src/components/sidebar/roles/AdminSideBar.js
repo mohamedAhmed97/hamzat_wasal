@@ -5,13 +5,13 @@ import SubMenu from "../SubMenu";
 import Cookies from 'universal-cookie';
 import { Link } from "react-router-dom";
 import {
-  faHome,
+
   faBriefcase,
   faPaperPlane,
-  faQuestion,
+  faPen,
   faImage,
   faCopy,
-  faUser,
+
 } from "@fortawesome/free-solid-svg-icons";
 
 const cookies = new Cookies();
@@ -28,27 +28,16 @@ class AdminSideBar extends React.Component {
           {/* <SubMenu title="Pages" icon={faCopy} items={submenus[1]} /> */}
           <SubMenu title="categories" icon={faCopy} items={submenus[1]} />
 
-          <NavItem>
-            <NavLink tag={Link} to={"/pages"}>
-              <FontAwesomeIcon icon={faImage} className="mr-2" />
-            Portfolio
-          </NavLink>
-
-          </NavItem>
+       
 
 
           <NavItem>
-            <NavLink tag={Link} to={"/workshops"}>
-              <FontAwesomeIcon icon={faQuestion} className="mr-2" />
-            FAQ
+          <NavLink tag={Link} to={"/workshops"}>
+            <FontAwesomeIcon icon={faPen} className="mr-2" />
+            Workshops
           </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to={"/contact"}>
-              <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
-            Contact
-          </NavLink>
-          </NavItem>
+        </NavItem>
+         
         </Nav>
       );
     }
@@ -64,13 +53,9 @@ let submenus = [
   ],
   [
     {
-      title: "Page 1",
-      target: "Page-1",
-    },
-    {
-      title: "Page 2",
-      target: "Page-2",
-    },
+      title: "Categories",
+      target: "/categories",
+    }
   ],
   [
 
@@ -85,12 +70,6 @@ if (user && user.isAdmin == 2) {
 
   )
 }
-submenus[1].push(
-  {
-    title: "Categories",
-    target: "/categories",
-  }
 
-)
-}
+
 export default AdminSideBar;

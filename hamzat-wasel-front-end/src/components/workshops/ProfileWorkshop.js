@@ -1,7 +1,7 @@
 import React,{ Component} from 'react';
 import axios from 'axios';
 import config from '../token/token';
-import AlertSuccess from '../categories/AlertSuccess';
+import AlertSuccess from '../alert/AlertSuccess';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';

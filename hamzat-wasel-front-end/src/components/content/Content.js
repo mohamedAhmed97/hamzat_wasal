@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { Container } from "reactstrap";
 import { Switch, Route } from "react-router-dom";
 import {Blogs} from '../Blogs/Blogs'; 
-import Category from '../admin/category'
+/* import Category from '../admin/category' */
 /* import {Blogs} from '../Blogs/Blogs'; */
 import Categories from '../categories/Index';
 import Login from '../Login/Login';
@@ -27,7 +27,7 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
       <Route exact path="/workshops" component={Workshops} />
       <Route exact path="/contact" component={() => "Contact"} />
       <Route exact path="/Home-1" component={Profile} />
-      <Route exact path="/Page-1" component={Category} />
+      <Route exact path="/Page-1" component={"Category"} />
       <Route exact path="/Home-1" component={() => "Home-1"} />
       <Route exact path="/Home-2" component={() => "Home-2"} />
       <Route exact path="/Home-3" component={() => "Home-3"} />
