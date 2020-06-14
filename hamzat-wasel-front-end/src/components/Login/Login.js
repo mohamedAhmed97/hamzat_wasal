@@ -43,10 +43,7 @@ function Login() {
                 setState({ ...state, redirect: true })
             }).catch(error => {
                 console.log(error.response);
-                if(error.response.status)
-                {
-                    alert.error(error.response.data.message);
-                }
+                alert.error("Error in login Check Your Data Please");
                         
             });
         });

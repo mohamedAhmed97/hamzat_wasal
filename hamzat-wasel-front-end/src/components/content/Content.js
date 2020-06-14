@@ -2,12 +2,14 @@ import React from "react";
 import classNames from "classnames";
 import { Container } from "reactstrap";
 import { Switch, Route } from "react-router-dom";
-/* import {Blogs} from '../Blogs/Blogs'; */
+import {Blogs} from '../Blogs/Blogs'; 
 import Category from '../admin/category'
 import Login from '../Login/Login';
 import Topbar from "./Topbar";
 import Posts from '../admin/posts';
 import Workshops from '../workshops/Index';
+import Profile from '../profile/profile'
+
 const Content = ({ sidebarIsOpen, toggleSidebar }) => (
   <Container
     fluid
@@ -16,14 +18,13 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
     <Topbar toggleSidebar={toggleSidebar} />
     <Switch>
       <Route exact path="/" component={() => "Hello"} />
+      <Route exact path="/profile" component={Profile} />
       <Route exact path="/about" component={Login} />
-      <Route exact path="/Pages" component={() => "blog"} />
+      <Route exact path="/posts" component={Blogs} />
       <Route exact path="/posts_requests" component={Posts} />
-      <Route exact path="/faq" component={Workshops} />
+      <Route exact path="/workshops" component={Workshops} />
       <Route exact path="/contact" component={() => "Contact"} />
-      <Route exact path="/Home-1" component={() => "Home-1"} />
-      <Route exact path="/Home-2" component={() => "Home-2"} />
-      <Route exact path="/Home-3" component={() => "Home-3"} />
+      <Route exact path="/Home-1" component={Profile} />
       <Route exact path="/Page-1" component={Category} />
       <Route exact path="/Page-2" component={() => "Page-2"} />
       <Route exact path="/page-1" component={() => "page-1"} />
