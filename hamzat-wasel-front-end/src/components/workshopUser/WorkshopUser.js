@@ -166,8 +166,6 @@ class WorkshopUser extends React.Component {
           columns={[
             { title: "id", field: "uw_id" },
             { title: "name", field: "name" },
-            
-
           ]}
           data={this.state.data}
            editable={{

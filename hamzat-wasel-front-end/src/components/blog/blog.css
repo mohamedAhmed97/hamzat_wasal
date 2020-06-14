@@ -553,4 +553,17 @@
 	margin: 10px;
 	padding: 5px;
   }
-  
+  .mybtn {
+	background-color: rgb(36, 192, 209) !important;
+    color: #fff;
+    display: block;
+    margin: auto;
+    text-align: center;
+    padding: 6px 20px !important;
+    font-size: 17px;
+  }
+  .mybtn2{
+	background-color: rgb(36, 192, 209) !important;
+	color: #fff !important;
+	font-size: 17px;
+  }

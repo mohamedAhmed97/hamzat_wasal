@@ -4,7 +4,7 @@ import {
   faHome,
   faBriefcase,
   faPaperPlane,
-  faQuestion,
+  faPen,
   faImage,
   faCopy,
 } from "@fortawesome/free-solid-svg-icons";
@@ -30,7 +30,7 @@ const SideBar = ({ isOpen, toggle }) => (
         <p>Dummy Heading</p>
         <SubMenu title="Home" icon={faHome} items={submenus[0]} />
         <SubMenu title="posts" icon={faBriefcase} items={submenus[2]} />
-        <SubMenu title="Pages" icon={faCopy} items={submenus[1]} />
+        <SubMenu title="categories" icon={faCopy} items={submenus[1]} />
         <NavItem>
           <NavLink tag={Link} to={"/pages"}>
             <FontAwesomeIcon icon={faImage} className="mr-2" />
@@ -39,8 +39,8 @@ const SideBar = ({ isOpen, toggle }) => (
         </NavItem>
         <NavItem>
           <NavLink tag={Link} to={"/faq"}>
-            <FontAwesomeIcon icon={faQuestion} className="mr-2" />
-            FAQ
+            <FontAwesomeIcon icon={faPen} className="mr-2" />
+            Workshops
           </NavLink>
         </NavItem>
         <NavItem>
@@ -71,14 +71,7 @@ let submenus = [
     },
   ],
   [
-    {
-      title: "Page 1",
-      target: "Page-1",
-    },
-    {
-      title: "Page 2",
-      target: "Page-2",
-    },
+    
   ],
   [
 
@@ -89,7 +82,15 @@ if (user && user.isAdmin == 2) {
   submenus[2].push(
     {
       title: "Approve Post",
-      target: "/posts/requests",
+      target: "/posts_requests",
+    }
+
+  )
+
+  submenus[1].push(
+    {
+      title: "Categories",
+      target: "/categories",
     }
 
   )

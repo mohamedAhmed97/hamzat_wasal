@@ -1,7 +1,9 @@
 import React,{ Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import AlertSuccess from './AlertSuccess';
+import AlertSuccess from '../alert/AlertSuccess';
+import config from '../token/token';
+import Pagination from './Pagination';
 
 class AllCategories extends Component {
     constructor(props){
@@ -9,7 +11,11 @@ class AllCategories extends Component {
             
         this.state = { 
             categories: [], 
-            alert_message: ''
+            alert_message: '',
+            total: '',
+            current_page: 1,
+            per_page: '',
+            last_page: ''
         }
     }
 
@@ -21,9 +27,15 @@ class AllCategories extends Component {
     componentDidMount (){ 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.get('http://localhost:8000/api/categories').then(res => {
-                console.log(res.data.data);
-                this.setState({ categories: res.data.data})
+            axios.get('http://localhost:8000/api/pagination?page='+this.state.current_page,config).then(res => {
+                // console.log(res.data);
+                this.setState({ 
+                    categories: res.data.data,
+                    total: res.data.meta.total,
+                    current_page: res.data.meta.current_page,
+                    per_page: res.data.meta.per_page,
+                    last_page: res.data.meta.last_page
+                })
                     
             }).catch(error => {
                 console.log(error.response)
@@ -35,7 +47,7 @@ class AllCategories extends Component {
     onCategoryDeleted = categoryId => { 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
-            axios.delete('http://localhost:8000/api/categories/'+ categoryId).then(res => {
+            axios.delete('http://localhost:8000/api/categories/'+ categoryId,config).then(res => {
                 console.log(res.data);
 			    let categories = this.state.categories;
                 function removeCategory(arr, value) {
@@ -55,12 +67,73 @@ class AllCategories extends Component {
     };
 
 render() { 
+    const { last_page, per_page } = this.state;
+    const indexOfLastCategory = last_page;
+    const indexOfFirstCategory = indexOfLastCategory - per_page;
+    this.state.categories.slice(indexOfFirstCategory, indexOfLastCategory);
+
+    const paginate = pageNum => {
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.get('http://localhost:8000/api/pagination?page='+(this.state.current_page=pageNum),config).then(res => {
+                console.log(res.data);
+                this.setState({ 
+                    categories: res.data.data,
+                    total: res.data.meta.total,
+                    per_page: res.data.meta.per_page,
+                    current_page: pageNum  
+                })
+                    
+            }).catch(error => {
+                console.log(error.response)
+            }); 
+        });
+    };
+
+    const nextPage = () => { 
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.get('http://localhost:8000/api/pagination?page='+(this.state.current_page+1),config).then(res => {
+                console.log(res.data);
+                this.setState({ 
+                    categories: res.data.data,
+                    total: res.data.meta.total,
+                    per_page: res.data.meta.per_page,
+                    current_page: this.state.current_page + 1  
+                })
+                    
+            }).catch(error => {
+                console.log(error.response)
+            }); 
+        });
+    }
+        
+
+    const prevPage = () => {
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            // console.log(response);
+            axios.get('http://localhost:8000/api/pagination?page='+(this.state.current_page-1),config).then(res => {
+                console.log(res.data);
+                this.setState({ 
+                    categories: res.data.data,
+                    total: res.data.meta.total,
+                    per_page: res.data.meta.per_page,
+                    current_page: this.state.current_page - 1  
+                })
+                    
+            }).catch(error => {
+                console.log(error.response)
+            }); 
+        });
+
+    }
+    
     return ( 
     <div className="container">
         {this.state.alert_message === "success" ? <AlertSuccess message=
         {"You deleted this category successfully, This record isn't a part of the database anymore"} /> : ""}
-        <table className="table border border-dark">
-            <thead className="thead-dark">
+        <table className="table bg-light">
+            <thead className="thead-white">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Category Name</th> 
@@ -87,6 +160,8 @@ render() {
                 }
             </tbody>
         </table>
+        <Pagination per_page={per_page} total={this.state.total} paginate={paginate} 
+            nextPage={nextPage} prevPage={prevPage} />
     </div>
     );
     }
