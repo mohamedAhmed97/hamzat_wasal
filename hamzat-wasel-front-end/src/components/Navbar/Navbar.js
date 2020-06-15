@@ -11,12 +11,10 @@ import Login from '../Login/Login';
 import Register from '../Login/Register';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Test from '../home';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import {Blogs} from '../Blogs/Blogs';
 import {Singleblog} from '../Blogs/Singleblog';
 import {Addblog} from '../Blogs/Addblog';
-
 import Cookies from 'universal-cookie';
 import Home from '../home';
 import NotFound from '../templates/404';
@@ -32,18 +30,25 @@ import Logout from '../Login/logout';
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  const cookies = new Cookies();
+  const user = cookies.get('UserData');
   return (
     <div>
 
       <Navbar className="mb-3" style={{ backgroundColor: "#24c0d1" }} expand="md">
-        <NavbarBrand href="/" className="font-weight-bold text-light">Hamzet Wasl</NavbarBrand>
+      <img src="images/logo.png" style={{width:50, height:50}}
+                            className= "p-1 img-thumbnail" alt="logo" />
+        <NavbarBrand href="/" className="font-weight-bold ml-2 text-light">
+          Hamzet Wasl</NavbarBrand>
         <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{ color: "white" }}
            onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto font-weight-bold" navbar>
+            { !user ? 
             <NavItem>
               <NavLink href="/Blogs" className="text-light">Blogs</NavLink>
-            </NavItem>
+            </NavItem> :""}
             <ProtectedRegsiter></ProtectedRegsiter>
             <ProtectedLogin></ProtectedLogin>
             <ProtectedRoute></ProtectedRoute>

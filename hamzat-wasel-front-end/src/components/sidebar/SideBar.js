@@ -18,9 +18,9 @@ const SideBar = ({ isOpen, toggle }) => (
       <h3>Bootstrap Sidebar</h3>
     </div>
     <div className="side-menu">
-      {user.isAdmin==0?
+      {user.isAdmin===0?
       <UserSideBar></UserSideBar>
-      :user.isAdmin==1?
+      :user.isAdmin===1?
       <MentorSideBar></MentorSideBar>
       :
       <AdminSideBar></AdminSideBar>
@@ -28,21 +28,6 @@ const SideBar = ({ isOpen, toggle }) => (
     </div>
   </div>
 );
-let submenus = [
-  [
-    
-  ],
-  [
-    
-  ],
-  [
-
-  ]
-];
-
-
-
-
 
 
 

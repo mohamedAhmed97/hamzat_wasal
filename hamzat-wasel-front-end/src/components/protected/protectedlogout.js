@@ -13,7 +13,7 @@ export const ProtectedLogout = () => {
     if (is_auth) {
         return (
             <NavItem>
-                <NavLink href="/logout" className="text-light mr-3">logout</NavLink>
+                <NavLink href="/logout" className="text-light mr-3">Logout</NavLink>
             </NavItem>
         )
     }

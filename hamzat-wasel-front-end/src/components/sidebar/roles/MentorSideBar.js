@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavItem, NavLink, Nav } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SubMenu from "../SubMenu";
 import Cookies from 'universal-cookie';
 import { Link } from "react-router-dom";
 import {
@@ -27,7 +26,7 @@ class MentorSideBar extends React.Component {
                     <NavItem >
                         <NavLink tag={Link} to={"/workshops"} >
                             <FontAwesomeIcon icon={faPencilAlt} className="mr-2" />
-                            workshops
+                            Workshops
                      </NavLink>
                     </NavItem>
 

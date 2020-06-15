@@ -5,13 +5,9 @@ import SubMenu from "../SubMenu";
 import Cookies from 'universal-cookie';
 import { Link } from "react-router-dom";
 import {
-
   faBriefcase,
-  faPaperPlane,
   faPen,
-  faImage,
   faCopy,
-
 } from "@fortawesome/free-solid-svg-icons";
 
 const cookies = new Cookies();

@@ -135,7 +135,7 @@ render() {
                             </Link> : "" }
 
                         
-                            {(this.state.current_user_id && this.state.current_user_isAdmin == 0)?
+                            {(this.state.current_user_id && this.state.current_user_isAdmin === 0)?
                             
                                 <button onClick= {() => {this.onUserJoinedWorkshop(workshop.id)}} className="btn btn-info font-weight-bold m-1">Join Workshop</button>
                                  :""}

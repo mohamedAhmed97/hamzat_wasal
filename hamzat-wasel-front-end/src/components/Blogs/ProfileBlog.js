@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../blog/blog.css';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 
 export default class ProfileBlog extends React.Component {

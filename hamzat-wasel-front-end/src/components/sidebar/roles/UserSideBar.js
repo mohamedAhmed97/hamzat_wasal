@@ -33,7 +33,7 @@ class UserSideBar extends React.Component {
                     <NavItem >
                         <NavLink tag={Link} to={"/workshops"} >
                             <FontAwesomeIcon icon={faPencilAlt} className="mr-2" />
-                            workshops
+                            Workshops
                      </NavLink>
                     </NavItem> 
 

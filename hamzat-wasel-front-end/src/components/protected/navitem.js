@@ -13,7 +13,7 @@ export const ProtectedRoute = () => {
             <div>
 
                 <NavItem>
-                    <NavLink href="/home" className="text-light mr-3">home</NavLink>
+                    <NavLink href="/home" className="text-light mr-3">Home</NavLink>
                 </NavItem>
             </div>
         )
