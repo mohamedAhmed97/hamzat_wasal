@@ -25,7 +25,7 @@ class MentorSideBar extends React.Component {
                     </NavItem>
                    
                     <NavItem >
-                        <NavLink tag={Link} to={"/posts"} >
+                        <NavLink tag={Link} to={"/workshops"} >
                             <FontAwesomeIcon icon={faPencilAlt} className="mr-2" />
                             workshops
                      </NavLink>

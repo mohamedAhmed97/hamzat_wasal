@@ -13,20 +13,24 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Test from '../home';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import {Blogs} from '../Blogs/Blogs';
-import {Singleblog} from '../Blogs/Singleblog';
-import {Addblog} from '../Blogs/Addblog';
+import { Blogs } from '../Blogs/Blogs';
+import { Singleblog } from '../Blogs/Singleblog';
+import { Addblog } from '../Blogs/Addblog';
 
 import Cookies from 'universal-cookie';
 import Home from '../home';
 import NotFound from '../templates/404';
 import EnhancedTable from '../table/view';
 import Posts from '../admin/posts';
-import {ProtectedRoute} from '../protected/navitem'
-import  {ProtectedLogin} from '../protected/protectedlogin';
-import {ProtectedRegsiter} from '../protected/protectedregister';
-import {ProtectedLogout} from '../protected/protectedlogout';
+import { ProtectedRoute } from '../protected/navitem'
+import { ProtectedLogin } from '../protected/protectedlogin';
+import { ProtectedRegsiter } from '../protected/protectedregister';
+import { ProtectedLogout } from '../protected/protectedlogout';
 import Logout from '../Login/logout';
+
+const cookies = new Cookies();
+const user = cookies.get('UserData');
+console.log(user);
 
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +41,7 @@ const Navbar1 = (props) => {
       <Navbar className="mb-3" style={{ backgroundColor: "#24c0d1" }} expand="md">
         <NavbarBrand href="/" className="font-weight-bold text-light">Hamzet Wasl</NavbarBrand>
         <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{ color: "white" }}
-           onClick={toggle} />
+          onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto font-weight-bold" navbar>
             <NavItem>
@@ -47,7 +51,7 @@ const Navbar1 = (props) => {
             <ProtectedLogin></ProtectedLogin>
             <ProtectedRoute></ProtectedRoute>
             <ProtectedLogout></ProtectedLogout>
-          
+
           </Nav>
         </Collapse>
       </Navbar>
@@ -55,9 +59,8 @@ const Navbar1 = (props) => {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/Register" component={Register} />
-          <Route exact path="/" component={Register} />
-          <Route exact path="/blogs/addblog"  component={Addblog}/>
-          <Route path="/blogs/:id"  component={Singleblog}/>
+          <Route exact path="/blogs/addblog" component={Addblog} />
+          <Route path="/blogs/:id" component={Singleblog} />
           <Route path="/blogs" component={Blogs} />
           <Route path="/test" />
           <Route path="/home" component={Home} />
@@ -65,9 +68,16 @@ const Navbar1 = (props) => {
           <Route path="/table" component={EnhancedTable} />
           <Route path="/posts/requests" component={Posts} />
           <Route path="/logout" component={Logout} />
-          <Route path="/" component={Register} />
-         
-          </Switch>
+          
+          {user!=null?
+           
+            <Route path="/" component={Home} />
+            :
+            <Route path="/" component={Login} />
+          }
+
+
+        </Switch>
       </Router>
     </div>
   );

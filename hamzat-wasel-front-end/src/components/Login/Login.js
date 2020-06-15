@@ -37,14 +37,28 @@ function Login() {
         e.preventDefault();
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             axios.post('http://localhost:8000/api/login', state).then(res => {
-                cookies.set('UserToken', res.data, { path: '/', expires: new Date(Date.now() + 2592000) });
-                role = cookies.get('UserToken');
-                UserData(res.data);
-                setState({ ...state, redirect: true })
+                
+                
+                if (res.data.data == 403) {
+                    alert.error("Wait The Admin To Accept You");
+                }
+                else {
+                    cookies.set('UserToken', res.data, { path: '/', expires: new Date(Date.now() + 2592000) });
+                    role = cookies.get('UserToken');
+                    UserData(res.data);
+                    setState({ ...state, redirect: true })
+                    return new Promise(resolve => {
+                        setTimeout(() => {
+                          resolve();
+                        }, 2000);
+                      });
+                      
+                }
+
             }).catch(error => {
                 console.log(error.response);
                 alert.error("Error in login Check Your Data Please");
-                        
+
             });
         });
     };
@@ -64,7 +78,7 @@ function Login() {
                             <div className="form-row">
                                 <label htmlFor="email" > E-mail </label>
                                 <input type="email" name="email" id="your_email" className="input-text"
-                                    value={state.email} onChange={handleChange} required/>
+                                    value={state.email} onChange={handleChange} required />
                             </div>
                             <div className="form-row">
                                 <label htmlFor="password" className="font-weight-bold"> Password </label>

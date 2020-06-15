@@ -4,8 +4,15 @@ import { useForm } from 'react-hook-form';
 import '../../Form.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { Redirect } from 'react-router-dom'
+import Cookies from 'universal-cookie';
+import UserData from '../token/userdata';
+import { useAlert } from 'react-alert'
 
 function Register() {
+    const cookies = new Cookies();
+    const alert = useAlert()
+    let role = '';
     const { register, handleSubmit, errors, watch } = useForm();
     const password = useRef({});
     password.current = watch("password", "");
@@ -17,6 +24,7 @@ function Register() {
             password_confirmation: '',
             avatar: '',
             choose: '',
+            device_name:'sss',
 
         });
 
@@ -28,6 +36,16 @@ function Register() {
     const onAvatarChange = (e) => {
         // console.log(e.target.files[0]);
         setState({ ...state, [e.target.name]: e.target.files[0] });
+    }
+    //redirect function
+    const ProtectedComponent = (data) => {
+        if (state.redirect) {
+            if (data === 0) {
+                return <Redirect to='/home' />
+            }
+            return <div> My Protected Component </div>
+        }
+
     }
 
     const onSubmit = e => {
@@ -45,15 +63,35 @@ function Register() {
                     method: 'post', url: 'http://localhost:8000/api/register', data: formData,
                     headers: { 'Content-Type': 'multipart/form-data' }
                 }).then(res => {
-                    console.log(res);
-                    console.log("user Created");
+                    axios.post('http://localhost:8000/api/login', state).then(res => {
+                        if (res.data.data == 403) {
+                            alert.error("Wait The Admin To Accept You");
+                        }
+                        else {
+                            cookies.set('UserToken', res.data, { path: '/', expires: new Date(Date.now() + 2592000) });
+                            role = cookies.get('UserToken');
+                            UserData(res.data);
+                            setState({ ...state, redirect: true })
+                            return new Promise(resolve => {
+                                setTimeout(() => {
+                                    resolve();
+                                }, 2000);
+                            });
+
+                        }
+
+                    }).catch(error => {
+                        console.log(error.response);
+                        alert.error("Error in login Check Your Data Please");
+
+                    });
+
                 }).catch(error => {
                     console.log(error.response)
                 });
             });
         }
-        else if(state.choose === "mentor")
-        {
+        else if (state.choose === "mentor") {
             axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
                 console.log(state);
                 var formData = new FormData();
@@ -66,26 +104,46 @@ function Register() {
                     method: 'post', url: 'http://localhost:8000/api/mentors', data: formData,
                     headers: { 'Content-Type': 'multipart/form-data' }
                 }).then(res => {
-                    console.log(res);
-                    console.log("mentor Created");
-  
+                    axios.post('http://localhost:8000/api/login', state).then(res => {
+                        if (res.data.data == 403) {
+                            alert.error("Wait The Admin To Accept You");
+                        }
+                        else {
+                            cookies.set('UserToken', res.data, { path: '/', expires: new Date(Date.now() + 2592000) });
+                            role = cookies.get('UserToken');
+                            UserData(res.data);
+                            setState({ ...state, redirect: true })
+                            return new Promise(resolve => {
+                                setTimeout(() => {
+                                    resolve();
+                                }, 2000);
+                            });
+
+                        }
+
+                    }).catch(error => {
+                        console.log(error.response);
+                        alert.error("Error in login Check Your Data Please");
+
+                    });
+
 
                 }).catch(error => {
                     console.log(error.response)
                 });
             });
-            
+
         }
-        else
-        {
+        else {
             console.log("error");
-            
+
         }
 
     };
 
     return (
         <div className="container mb-3">
+            {ProtectedComponent(0)}
             <div className="page-content">
                 <div className="form-v7-content">
                     <div className="form-left">
