@@ -28,7 +28,7 @@ render(){
                         <Route exact path="/workshops/add" component={Add} /> 
                         <Route path="/workshops/edit/:id" component={Edit} />
                         <Route path="/workshopUser/workshopUser/:id" component={WorkshopUser}/> 
-                        <Route path="/workshops/edit/:id" component={Edit} />  
+                          
                         <Route to="/workshops" component={AllWorkshops} /> 
                 </Switch>
             </div>

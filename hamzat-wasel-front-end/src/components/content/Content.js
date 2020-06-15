@@ -12,6 +12,7 @@ import Posts from '../admin/posts';
 import Workshops from '../workshops/Index';
 import Profile from '../profile/profile';
 import WorkshopUser from '../workshopUser/WorkshopUser';
+import Edit from '../workshops/Edit';
 
 const Content = ({ sidebarIsOpen, toggleSidebar }) => (
   <Container
@@ -26,6 +27,7 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
       <Route exact path="/posts" component={Blogs} />
       <Route exact path="/posts_requests" component={Posts} />
       <Route exact path="/workshops" component={Workshops} />
+      <Route path="/workshops/edit/:id" component={Edit} />
       <Route path="/workshopUser/workshopUser/:id" component={WorkshopUser}/>
       <Route exact path="/contact" component={() => "Contact"} />
       <Route exact path="/Home-1" component={Profile} />
