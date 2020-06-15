@@ -94,7 +94,7 @@ export class Blogs extends React.Component {
                                         </div>
                                         <div>
                                             {
-                                                (this.currentusername === blog.userinfo.name) ?
+                                                (this.current_user.name === blog.userinfo.name) ?
 
                                                     <button onClick={() => this.onBlogDelete(blog.id)} className="btn btn-danger font-weight-bold m-1 mybtn3">
                                                         it's one of your posts, do you want to delete it? </button>
