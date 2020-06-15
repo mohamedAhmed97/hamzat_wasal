@@ -10,10 +10,10 @@ import Login from '../Login/Login';
 import Topbar from "./Topbar";
 import Posts from '../admin/posts';
 import Workshops from '../workshops/Index';
-import Profile from '../profile/profile';
+import Profile from '../profile/profile'
+import Mentors from '../admin/Mentor';
 import WorkshopUser from '../workshopUser/WorkshopUser';
 import Edit from '../workshops/Edit';
-
 const Content = ({ sidebarIsOpen, toggleSidebar }) => (
   <Container
     fluid
@@ -23,6 +23,7 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
     <Switch>
       <Route exact path="/" component={() => "Hello"} />
       <Route exact path="/profile" component={Profile} />
+      <Route exact path="/mentors" component={Mentors} />
       <Route exact path="/about" component={Login} />
       <Route exact path="/posts" component={Blogs} />
       <Route exact path="/posts_requests" component={Posts} />

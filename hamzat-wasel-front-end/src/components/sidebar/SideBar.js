@@ -15,7 +15,7 @@ const SideBar = ({ isOpen, toggle }) => (
       <span color="info" onClick={toggle} style={{ color: "#fff" }}>
         &times;
       </span>
-      <h3>Bootstrap Sidebar</h3>
+      <h3>Home Page</h3>
     </div>
     <div className="side-menu">
       {user.isAdmin===0?

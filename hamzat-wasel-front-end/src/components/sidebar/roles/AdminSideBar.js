@@ -24,16 +24,21 @@ class AdminSideBar extends React.Component {
           {/* <SubMenu title="Pages" icon={faCopy} items={submenus[1]} /> */}
           <SubMenu title="categories" icon={faCopy} items={submenus[1]} />
 
-       
+          <NavItem>
+            <NavLink tag={Link} to={"/mentors"}>
+              <FontAwesomeIcon icon={faPen} className="mr-2" />
+            mentors
+          </NavLink>
+          </NavItem>
 
 
           <NavItem>
-          <NavLink tag={Link} to={"/workshops"}>
-            <FontAwesomeIcon icon={faPen} className="mr-2" />
+            <NavLink tag={Link} to={"/workshops"}>
+              <FontAwesomeIcon icon={faPen} className="mr-2" />
             Workshops
           </NavLink>
-        </NavItem>
-         
+          </NavItem>
+
         </Nav>
       );
     }
