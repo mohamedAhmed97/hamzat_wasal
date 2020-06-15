@@ -24,7 +24,7 @@ function Register() {
             password_confirmation: '',
             avatar: '',
             choose: '',
-            device_name:'sss',
+            device_name: 'sss',
 
         });
 
@@ -50,9 +50,9 @@ function Register() {
 
     const onSubmit = e => {
         // e.preventDefault();   
-        if (!state.choose || state.choose === "user") {
+        if (!state.choose || state.choose == "user") {
             axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
-                console.log(state);
+                // console.log(state);
                 var formData = new FormData();
                 formData.append("avatar", state.avatar);
                 formData.append("email", state.email);
@@ -87,13 +87,13 @@ function Register() {
                     });
 
                 }).catch(error => {
-                    console.log(error.response)
+                    // console.log(error)
                 });
             });
         }
         else if (state.choose === "mentor") {
             axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
-                console.log(state);
+                // console.log(state);
                 var formData = new FormData();
                 formData.append("avatar", state.avatar);
                 formData.append("email", state.email);
@@ -129,15 +129,12 @@ function Register() {
 
 
                 }).catch(error => {
-                    console.log(error.response)
+                    // console.log(error)
                 });
             });
 
         }
-        else {
-            console.log("error");
 
-        }
 
     };
 
@@ -232,7 +229,7 @@ function Register() {
                             </div>
                             <div className="form-row">
                                 <label htmlFor="choose" className=" font-weight-bold "> Select... </label>
-                                <select onChange={handleChange} className="form-control" name="choose">
+                                <select onChange={handleChange} class="form-control" name="choose">
                                     <option value="user" selected="selected">user</option>
                                     <option value="mentor">mentor</option>
                                 </select>

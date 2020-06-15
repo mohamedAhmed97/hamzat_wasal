@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import AllWorkshops from './AllWorkshops';
 import Add from './Add';
 import Edit from './Edit';
+import WorkshopUser from '../workshopUser/WorkshopUser';
 import Cookies from 'universal-cookie';
 
 
@@ -15,17 +16,19 @@ render(){
     <React.Fragment>
         <Router>
         <div className="text-center">
-            {(current_user && current_user.isAdmin == 1) ?
+            {(current_user && current_user.isAdmin === 1) ?
                     <Link to="/workshops">
                         <button className="btn btn-primary mr-2 "> All Workshops</button></Link> : "" }
-            {(current_user && current_user.isAdmin == 1) ?
+            {(current_user && current_user.isAdmin === 1) ?
                     <Link to="/workshops/add">
                         <button className="btn btn-success">Add Workshop</button></Link> : "" }
                     <Link to="/workshops" />
                 <Switch>
                         <Route exact path="/workshops" component={AllWorkshops} /> 
                         <Route exact path="/workshops/add" component={Add} /> 
-                        <Route path="/workshops/edit/:id" component={Edit} />  
+                        <Route path="/workshops/edit/:id" component={Edit} />
+                        <Route path="/workshopUser/workshopUser/:id" component={WorkshopUser}/> 
+                          
                         <Route to="/workshops" component={AllWorkshops} /> 
                 </Switch>
             </div>

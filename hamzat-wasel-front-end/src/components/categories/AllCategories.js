@@ -21,7 +21,7 @@ class AllCategories extends Component {
 
     handleChange = ({target}) =>{
         this.setState({ ...this.state, [target.name]: target.value });
-        console.log(target);   
+        // console.log(target);   
     };
         
     componentDidMount (){ 
@@ -38,7 +38,7 @@ class AllCategories extends Component {
                 })
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error)
             }); 
         });
     };
@@ -48,7 +48,7 @@ class AllCategories extends Component {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.delete('http://localhost:8000/api/categories/'+ categoryId,config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
 			    let categories = this.state.categories;
                 function removeCategory(arr, value) {
                     return arr.filter((category)=>{
@@ -61,7 +61,7 @@ class AllCategories extends Component {
             }).catch(error => {
                 this.setState({alert_message: "error"});
                 setTimeout(() => this.setState({alert_message:''}), 9000);
-                console.log(error.response)
+                // console.log(error)
             });
         });
     };
@@ -76,7 +76,7 @@ render() {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get('http://localhost:8000/api/pagination?page='+(this.state.current_page=pageNum),config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({ 
                     categories: res.data.data,
                     total: res.data.meta.total,
@@ -85,7 +85,7 @@ render() {
                 })
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error)
             }); 
         });
     };
@@ -94,7 +94,7 @@ render() {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get('http://localhost:8000/api/pagination?page='+(this.state.current_page+1),config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({ 
                     categories: res.data.data,
                     total: res.data.meta.total,
@@ -103,7 +103,7 @@ render() {
                 })
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error)
             }); 
         });
     }
@@ -113,7 +113,7 @@ render() {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get('http://localhost:8000/api/pagination?page='+(this.state.current_page-1),config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({ 
                     categories: res.data.data,
                     total: res.data.meta.total,
@@ -122,7 +122,7 @@ render() {
                 })
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error)
             }); 
         });
 

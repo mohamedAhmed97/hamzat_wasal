@@ -56,7 +56,7 @@ function Login() {
                 }
 
             }).catch(error => {
-                console.log(error.response);
+                // console.log(error);
                 alert.error("Error in login Check Your Data Please");
 
             });
@@ -86,7 +86,7 @@ function Login() {
                                     value={state.password} onChange={handleChange} required />
                             </div>
                             <div className="form-row">
-                                <input type="hidden" name="device_name" id="password" className="input-text"
+                                <input type="hidden" name="device_name" className="input-text"
                                     value={state.device_name} onChange={handleChange} />
                             </div>
                             <div className="form-row-last">

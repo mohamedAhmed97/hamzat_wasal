@@ -14,7 +14,7 @@ class AllWorkshops extends Component {
             
         const cookies = new Cookies();
         const current_user=cookies.get('UserData'); 
-
+        // console.log(current_user);
         this.state = { 
             workshops: [], 
             alert_message: '',
@@ -23,13 +23,16 @@ class AllWorkshops extends Component {
             current_page: 1,
             per_page: '',
             last_page: '',
-            current_user_id: current_user.id
+            current_user_id: current_user.id,
+            current_user_isAdmin: current_user.isAdmin
         }
+        
+        
     }
 
     handleChange = ({target}) =>{
         this.setState({ ...this.state, [target.name]: target.value });
-        console.log(target);   
+        // console.log(target);   
     };
 
     handleSearch(event) {
@@ -40,7 +43,7 @@ class AllWorkshops extends Component {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get('http://localhost:8000/api/workshops?page='+this.state.current_page,config).then(res => {
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 this.setState({ 
                     workshops: res.data.data,
                     total: res.data.meta.total,
@@ -50,7 +53,7 @@ class AllWorkshops extends Component {
                 }) 
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error)
             }); 
         });
     };
@@ -59,7 +62,7 @@ class AllWorkshops extends Component {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.delete('http://localhost:8000/api/workshops/'+ workshopId,config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
 			    let workshops = this.state.workshops;
                 function removeWorkshop(arr, value) {
                     return arr.filter((workshop)=>{
@@ -72,14 +75,27 @@ class AllWorkshops extends Component {
             }).catch(error => {
                 this.setState({alert_message: "error"});
                 setTimeout(() => this.setState({alert_message:''}), 9000);
-                console.log(error)
+                // console.log(error)
             });
         });
     };
 
+    onUserJoinedWorkshop = (workshopId) =>{
+        var formData = new FormData(); 
+        formData.append("user_id" , this.state.current_user_id);
+        formData.append("workshop_id" , workshopId);
+        axios.post('http://localhost:8000/api/workshopUser',formData,config).then(res => {
+                // console.log(res.data);    
+                }).catch(error => {
+                    // console.log(error)
+                    }); 
+    }
 
-render() { 
-    const {  per_page, last_page } = this.state;
+
+render() {
+    const {  per_page, last_page , current_user , cookies } = this.state;
+    // console.log(this.state.current_user_isAdmin); 
+    
     const indexOfLastWorkshop = last_page;
     const indexOfFirstWorkshop = indexOfLastWorkshop - per_page;
     this.state.workshops.slice(indexOfFirstWorkshop, indexOfLastWorkshop);
@@ -88,7 +104,7 @@ render() {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get('http://localhost:8000/api/workshops?page='+(this.state.current_page=pageNum),config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({ 
                     workshops: res.data.data,
                     total: res.data.meta.total,
@@ -97,7 +113,7 @@ render() {
                 })
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error.response)
             }); 
         });
     };
@@ -106,7 +122,7 @@ render() {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get('http://localhost:8000/api/workshops?page='+(this.state.current_page+1),config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if(!res.data.meta.last_page < this.state.current_page + 1){
                 this.setState({ 
                     workshops: res.data.data,
@@ -117,7 +133,7 @@ render() {
             }
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error)
             }); 
         });
     }
@@ -126,7 +142,7 @@ render() {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get('http://localhost:8000/api/workshops?page='+(this.state.current_page-1),config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({ 
                     workshops: res.data.data,
                     total: res.data.meta.total,
@@ -135,7 +151,7 @@ render() {
                 })
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error.response)
             }); 
         });
     }
@@ -201,6 +217,20 @@ render() {
                             <Link to={`/workshops/edit/${workshop.id}`}>
                                 <button className="btn btn-info font-weight-bold m-1">Edit</button>
                             </Link> : "" }
+                           
+                           
+                            {(this.state.current_user_id === workshop.mentor_info.id)?
+                            <Link to={`/workshopUser/WorkshopUser/${workshop.id}`}>
+                                <button className="btn btn-info font-weight-bold m-1">Manage Users</button>
+                            </Link> : "" }
+
+                        
+                            {(this.state.current_user_id && this.state.current_user_isAdmin == 0)?
+                            
+                                <button onClick= {() => {this.onUserJoinedWorkshop(workshop.id)}} className="btn btn-info font-weight-bold m-1">Join Workshop</button>
+                                 :""}
+                           
+                            
                         </div>
                         <div className="card-footer bg-transparent border-info">
                                 <small className="text-info m-2">From:  {workshop.start_date}</small>

@@ -81,7 +81,7 @@ export class Blogs extends React.Component {
                             <div class="grid_12">
                                 <article class="post post-blog">
                                     <a href="#" className="post-image">
-                                        <img src="http://placehold.it/960x250/efefef" />
+                                        <img src="/home/ahmed/Desktop" />
                                     </a>
                                     <div class="details">
                                         <Link to={`/blogs/${blog.id}`}>
