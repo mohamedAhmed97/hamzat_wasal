@@ -8,9 +8,9 @@ use App\User;
 use App\Http\Requests\MentorRequest;
 use App\Http\Resources\MentorResource;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\PermissionRegistrar;
+/* use App\Mail\UsersMails;
+use Illuminate\Support\Facades\Mail; */
+use App\Jobs\SendUsersMails;
 
 use Hash;
 class MentorController extends Controller
@@ -30,6 +30,7 @@ class MentorController extends Controller
             'password'=>Hash::make($request->password),
             'avatar'=>$pic_name,
             'isAdmin'=>1,
+            'binding'=>1,
         ]);
         if(!$admin)
         {   
@@ -38,10 +39,13 @@ class MentorController extends Controller
                     "status"=>404,
                     "Error"=>"Sorry,You can't create a new Mentor as you have to fill all the required fields"],404
             );
+           
         }
         else
         {   
             $admin->assignRole('mentor');
+            dispatch(new SendUsersMails($request->email ,$admin->isAdmin))->delay(now()->addMinutes(10));
+
             return response()->json(
                 [
                  "status" => 200,   
@@ -96,5 +100,31 @@ class MentorController extends Controller
     {
        return MentorResource::collection(User::where('isAdmin',1)->get());
 
+    }
+
+    //biniding Mentor
+
+    public function bindingMentor()
+    {
+        $bindingMentors=User::where('binding',1)->get();
+        return response()->json([
+            "mentor"=>($bindingMentors)
+        ]);
+    }
+
+    public function approvalMentor($id)
+    {
+        $mentor=User::find($id)->update([
+            'binding'=>0,
+        ]);
+        if($mentor)
+        {
+            return response()->json(["status"=>200]);
+        }
+        else
+        {
+            return response()->json(["status"=>404]);   
+        }
+        
     }
 }

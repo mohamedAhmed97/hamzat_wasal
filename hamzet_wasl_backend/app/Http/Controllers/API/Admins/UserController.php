@@ -7,7 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Support\Facades\Storage;
-
+use App\Jobs\SendUsersMails;
 class UserController extends Controller
 {
     //create user
@@ -35,6 +35,7 @@ class UserController extends Controller
         else
         {
             $user->assignRole('user');
+            dispatch(new SendUsersMails($request->email ,$user->isAdmin))->delay(now()->addMinutes(10));
             return response()->json(
                 ["Success" => 'User is added successfully ^_^ ',
                 "Data:"=> $user],200

@@ -16,6 +16,7 @@ use Illuminate\Validation\ValidationException;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -48,10 +49,16 @@ Route::group(['prefix' => 'mentors'], function () {
     Route::put('/{mentor}', 'API\Admins\MentorController@update');
     //index
     Route::get('/', 'API\Admins\MentorController@index');
+    //
+    Route::put('/aprove/{id}','API\Admins\MentorController@approvalMentor');
+});
+Route::group(['prefix' => 'mentors','middleware' => ['auth:sanctum', 'role:admin']], function () {
+    Route::get('/binding', 'API\Admins\MentorController@bindingMentor');
+  
 });
 
 //workshops
-Route::group(['prefix' => 'workshops','middleware' =>['auth:sanctum', 'role:mentor']], function () {
+Route::group(['prefix' => 'workshops', 'middleware' => ['auth:sanctum', 'role:mentor']], function () {
     Route::get('/{workshop}', 'API\Mentors\WorkshopController@show');
     Route::post('/', 'API\Mentors\WorkshopController@store');
     Route::delete('/{workshop}', 'API\Mentors\WorkshopController@destroy');
@@ -72,14 +79,13 @@ Route::group(['prefix' => 'users'], function () {
 });
 
 //Post
-Route::group(['prefix' => 'posts','middleware' => ['auth:sanctum','role:admin']], function () {
-    Route::get('/waiting','API\Admins\PostController@waiting');
-    
+Route::group(['prefix' => 'posts', 'middleware' => ['auth:sanctum', 'role:admin']], function () {
+    Route::get('/waiting', 'API\Admins\PostController@waiting');
 });
 //Post
-Route::group(['prefix' => 'posts','middleware' => ['auth:sanctum','role:user']], function () {
+Route::group(['prefix' => 'posts', 'middleware' => ['auth:sanctum', 'role:user']], function () {
     Route::post('/', 'API\Admins\PostController@store');
-    
+
     Route::put('/{post}', 'API\Admins\PostController@update');
 });
 
@@ -117,5 +123,10 @@ Route::post('/login', function (Request $request) {
         ]);
     }
     //dd($user->hasRole('admin'));
+    if ($user->isAdmin == 1 and $user->binding == 1) {
+        return response()->json([
+            "data" => 403,
+        ]);
+    }
     return $user->createToken($request->device_name)->plainTextToken;
 });
