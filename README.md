@@ -11,7 +11,7 @@ You should have npm or yarn installed from [here](https://www.digitalocean.com/c
 
 ### Installation
 
-** our Project consists of two branches (Backend -> Laravel) , (Frontend -> React) so please follow the all the followings steps to open our project**
+**our Project consists of two branches (Backend -> Laravel) , (Frontend -> React) so please follow the all the followings steps to open our project**
 
 ### **1) Backend**
 
