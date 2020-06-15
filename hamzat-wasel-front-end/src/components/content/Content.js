@@ -14,7 +14,9 @@ import Profile from '../profile/profile'
 import Mentors from '../admin/Mentor';
 import WorkshopUser from '../workshopUser/WorkshopUser';
 import Edit from '../workshops/Edit';
-import {Addblog} from '../Blogs/Addblog';
+import { Singleblog } from '../Blogs/Singleblog';
+import { Addblog } from '../Blogs/Addblog';
+
 const Content = ({ sidebarIsOpen, toggleSidebar }) => (
   <Container
     fluid
@@ -33,6 +35,8 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
       <Route path="/workshopUser/workshopUser/:id" component={WorkshopUser}/>
       <Route exact path="/blogs/addblog" component={Addblog} />
       <Route exact path="/Home-1" component={Profile} />
+      <Route exact path="/blogs/addblog" component={Addblog} />
+      <Route path="/blogs/:id" component={Singleblog} />
       <Route exact path="/Page-1" component={"Category"} />
       <Route exact path="/Home-1" component={() => "Home-1"} />
       <Route exact path="/Home-2" component={() => "Home-2"} />
