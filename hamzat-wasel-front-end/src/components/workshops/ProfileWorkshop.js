@@ -26,7 +26,7 @@ class ProfileWorkshops extends Component {
 
     handleChange = ({target}) =>{
         this.setState({ ...this.state, [target.name]: target.value });
-        console.log(target);   
+        // console.log(target);   
     };
 
     handleSearch(event) {
@@ -37,11 +37,11 @@ class ProfileWorkshops extends Component {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get("http://localhost:8000/api/profile/workshops/"+this.props.user.id).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({ workshops: res.data.WorkshopResource})
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error)
             }); 
         });
     };
@@ -50,7 +50,7 @@ class ProfileWorkshops extends Component {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.delete('http://localhost:8000/api/workshops/'+ workshopId,config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
 			    let workshops = this.state.workshops;
                 function removeWorkshop(arr, value) {
                     return arr.filter((workshop)=>{
@@ -63,7 +63,7 @@ class ProfileWorkshops extends Component {
             }).catch(error => {
                 this.setState({alert_message: "error"});
                 setTimeout(() => this.setState({alert_message:''}), 9000);
-                console.log(error)
+                // console.log(error)
             });
         });
     };

@@ -18,21 +18,21 @@ function Add (){
     const handleChange = ({target}) =>{
         setState({ ...state, [target.name]: target.value });
 
-        console.log(target);   
+        // console.log(target);   
     };
 
     const onCategoryAdded = () => { 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.post('http://localhost:8000/api/categories',state,config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setState({alert_message: "success"});
                 setTimeout(() => setState({alert_message:''}), 2000);
                 
             }).catch(error => { 
                 setState({alert_message: "error"});
                 setTimeout(() => setState({alert_message:''}), 2000);
-                console.log(error)
+                // console.log(error)
             }); 
         });
     };

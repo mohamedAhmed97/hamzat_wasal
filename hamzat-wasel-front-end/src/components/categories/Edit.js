@@ -15,18 +15,18 @@ const Edit = props =>{
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get('http://localhost:8000/api/categories/'+props.match.params.id,config).then(res => {
-                console.log(res.data.data.category_name);
+                // console.log(res.data.data.category_name);
                 setState({ name: res.data.data.category_name})
             
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error)
             }); 
         });
     },[props.match.params.id]);
 
     const handleChange = ({target}) =>{
         setState({ ...state, [target.name]: target.value });
-        console.log(target);   
+        // console.log(target);   
     };
 
     let onSubmit = e => {
@@ -34,13 +34,13 @@ const Edit = props =>{
             // console.log(response);
             axios.put('http://localhost:8000/api/categories/'+props.match.params.id,state,config)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setState({alert_message: "success"});
                 setTimeout(() => setState({alert_message:''}), 2000);
             
             }).catch(error => {
                 setState({alert_message: "error"});
-                console.log(error);
+                // console.log(error);
             }); 
         });
     };

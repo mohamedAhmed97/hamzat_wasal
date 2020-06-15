@@ -14,7 +14,7 @@ class Add extends Component {
 
         const cookies = new Cookies();
         const current_user = cookies.get('UserData');
-        console.log(current_user.id);
+        // console.log(current_user.id);
         
         this.state = {
             title: '',
@@ -36,23 +36,23 @@ class Add extends Component {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.get('http://localhost:8000/api/categories',config).then(res => {
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 this.setState({ 
                     categories: res.data.data,
                     category_id:res.data.data[0].category_id
                 })
                     
             }).catch(error => {
-                console.log(error.response)
+                // console.log(error)
             }); 
         });
     };
 
     handleChange = ({target}) =>{
         this.setState({ ...this.state, [target.name]: target.value });
-        console.log(target.name);
-        console.log(target.value);
-        console.log(this.state);   
+        // console.log(target.name);
+        // console.log(target.value);
+        // console.log(this.state);   
     };
 
     validate = () => {
@@ -91,7 +91,7 @@ class Add extends Component {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.post('http://localhost:8000/api/workshops',this.state,config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 
                 this.setState({alert_message: "success"});
                 setTimeout(() => this.setState({alert_message:''}), 2000);
@@ -99,7 +99,7 @@ class Add extends Component {
             }).catch(error => { 
                 this.setState({alert_message: "error"});
                 setTimeout(() => this.setState({alert_message:''}), 2000);
-                console.log(error)
+                // console.log(error)
             }); 
         });
         this.setState({
@@ -111,7 +111,7 @@ class Add extends Component {
 
 
 render() {
-    console.log(this.state);  
+    // console.log(this.state);  
     return (     
     <div className="container mt-3">
         {this.state.alert_message === "success" ? 

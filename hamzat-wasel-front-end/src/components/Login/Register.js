@@ -34,7 +34,7 @@ function Register() {
         // e.preventDefault();   
         if (!state.choose || state.choose == "user") {
             axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
-                console.log(state);
+                // console.log(state);
                 var formData = new FormData();
                 formData.append("avatar", state.avatar);
                 formData.append("email", state.email);
@@ -45,17 +45,17 @@ function Register() {
                     method: 'post', url: 'http://localhost:8000/api/register', data: formData,
                     headers: { 'Content-Type': 'multipart/form-data' }
                 }).then(res => {
-                    console.log(res);
-                    console.log("user Created");
+                    // console.log(res);
+                    // console.log("user Created");
                 }).catch(error => {
-                    console.log(error.response)
+                    // console.log(error)
                 });
             });
         }
         else if(state.choose == "mentor")
         {
             axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
-                console.log(state);
+                // console.log(state);
                 var formData = new FormData();
                 formData.append("avatar", state.avatar);
                 formData.append("email", state.email);
@@ -66,19 +66,19 @@ function Register() {
                     method: 'post', url: 'http://localhost:8000/api/mentors', data: formData,
                     headers: { 'Content-Type': 'multipart/form-data' }
                 }).then(res => {
-                    console.log(res);
-                    console.log("mentor Created");
+                    // console.log(res);
+                    // console.log("mentor Created");
   
 
                 }).catch(error => {
-                    console.log(error.response)
+                    // console.log(error)
                 });
             });
             
         }
         else
         {
-            console.log("error");
+            // console.log("error");
             
         }
 
