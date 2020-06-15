@@ -40,14 +40,14 @@ function Add (){
 
 
     return (
-    <div className="container">
+    <div className="container mt-3">
         {state.alert_message === "success" ? 
                 <AlertSuccess message="Category added successfully" /> : ""}
-        <div className="page-content">
-		    <div className="form-v7-content">
-                <form className="border border-info p-3 form-detail" 
+        <div className="row">
+		    <div className="col-12">
+                <form className="form-info p-3 m-2" 
                     onSubmit={handleSubmit(onCategoryAdded)}>
-                    <div className="form-row ml-2">
+                    <div className="form-row m-1">
                         <label htmlFor="categories" className="font-weight-bold mr-2">
                             Category name: </label>
                         <input type="text" name="name" className="mr-2 input-text" 
@@ -60,7 +60,7 @@ function Add (){
                             {errors.name ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
                         </span>
                     </div> 
-                    <button type="submit" className="btn btn-success font-weight-bold mr-2">
+                    <button type="submit" className="btn btn-success font-weight-bold m-2">
                         Add 
                     </button>
                 </form>

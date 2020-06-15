@@ -20,6 +20,11 @@
     margin-bottom: 3px;
 }
 
+.form-info .input-text {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
 .form-info .form-row span.errors {
     color: red;
 	font-family: 'Fjalla One', sans-serif !important;
