@@ -15,11 +15,9 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Blogs } from '../Blogs/Blogs';
 import { Singleblog } from '../Blogs/Singleblog';
 import { Addblog } from '../Blogs/Addblog';
-
 import Cookies from 'universal-cookie';
 import Home from '../home';
 import NotFound from '../templates/404';
-
 import Posts from '../admin/posts';
 import { ProtectedRoute } from '../protected/navitem'
 import { ProtectedLogin } from '../protected/protectedlogin';

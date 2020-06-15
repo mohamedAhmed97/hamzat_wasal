@@ -19,7 +19,7 @@ class AdminSideBar extends React.Component {
     if (this.user) {
       return (
         <Nav vertical className="list-unstyled pb-3">
-          <p>Dummy Heading</p>
+          
           <SubMenu title="posts" icon={faBriefcase} items={submenus[2]} />
           {/* <SubMenu title="Pages" icon={faCopy} items={submenus[1]} /> */}
           <SubMenu title="categories" icon={faCopy} items={submenus[1]} />

@@ -5,8 +5,6 @@ import { Redirect } from 'react-router-dom'
 import Cookies from 'universal-cookie';
 import UserData from '../token/userdata';
 import { useAlert } from 'react-alert'
-
-
 function Login() {
     const cookies = new Cookies();
     const alert = useAlert()
@@ -45,14 +43,8 @@ function Login() {
                 else {
                     cookies.set('UserToken', res.data, { path: '/', expires: new Date(Date.now() + 2592000) });
                     role = cookies.get('UserToken');
-                    UserData(res.data);
-                    setState({ ...state, redirect: true })
-                    return new Promise(resolve => {
-                        setTimeout(() => {
-                          resolve();
-                        }, 2000);
-                      });
-                      
+                    UserData(res.data); 
+                    setState({ ...state, redirect: true })  
                 }
 
             }).catch(error => {

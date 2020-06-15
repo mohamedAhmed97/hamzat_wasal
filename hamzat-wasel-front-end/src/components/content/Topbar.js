@@ -28,9 +28,6 @@ const Topbar = ({ toggleSidebar }) => {
       </Button>
       <NavbarToggler onClick={toggleTopbar} />
       <Collapse isOpen={topbarIsOpen} navbar>
-        <center>
-          <h3 className="text-center">Home page</h3>
-        </center>
 
       </Collapse>
     </Navbar>
