@@ -47,11 +47,7 @@ function Login() {
                     role = cookies.get('UserToken');
                     UserData(res.data);
                     setState({ ...state, redirect: true })
-                    return new Promise(resolve => {
-                        setTimeout(() => {
-                          resolve();
-                        }, 2000);
-                      });
+                    setTimeout(() => {  console.log("World!"); }, 3000);
                       
                 }
 
