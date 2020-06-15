@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../blog/blog.css';
-import { Singleblog } from '../Blogs/Singleblog';
+// import { Singleblog } from '../Blogs/Singleblog';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router-dom'
 import Cookies from 'universal-cookie';
@@ -13,7 +13,7 @@ export class Blogs extends React.Component {
     current_user = cookies.get('UserData');
     constructor(props) {
         super(props);
-        console.log(this.current_user);
+        // console.log(this.current_user);
         this.state = {
             blogs: [],
            
@@ -31,7 +31,7 @@ export class Blogs extends React.Component {
                 })
             })
 
-        console.log(this.state.currentusername);
+        // console.log(this.state.currentusername);
 
     }
 
@@ -39,7 +39,7 @@ export class Blogs extends React.Component {
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
 
             axios.delete('http://localhost:8000/api/posts/' + id, config).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 let blogs = this.state.blogs;
                 function removeblog(arr, value) {
                     return arr.filter((blog) => {
@@ -81,7 +81,7 @@ export class Blogs extends React.Component {
                             <div class="grid_12">
                                 <article class="post post-blog">
                                     <a href="#" className="post-image">
-                                        <img src="/home/ahmed/Desktop" />
+                                        <img src="http://placehold.it/960x250/efefef" />
                                     </a>
                                     <div class="details">
                                         <Link to={`/blogs/${blog.id}`}>
@@ -113,7 +113,7 @@ export class Blogs extends React.Component {
 
 
         return (
-            <div class="container">
+            <div className="container">
                 <div className="mb-3 text-center">
                     {this.current_user!=null ?
                         <Link to={`/blogs/addblog`}>

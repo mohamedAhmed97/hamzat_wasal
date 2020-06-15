@@ -6,7 +6,6 @@ import Cookies from 'universal-cookie';
 import AlertSuccess from '../alert/AlertSuccess';
 //import UserData from '../token/userdata';
 //import { TextField } from '@material-ui/core';
-
 export class Addblog extends React.Component
 {
     constructor(props)
@@ -14,7 +13,6 @@ export class Addblog extends React.Component
         super(props)
         const cookies = new Cookies();
         const current_user = cookies.get('UserData');
-    
     this.state={
         title : '', 
         user_id : current_user.id, 
@@ -25,22 +23,17 @@ export class Addblog extends React.Component
     }
     }
     componentDidMount (){ 
-        
             axios.get('http://localhost:8000/api/categories', config).then(res => {
                 //console.log(res.data.data);
                 this.setState({ categories: res.data.data})
-                    
             }).catch(error => {
                 console.log(error.response)
             }); 
-       
     };
-
      handleChange = ({ target }) => {
         this.setState({ ...this.state, [target.name]: target.value });
         //console.log(target.value);
     };
-
     onSubmit = (e)=>{
         e.preventDefault()
         let formdata = new FormData();
@@ -55,14 +48,10 @@ export class Addblog extends React.Component
         }).catch(error => { 
             this.setState({alert_message: "error"});
             setTimeout(()=> this.setState({alert_message:''}),7000);
-            
-
         }
         )
         console.log(this.state);
     }
-    
-
     render()
     {
         return(
@@ -78,7 +67,6 @@ export class Addblog extends React.Component
                         <input type="text" name="title" className="mr-2 input-text" onChange={this.handleChange}/>
                     </div> 
                     <br/>
-
                     <div className="form-row ml-2">
                         <label htmlFor="workshop_price" className="font-weight-bold mr-2">
                                 Category: </label>
@@ -95,26 +83,20 @@ export class Addblog extends React.Component
                         </select>
                     </div>
                     <br/>   
-
                     <div className="form-row ml-2">
                     <label htmlFor="workshops" className="font-weight-bold mr-2">
                             Article body </label>
                     <textarea rows="10" cols="90"  name="description" className="mr-2 input-text" onChange={this.handleChange}/>
                     </div> 
                     <br/>
-
                     <div class="center">
                     <button className="btn btn-success p-2 mybtn" value="submit" name="submit">Submit </button>
                     </div>
-               
                     </form>
                 </div>
             </div>
             </div>
-            
         )
     }
-
 }
-
 /*TextareaAutosize aria-label="minimum height" rowsMin={3} placeholder="Minimum 3 rows" /> */

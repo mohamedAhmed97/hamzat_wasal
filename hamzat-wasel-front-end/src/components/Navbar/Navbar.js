@@ -19,7 +19,7 @@ import { Addblog } from '../Blogs/Addblog';
 import Cookies from 'universal-cookie';
 import Home from '../home';
 import NotFound from '../templates/404';
-import EnhancedTable from '../table/view';
+
 import Posts from '../admin/posts';
 import { ProtectedRoute } from '../protected/navitem'
 import { ProtectedLogin } from '../protected/protectedlogin';
@@ -71,7 +71,6 @@ const Navbar1 = (props) => {
           <Route path="/test" />
           <Route path="/home" component={Home} />
           <Route path="/404" component={NotFound} />
-          <Route path="/table" component={EnhancedTable} />
           <Route path="/posts/requests" component={Posts} />
           <Route path="/logout" component={Logout} />
           
