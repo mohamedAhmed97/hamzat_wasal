@@ -39,7 +39,7 @@ export class Singleblog extends React.Component
 
                 <div>
                     <a href="#" className="post-image">
-                    <img src="http://placehold.it/960x250/efefef" />
+                    <img src="../images/blog.jpeg"  />
                     </a>
                 </div>
 
