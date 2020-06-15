@@ -8,7 +8,7 @@ use App\User;
 use Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\RegisterRequest;
-
+use App\Jobs\SendUsersMails;
 class RegisterController extends Controller
 {
     
@@ -29,6 +29,7 @@ public function store(RegisterRequest $request)
      if($user)
         {   
             $user->assignRole('user');
+            dispatch(new SendUsersMails($request->email ,$user->isAdmin))->delay(now()->addMinutes(3));
             return response()->json([
                 "Success" => 'User is added successfully ^_^ ',
                 "status"=>200,

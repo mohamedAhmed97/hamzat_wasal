@@ -44,7 +44,7 @@ class MentorController extends Controller
         else
         {   
             $admin->assignRole('mentor');
-            dispatch(new SendUsersMails($request->email ,$admin->isAdmin))->delay(now()->addMinutes(10));
+            dispatch(new SendUsersMails($request->email ,$admin->isAdmin))->delay(now()->addMinutes(3));
 
             return response()->json(
                 [
