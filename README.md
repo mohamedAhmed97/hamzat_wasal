@@ -79,7 +79,7 @@ You should have npm or yarn installed from [here](https://www.digitalocean.com/c
     ```
 2. cd into the project. 
     ```sh
-    cd hamzet_wasl_Frontend
+    cd hamzat-wasel-front-end
     ```
 3.  Run this command to update npm packages
     ```sh
