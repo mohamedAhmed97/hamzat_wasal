@@ -93,12 +93,14 @@ export class Blogs extends React.Component {
                                             <h4>Category: <strong> {blog.categoryinfo.category_name} </strong> <span class="verified"></span></h4>
                                         </div>
                                         <div>
-                                            {
+                                            { this.current_user?
                                                 (this.current_user.name === blog.userinfo.name) ?
 
                                                     <button onClick={() => this.onBlogDelete(blog.id)} className="btn btn-danger font-weight-bold m-1 mybtn3">
                                                         it's one of your posts, do you want to delete it? </button>
-                                                    : ""}
+                                                    : ""
+                                                
+                                                : null}
                                         </div>
                                     </div>
                                 </article>
