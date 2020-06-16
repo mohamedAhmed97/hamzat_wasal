@@ -55,7 +55,7 @@ You should have npm or yarn installed from [here](https://www.digitalocean.com/c
     
    Seed the database (seed the admin)
     ```sh
-    php artisan db:seed –class CreateAdmin
+    php artisan db:seed --class CreateAdmin
     ```
 10. Create symbolic link for images
     ```sh
