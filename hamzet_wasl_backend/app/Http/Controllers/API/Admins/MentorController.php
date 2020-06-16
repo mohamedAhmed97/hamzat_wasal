@@ -114,11 +114,13 @@ class MentorController extends Controller
 
     public function approvalMentor($id)
     {
+        $theMentor=User::find($id);
         $mentor=User::find($id)->update([
             'binding'=>0,
         ]);
         if($mentor)
         {
+            dispatch(new SendUsersMails($theMentor ,4))->delay(now()->addMinutes(3));
             return response()->json(["status"=>200]);
         }
         else

@@ -10,6 +10,7 @@ use App\Http\Requests\PostRequest;
 use App\Media;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\SendUsersMails;
 
 class PostController extends Controller
 {   
@@ -141,6 +142,7 @@ class PostController extends Controller
         $post->update([
             'approval'=>1,
         ]);
+        dispatch(new SendUsersMails("mail@mail.com" ,3))->delay(now()->addMinutes(3));
         return response()->json(["status"=>200]);
     }
 
