@@ -36,8 +36,8 @@ class WorkshopUser extends React.Component {
         />
         <MaterialTable
           columns={[
-            { title: "id", field: "uw_id" },
-            { title: "name", field: "name" },
+            { title: "Name", field: "name" },
+            { title: "Status", field: "status" },
           ]}
           data={this.state.data}
            editable={{
