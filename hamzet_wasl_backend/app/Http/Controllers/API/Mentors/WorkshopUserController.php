@@ -30,7 +30,7 @@ class WorkshopUserController extends Controller
     }
 
     public function update($id){
-        $x=DB::table('user_workshop')->where('uw_id',$id)->update(['status'=>0]);
+        $x=DB::table('user_workshop')->where('uw_id',$id)->update(['status'=>'Accepted']);
         // dd($x);
         return response()->json(["status"=>200]);
     }
