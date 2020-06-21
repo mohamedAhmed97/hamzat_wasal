@@ -16,7 +16,7 @@ import WorkshopUser from '../workshopUser/WorkshopUser';
 import Edit from '../workshops/Edit';
 import { Singleblog } from '../Blogs/Singleblog';
 import { Addblog } from '../Blogs/Addblog';
-
+import CustomProfile from '../profile/CustomProfile';
 const Content = ({ sidebarIsOpen, toggleSidebar }) => (
   <Container
     fluid
@@ -38,15 +38,9 @@ const Content = ({ sidebarIsOpen, toggleSidebar }) => (
       <Route exact path="/blogs/addblog" component={Addblog} />
       <Route path="/blogs/:id" component={Singleblog} />
       <Route exact path="/Page-1" component={"Category"} />
-      <Route exact path="/Home-1" component={() => "Home-1"} />
-      <Route exact path="/Home-2" component={() => "Home-2"} />
-      <Route exact path="/Home-3" component={() => "Home-3"} />
       <Route exact path="/categories" component={Categories} />
-      <Route exact path="/Page-2" component={() => "Page-2"} />
-      <Route exact path="/page-1" component={() => "page-1"} />
-      <Route exact path="/page-2" component={() => "page-2"} />
-      <Route exact path="/page-3" component={() => "page-3"} />
-      <Route exact path="/page-4" component={() => "page-4"} />
+      <Route exact path="/profile/:id" component={CustomProfile} />
+     
     </Switch>
   </Container>
 );
