@@ -55,7 +55,7 @@ You should have npm or yarn installed from [here](https://www.digitalocean.com/c
     
    Seed the database (seed the admin)
     ```sh
-    php artisan db:seed –class CreateAdmin
+    php artisan db:seed --class CreateAdmin
     ```
 10. Create symbolic link for images
     ```sh
@@ -79,7 +79,7 @@ You should have npm or yarn installed from [here](https://www.digitalocean.com/c
     ```
 2. cd into the project. 
     ```sh
-    cd hamzet_wasl_Frontend
+    cd hamzat-wasel-front-end
     ```
 3.  Run this command to update npm packages
     ```sh
