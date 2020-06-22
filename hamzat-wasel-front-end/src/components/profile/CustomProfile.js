@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -8,91 +9,96 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
-import ProfileBlog from '../Blogs/ProfileBlog';
 import ProfileWorkshops from '../workshops/ProfileWorkshop'
-import axios from 'axios';
+import ProfileBlog from '../Blogs/ProfileBlog';
+
+
+
 
 const current_user = 0;
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
+let load = false;
 
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-    chip: {
-        margin: theme.spacing(0.5),
-    },
-}));
+class Profile extends React.Component {
 
-function Profile(props) {
+    
+    constructor() {
+        super();
+        this.state = {
+          user: [
+          ]
+        };
+    
+      }
 
-    const classes = useStyles();
-    const [state, setState] = useState({
-        user: []
-    });
-
-
-
+      useStyles = makeStyles((theme) => ({
+        root: {
+            flexGrow: 1,
+    
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        },
+        chip: {
+            margin: theme.spacing(0.5),
+        },
+    }));
+    
 
     //componet before mounted
-    useEffect(() => {
+    componentDidMount() { 
         // Update the document title using the browser API
         // console.log(props.match.params.id)
         axios.defaults.withCredentials = true;
-        axios.get("localhost:8000/api/users/" + props.match.params.id).then((userData) => {
-            console.log("my Data " + userData);
+        axios.get("http://localhost:8000/api/users/"+this.props.match.params.id).then(res => {
+            this.setState({ user: res.data.user });
+            
+            console.log("my Data " + this.state.user.id);
+            
+            
+        },load = true);
+    }
 
-            setState({ user: userData });
-            current_user = userData.isAdmin;
-        }).catch((error) => {
-            console.log(error);
-        });
+render(){
+    this.classes = this.useStyles;
 
-        /* setState({ user: cookies.get('UserData') }); */
-
-        return () => {
-            console.log("cleaned up");
-
-        };
-    }, []);
-
-
-
+    
+    if (load) {
+    
     return (
 
-        <div className={classes.root}>
-            <div class="container">
+        <div className={this.classes.root}>
+            
+            <div className="container">
                 <Grid item xs={12}>
                     <Paper variant="outlined" >
                         <br />
-                        <div class="span3 well">
+                        <div className="span3 well">
                             <center>
-
+                
                                 {current_user == 0 ?
                                     <img
-                                        src={"http://localhost:8000/storage/user/" + state.user.avatar}
-                                        name="aboutme" width="140" height="140" class="img-thumbnail rounded-circle" />
+                                        src={"http://localhost:8000/storage/user/" +this.state.user.avatar}
+                                        name="aboutme" width="140" height="140" className="img-thumbnail rounded-circle" />
                                     :
                                     <img
-                                        src={"http://localhost:8000/storage/Mentors/" + state.user.avatar}
-                                        name="aboutme" width="140" height="140" class="img-thumbnail rounded-circle" />
+                                        src={"http://localhost:8000/storage/Mentors/" +this.state.user.avatar}
+                                        name="aboutme" width="140" height="140" className="img-thumbnail rounded-circle" />
                                 }
 
 
-                                <h3>{state.user.name}</h3>
+                                <h3>{this.state.user.name}</h3>
                                 <br />
                             </center>
                         </div>
                     </Paper>
                 </Grid>
                 <br />
+                
                 <Grid container spacing={3}>
                     <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>
+                        <Paper className={this.classes.paper}>
                             <List component="nav" aria-label="main mailbox folders">
                                 <ListItem button>
                                     <ListItemIcon>
@@ -107,11 +113,11 @@ function Profile(props) {
                         </Paper>
                     </Grid>
                     <Grid item xs={6} sm={9}>
-                        <Paper className={classes.paper}>
+                        <Paper className={this.classes.paper}>
                             {current_user == 0 ?
-                                <ProfileBlog user={state.user}></ProfileBlog>
+                                <ProfileBlog user={this.state.user}></ProfileBlog>
                                 :
-                                <ProfileWorkshops user={state.user}></ProfileWorkshops>
+                                <ProfileWorkshops user={this.state.user}></ProfileWorkshops>
                             }
 
                         </Paper>
@@ -123,8 +129,17 @@ function Profile(props) {
         </div>
 
     )
-}
 
+                        }
+                        else {
+                            return (
+                                <div>
+                                    Loading...
+                                </div>
+                            );
+                        }
+}
+}
 
 export default Profile;
 

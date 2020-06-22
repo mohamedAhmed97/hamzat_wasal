@@ -4,7 +4,8 @@ import axios from 'axios';
 import config from '../token/token';
 import CheckIcon from '@material-ui/icons/Check';
 import PersonIcon from '@material-ui/icons/Person';
-import { Redirect } from 'react-router';
+import { Redirect } from "react-router-dom";
+
 
 class WorkshopUser extends React.Component {
 
