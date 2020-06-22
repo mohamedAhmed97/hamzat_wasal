@@ -47,7 +47,7 @@ export default class ProfileBlog extends React.Component {
                             <div className="grid_12">
                                 <article className="post post-blog">
                                     <a href="#" className="post-image">
-                                    <img src="images/blog.jpeg"  />
+                                    <img src={process.env.PUBLIC_URL +"/images/blog.jpeg"}  />
                                     </a>
                                     <div className="details">
                                         <Link to={`/blogs/${blog.id}`}>

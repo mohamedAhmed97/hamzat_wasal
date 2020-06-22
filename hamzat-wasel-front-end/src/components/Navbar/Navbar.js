@@ -39,8 +39,8 @@ const Navbar1 = (props) => {
     <div>
 
       <Navbar className="mb-3" style={{ backgroundColor: "#24c0d1" }} expand="md">
-      <img src="images/logo.png" style={{width:50, height:50}}
-                            className= "p-1 img-thumbnail" alt="logo" />
+      <img src={process.env.PUBLIC_URL +"/images/logo.png"} 
+        style={{width:50, height:50}} className= "p-1 img-thumbnail" alt="logo" /> 
         <NavbarBrand href="/" className="font-weight-bold ml-2 text-light">
           Hamzet Wasl</NavbarBrand>
         <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{ color: "white" }}
