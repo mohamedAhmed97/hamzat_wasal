@@ -77,6 +77,9 @@ Route::group(['prefix' => 'users'], function () {
     Route::put('/{user}', 'API\Admins\UserController@update');
     //index
     Route::get('/', 'API\Admins\UserController@index');
+    //show
+    Route::get('/{id}', 'API\Admins\UserController@show');
+
 });
 
 //Post
