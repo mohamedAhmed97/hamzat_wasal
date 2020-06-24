@@ -16,6 +16,7 @@ class AllWorkshops extends Component {
         this.state = { 
             workshops: [], 
             alert_message: '',
+            alert_message2: '',
             // search: '',
             total: '',
             current_page: 1,
@@ -83,10 +84,12 @@ class AllWorkshops extends Component {
         formData.append("user_id" , this.state.current_user_id);
         formData.append("workshop_id" , workshopId);
         axios.post('http://localhost:8000/api/workshopUser',formData,config).then(res => {
+            this.setState({ alert_message2: "success"});     
+                setTimeout(() => this.setState({alert_message2:''}), 8000);
                 // console.log(res.data);    
                 }).catch(error => {
                     // console.log(error)
-                    }); 
+                }); 
     }
 
 
@@ -166,6 +169,8 @@ render() {
                 style={{width:198}} onChange={this.handleSearch.bind(this)}/>
              
         </div> */}
+        {this.state.alert_message2 === "success" ? <AlertSuccess message=
+        {"Your request has been sent, please check your email"} /> : ""}
         {this.state.alert_message === "success" ? <AlertSuccess message=
         {"You deleted this workshop successfully, This record isn't a part of the database anymore"} /> : ""}
         <div className="row mt-3">

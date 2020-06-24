@@ -230,7 +230,7 @@ render() {
                             {this.state.category_idError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
                         </span>
                     </div> 
-                    <div className="form-row m-1">
+                    <div className="form-row m-2">
                         <label htmlFor="meetings" className="font-weight-bold mr-2">
                         Meeting Join URL: 
                         </label>
