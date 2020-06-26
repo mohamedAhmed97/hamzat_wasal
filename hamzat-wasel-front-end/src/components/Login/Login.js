@@ -67,7 +67,8 @@ function Login() {
                 <div className="page-content">
                     <div className="form-v7-content">
                         <div className="form-left">
-                            <img src="images/login.gif" className="m-lg-5 p-1" alt="login" />
+                            <img src={process.env.PUBLIC_URL +"/images/login.gif"}  
+                            className="m-lg-5 p-1" alt="login" />
                         </div>
                         <form className="form-detail" onSubmit={onSubmit} id="myform">
                             <h3 className="font-weight-bold mb-5 p-2 text-white text-center"

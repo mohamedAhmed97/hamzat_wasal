@@ -3,6 +3,8 @@ import MaterialTable from "material-table";
 import axios from 'axios';
 import config from '../token/token';
 import CheckIcon from '@material-ui/icons/Check';
+import PersonIcon from '@material-ui/icons/Person';
+import { Redirect } from "react-router-dom";
 
 
 class WorkshopUser extends React.Component {
@@ -27,7 +29,8 @@ class WorkshopUser extends React.Component {
 
 
   render() {
-
+      console.log(this.state.data);
+      
     return (
       <div style={{ maxWidth: "100%" }} className="container">
         <link
@@ -61,6 +64,13 @@ class WorkshopUser extends React.Component {
           }}
         
         actions={[
+          {
+            icon: PersonIcon,
+            tooltip: 'Vist User',
+            onClick: (event , oldData) => {
+              window.location.href = "http://localhost:3000/profile/"+oldData.user_id
+            }
+          },
           {
             icon: CheckIcon,
             tooltip: 'Accept User',

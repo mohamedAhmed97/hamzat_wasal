@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 export default class ProfileBlog extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props)
+        //console.log(this.props)
         this.state = {
             blogs: []
         }
@@ -21,6 +21,8 @@ export default class ProfileBlog extends React.Component {
         
         axios.get("http://localhost:8000/api/profile/posts/" + this.props.user.id)
         .then(res => {
+        console.log(this.props)
+
             //console.log(res.data)
             this.setState({
                 blogs: res.data.posts
@@ -42,20 +44,20 @@ export default class ProfileBlog extends React.Component {
                 return (
                     <div key={index}>
 
-                        <div class="container">
-                            <div class="grid_12">
-                                <article class="post post-blog">
+                        <div className="container">
+                            <div className="grid_12">
+                                <article className="post post-blog">
                                     <a href="#" className="post-image">
-                                    <img src="images/blog.jpeg"  />
+                                    <img src={process.env.PUBLIC_URL +"/images/blog.jpeg"}  />
                                     </a>
-                                    <div class="details">
+                                    <div className="details">
                                         <Link to={`/blogs/${blog.id}`}>
                                             <h2>Title: {blog.title}</h2>
                                         </Link>
 
 
-                                        <div class="meta">
-                                            <h4>Category: <strong> {blog.categoryinfo.category_name} </strong> <span class="verified"></span></h4>
+                                        <div className="meta">
+                                            <h4>Category: <strong> {blog.categoryinfo.category_name} </strong> <span className="verified"></span></h4>
                                         </div>
                                     </div>
                                 </article>

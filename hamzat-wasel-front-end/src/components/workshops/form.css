@@ -25,6 +25,16 @@
     margin-bottom: 3px;
 }
 
+.form-info .input-password {
+    width: 10%;
+    margin-bottom: 3px;
+}
+
+.form-info .input-link {
+    width: 55%;
+    margin-bottom: 3px;
+}
+
 .form-info .form-row span.errors {
     color: red;
 	font-family: 'Fjalla One', sans-serif !important;
@@ -69,5 +79,13 @@
 }
 
 .form-info .form-row .input-description:focus {
+	border-bottom: 3px solid #24c0d1;
+}
+
+.form-info .form-row .input-password:focus {
+	border-bottom: 3px solid #24c0d1;
+}
+
+.form-info .form-row .input-link:focus {
 	border-bottom: 3px solid #24c0d1;
 }

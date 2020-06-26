@@ -28,10 +28,23 @@ class Edit extends Component {
             workshop_price: '',
             user_id: current_user.id,
             category_id: '',
+            meeting_link:'',
+            meeting_password: '',
+            meeting_backup_link: '',
+            meeting_backup_password: '',
             categories:[],
             alert_message: '',
             titleError: '',
             descriptionError: '',
+            start_dateError: '',
+            end_dateError: '',
+            capcityError: '',
+            workshop_priceError: '',
+            category_idError: '',
+            meeting_linkError:'',
+            meeting_passwordError: '',
+            meeting_backup_linkError: '',
+            meeting_backup_passwordError: '',
         }
     }
 
@@ -60,6 +73,10 @@ class Edit extends Component {
                     start_date: startDate.format('yyyy-MM-DDThh:mm'),
                     end_date: endDate.format('yyyy-MM-DDThh:mm'),
                     capcity: res.data.data.capcity,
+                    meeting_link: res.data.data.meeting_link,
+                    meeting_password: res.data.data.meeting_password ,
+                    meeting_backup_link: res.data.data.meeting_backup_link,
+                    meeting_backup_password: res.data.data.meeting_backup_password,
                     workshop_price: res.data.data.workshop_price,
                     category_id: res.data.data.category_id,
             })
@@ -78,81 +95,54 @@ class Edit extends Component {
         // console.log(this.state);   
     };
 
-    validate = () => {
-        let titleError = '';
-        let descriptionError = '';
-        let start_dateError = '';
-        let end_dateError = '';
-        let capcityError = '';
-        let workshop_priceError = '';
-        
-
-        if (!this.state.title){
-            titleError = "Name is required, you have to fill it!";
-        }
-
-        if (this.state.title && this.state.title.length < 3){
-            titleError = "Name must be at least 3 characters";
-        }
-
-        if (!this.state.description){
-            descriptionError = "Description is required, you have to fill it!";
-        }
-
-        if (this.state.description && this.state.description.length < 10){
-            descriptionError = "Description must be at least 10 characters";
-        }
-
-        if (!this.state.start_dateError){
-            start_dateError = "Start date is required, you have to choose it!";
-        }
-
-        if (!this.state.end_dateError){
-            end_dateError = "End date is required, you have to choose it!";
-        }
-
-        if (!this.state.capcityError){
-            capcityError = "Number of attendees is required, you have to fill it!";
-        }
-
-        if (!this.state.workshop_priceError){
-            workshop_priceError = "Price is required, you have to fill it!";
-        }
-
-        if(titleError || descriptionError || start_dateError || end_dateError 
-            || capcityError || workshop_priceError ){
-            this.setState({ 
-                titleError, descriptionError, 
-                start_dateError, end_dateError,
-                capcityError,workshop_priceError})
-            return false;
-        }
-        return true;
+    showAlert(ev) {
+        alert("You have to choose the platform you prefer to hold the meeting using it example: Zoom, Google Hangouts,.. etc and the meeting URL and password will be sent to the accepted users ONLY")
+        ev.preventDefault(); 
     }
 
     onSubmit = e => {
         e.preventDefault();  
-        const isValid = this.validate();
-        if (isValid) { 
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
             axios.put('http://localhost:8000/api/workshops/'+this.props.match.params.id,this.state,config)
             .then(res => {
                 // console.log(res.data);
-                this.setState({alert_message: "success"});
+                this.setState({
+                    alert_message: "success",
+                    titleError: '',
+                    descriptionError: '',
+                    start_dateError: '',
+                    end_dateError: '',
+                    capcityError: '',
+                    workshop_priceError: '',
+                    category_idError: '',
+                    meeting_linkError:'',
+                    meeting_passwordError: '',
+                    meeting_backup_linkError: '',
+                    meeting_backup_passwordError: '',
+                });
                 setTimeout(() => this.setState({alert_message:''}), 2000);
 
             }).catch(error => {
-                this.setState({alert_message: "error"});
+                this.setState({
+                    alert_message: "error",
+                    titleError: error.response.data.errors.title,
+                    descriptionError: error.response.data.errors.description,
+                    start_dateError: error.response.data.errors.start_date,
+                    end_dateError: error.response.data.errors.end_date,
+                    capcityError: error.response.data.errors.capcity,
+                    workshop_priceError: error.response.data.errors.workshop_price,
+                    category_idError: error.response.data.errors.category_id,
+                    meeting_linkError: error.response.data.errors.meeting_link,
+                    meeting_passwordError: error.response.data.errors.meeting_password,
+                    meeting_backup_linkError: error.response.data.errors.meeting_backup_link,
+                    meeting_backup_passwordError: error.response.data.errors.meeting_backup_password,
+                });
                 setTimeout(() => this.setState({alert_message:''}), 2000);
                 // console.log(error);
             }); 
         });
-        this.setState({
-            titleError: '',
-            descriptionError: '',
-        });
-    };
+    
 }
 
 
@@ -164,7 +154,7 @@ render() {
                 <AlertSuccess message="Workshop Updated successfully" /> : ""}
         <div className="row">
 		    <div className="col-12">
-                <form className="form-info p-3 m-2" onSubmit={this.onSubmit}>
+                <form className="form-info p-3 mb-5" onSubmit={this.onSubmit}>
                     <div className="form-row m-1">
                         <label htmlFor="title" className="font-weight-bold mr-2">
                             Name: </label>
@@ -190,24 +180,36 @@ render() {
                             Start Date: </label>
                         <input type="datetime-local" name="start_date" className="mr-2 input-date" 
                             value={this.state.start_date} onChange={this.handleChange}/>
-                    </div> 
-                    <div className="form-row m-1">
+                        <span className="errors mr-1">
+                            {this.state.start_dateError}    
+                            {this.state.start_dateError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
                         <label htmlFor="end_date" className="font-weight-bold mr-2">
                             End Date: </label>
                         <input type="datetime-local" name="end_date" value={this.state.end_date}
                             className="mr-2 input-date" onChange={this.handleChange}/>
+                        <span className="errors">
+                            {this.state.end_dateError}    
+                            {this.state.end_dateError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
                     </div> 
                     <div className="form-row m-1">
                         <label htmlFor="capcity" className="font-weight-bold mr-2">
                             Number of attendees: </label>
                         <input type="number" name="capcity" className="mr-2 input-date"
                             value={this.state.capcity} onChange={this.handleChange}/>
-                    </div>
-                    <div className="form-row m-1">
+                        <span className="errors mr-1">
+                            {this.state.capcityError}    
+                            {this.state.capcityError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
                         <label htmlFor="workshop_price" className="font-weight-bold mr-2">
                             Price: </label>
                         <input type="number" name="workshop_price" className="mr-2 input-date" 
                             value={this.state.workshop_price} onChange={this.handleChange}/>
+                        <span className="errors">
+                            {this.state.workshop_priceError}    
+                            {this.state.workshop_priceError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
                     </div>
                     <div className="form-row m-1">
                         <label htmlFor="workshop_price" className="font-weight-bold mr-2">
@@ -223,7 +225,57 @@ render() {
                         })
                         }
                         </select>
+                        <span className="errors">
+                            {this.state.category_idError}    
+                            {this.state.category_idError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
                     </div> 
+                    <div className="form-row m-2">
+                        <label htmlFor="meetings" className="font-weight-bold mr-2">
+                        Meeting Join URL: 
+                        </label>
+                        <button onClick={this.showAlert} className="btn btn-danger font-weight-bold btn-sm mr-2" > 
+                            Important Disclaimer
+                        </button>
+                        <span>For Better understanding kindly watch 
+                        <a style={{color:'red',textDecorationLine: 'underline'}} target="_blank"
+                        href="https://www.youtube.com/watch?time_continue=67&v=XhZW3iyXV9U&feature=emb_logo"> this video</a> </span>
+                        <input type="text" name="meeting_link" className="mr-2 input-link" 
+                            value={this.state.meeting_link} onChange={this.handleChange}/>
+                        <span className="errors mr-1">
+                        {this.state.meeting_linkError}    
+                        {this.state.meeting_linkError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
+                        <label htmlFor="workshops" className="font-weight-bold mr-2">
+                            Meeting Password (if exists): </label>
+                        <input type="text" name="meeting_password" className="mr-2 input-password" 
+                            value={this.state.meeting_password} onChange={this.handleChange}/>
+                        <span className="errors">
+                        {this.state.meeting_passwordError}    
+                        {this.state.meeting_passwordError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
+                    </div>
+                    <div className="form-row m-1">
+                        <label htmlFor="meetings" className="font-weight-bold mr-2">
+                        Meeting Backup URL (if exists): 
+                        </label>
+                        <input type="text" name="meeting_backup_link" className="mr-2 input-link" 
+                            value={this.state.meeting_backup_link} onChange={this.handleChange}/>
+                        <span className="errors">
+                        {this.state.meeting_backup_linkError}    
+                        {this.state.meeting_backup_linkError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>
+                    </div>
+                    <div className="form-row m-1">
+                        <label htmlFor="workshops" className="font-weight-bold mr-2">
+                            Meeting Backup Password (if exists): </label>
+                        <input type="text" name="meeting_backup_password" className="mr-2 input-password" 
+                            value={this.state.meeting_backup_password} onChange={this.handleChange}/>
+                        <span className="errors">
+                        {this.state.meeting_backup_passwordError}    
+                        {this.state.meeting_backup_passwordError ? (<FontAwesomeIcon className="ml-2" icon={faTimesCircle} />) : ""}
+                        </span>  
+                    </div>
                     <div className="form-row-last">
                         <input type="submit" className="btn btn-success font-weight-bold" value="Update" />
                     </div>

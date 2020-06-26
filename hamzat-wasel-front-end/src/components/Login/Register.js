@@ -136,7 +136,7 @@ function Register() {
             <div className="page-content">
                 <div className="form-v7-content">
                     <div className="form-left">
-                        <img src="images/login.gif"
+                        <img src={process.env.PUBLIC_URL +"/images/login.gif"} 
                             className="m-lg-5 p-1 img-fluid" alt="register" />
                     </div>
                     <form className="form-detail" id="myform" onSubmit={handleSubmit(onSubmit)}>
