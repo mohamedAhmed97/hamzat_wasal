@@ -18,6 +18,8 @@ use Illuminate\Validation\ValidationException;
 |
 */
 
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -51,11 +53,10 @@ Route::group(['prefix' => 'mentors'], function () {
     //index
     Route::get('/', 'API\Admins\MentorController@index');
     //
-    Route::put('/aprove/{id}','API\Admins\MentorController@approvalMentor');
+    Route::put('/aprove/{id}', 'API\Admins\MentorController@approvalMentor');
 });
-Route::group(['prefix' => 'mentors','middleware' => ['auth:sanctum', 'role:admin']], function () {
+Route::group(['prefix' => 'mentors', 'middleware' => ['auth:sanctum', 'role:admin']], function () {
     Route::get('/binding', 'API\Admins\MentorController@bindingMentor');
-  
 });
 
 //workshops
@@ -75,11 +76,10 @@ Route::group(['prefix' => 'users'], function () {
     Route::delete('/{user}', 'API\Admins\UserController@destroy');
     //update
     Route::put('/{user}', 'API\Admins\UserController@update');
-    //index
-    Route::get('/', 'API\Admins\UserController@index');
     //show
     Route::get('/{id}', 'API\Admins\UserController@show');
-
+    //index
+    Route::get('/', 'API\Admins\UserController@index');
 });
 
 //Post
@@ -120,6 +120,14 @@ Route::post('/login', function (Request $request) {
     ]);
 
     $user = User::where('email', $request->email)->first();
+     if($user->hasVerifiedEmail()==false)
+     {
+        
+        return response()->json([
+            "message"=>"please Verify Your Mail",
+            "status"=>401
+        ]);
+     }   
 
     if (!$user || !Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
@@ -137,12 +145,12 @@ Route::post('/login', function (Request $request) {
 
 
 // Join Workshop
-Route::group(['prefix' => 'workshopUser','middleware' => ['auth:sanctum']], function () {
-    
+Route::group(['prefix' => 'workshopUser', 'middleware' => ['auth:sanctum']], function () {
+
     Route::post('/', 'API\Mentors\WorkshopUserController@store');
 });
 // Mentor view workshop join requests
-Route::group(['prefix' => 'workshopUser','middleware' => ['auth:sanctum','role:mentor']], function () {
+Route::group(['prefix' => 'workshopUser', 'middleware' => ['auth:sanctum', 'role:mentor']], function () {
     //destroy(reject joining)
     Route::delete('/{id}', 'API\Mentors\WorkshopUserController@destroy');
     //update (accept joining)
@@ -150,4 +158,9 @@ Route::group(['prefix' => 'workshopUser','middleware' => ['auth:sanctum','role:m
     //index
     Route::get('/{workshop_id}', 'API\Mentors\WorkshopUserController@index');
 });
-Route::put('/approve/{id}' , 'API\Mentors\WorkshopUserController@update');
+Route::put('/approve/{id}', 'API\Mentors\WorkshopUserController@update');
+
+
+//verify mail 
+Route::get('/email/resend', 'API\VerificationController@resend')->name('verification.resend');
+Route::get('/email/verify/{id}/{hash}', 'API\VerificationController@verify')->name('verification.verify');
