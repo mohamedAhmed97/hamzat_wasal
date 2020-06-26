@@ -6,7 +6,15 @@ import Cookies from 'universal-cookie';
 import AlertSuccess from '../alert/AlertSuccess';
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
-import FroalaEditor from 'react-froala-wysiwyg';
+import FroalaEditorImg from 'react-froala-wysiwyg';
+import { HtmlEditor, MenuBar } from '@aeaton/react-prosemirror'
+import { options, menu } from '@aeaton/react-prosemirror-config-default'
+
+// Import bootstrap(v3 or v4) dependencies
+/* import 'bootstrap/js/modal';
+import 'bootstrap/js/tooltip';
+import 'bootstrap/dist/css/bootstrap.css';
+ */
 export class Addblog extends React.Component {
     constructor(props) {
         super(props)
@@ -14,10 +22,9 @@ export class Addblog extends React.Component {
         const current_user = cookies.get('UserData');
         this.state = {
             title: '',
-            model: 'Example text',
             user_id: current_user.id,
             category_id: '',
-            description: '',
+            description: 'Example text',
             categories: [],
             alert_message: ''
         }
@@ -32,15 +39,15 @@ export class Addblog extends React.Component {
     };
     handleChange = ({ target }) => {
         this.setState({ ...this.state, [target.name]: target.value });
-        //console.log(target.value);
+        // console.log(target.value);
     };
 
     handleModelChange = (model) => {
         this.setState({
-            model: model
+            description: model
         });
-        console.log(this.state);
-
+        // this.setState({ ...this.state, description: model });
+        //console.log(model);
     }
 
     onSubmit = (e) => {
@@ -96,11 +103,24 @@ export class Addblog extends React.Component {
                                     Article body </label>
                             </div>
                             <br />
-                            <FroalaEditor
+
+                           {/*  <FroalaEditorImg
+
                                 name="description"
-                                model={this.state.model}
-                                onChange={this.handleChange}
+                                model={this.state.description}
                                 onModelChange={this.handleModelChange}
+                            /> */}
+
+                            <HtmlEditor
+                                options={options}
+                                value={this.state.description}
+                                onChange={this.handleModelChange}
+                                render={({ editor, view }) => (
+                                    <div>
+                                        <MenuBar menu={menu} view={view} />
+                                        {editor}
+                                    </div>
+                                )}
                             />
 
                             <br />

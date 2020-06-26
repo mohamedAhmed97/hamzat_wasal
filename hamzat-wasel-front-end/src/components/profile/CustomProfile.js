@@ -8,11 +8,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
-import ProfileBlog from '../Blogs/ProfileBlog';
-import ProfileWorkshops from '../workshops/ProfileWorkshop'
+import CustomeBlog from '../Blogs/CustomeBlog';
 import axios from 'axios';
 
-const current_user = 0;
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -31,100 +30,86 @@ const useStyles = makeStyles((theme) => ({
 function Profile(props) {
 
     const classes = useStyles();
+    const [load, setLoad] = useState(false);
+    const [error, setError] = useState('');
     const [state, setState] = useState({
         user: []
     });
+
+    const userId = state.user.id;
+
+
 
 
 
 
     //componet before mounted
     useEffect(() => {
-        // Update the document title using the browser API
-        // console.log(props.match.params.id)
-        axios.defaults.withCredentials = true;
-        axios.get("localhost:8000/api/users/" + props.match.params.id).then((userData) => {
-            console.log("my Data " + userData);
-
-            setState({ user: userData });
-            current_user = userData.isAdmin;
-        }).catch((error) => {
-            console.log(error);
-        });
-
-        /* setState({ user: cookies.get('UserData') }); */
-
-        return () => {
-            console.log("cleaned up");
-
-        };
+        axios.get("http://localhost:8000/api/users/" + props.match.params.id)
+            .then(res => {
+                setState({ user: res.data.user });
+                setLoad(true);
+            })
+            .catch(err => {
+                setError(err.message);
+                setLoad(true)
+            })
     }, []);
+    if (load) {
+        return (
 
-
-
-    return (
-
-        <div className={classes.root}>
-            <div class="container">
-                <Grid item xs={12}>
-                    <Paper variant="outlined" >
-                        <br />
-                        <div class="span3 well">
-                            <center>
-
-                                {current_user == 0 ?
+            <div className={classes.root}>
+                <div class="container">
+                    <Grid item xs={12}>
+                        <Paper variant="outlined" >
+                            <br />
+                            <div class="span3 well">
+                                <center>
                                     <img
                                         src={"http://localhost:8000/storage/user/" + state.user.avatar}
                                         name="aboutme" width="140" height="140" class="img-thumbnail rounded-circle" />
-                                    :
-                                    <img
-                                        src={"http://localhost:8000/storage/Mentors/" + state.user.avatar}
-                                        name="aboutme" width="140" height="140" class="img-thumbnail rounded-circle" />
-                                }
-
-
-                                <h3>{state.user.name}</h3>
-                                <br />
-                            </center>
-                        </div>
-                    </Paper>
-                </Grid>
-                <br />
-                <Grid container spacing={3}>
-                    <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>
-                            <List component="nav" aria-label="main mailbox folders">
-                                <ListItem button>
-                                    <ListItemIcon>
-                                        <InboxIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Mail" />
-                                </ListItem>
-
-                            </List>
-                            <Divider />
-
+                                    <h3>{state.user.name}</h3>
+                                    <br />
+                                </center>
+                            </div>
                         </Paper>
                     </Grid>
-                    <Grid item xs={6} sm={9}>
-                        <Paper className={classes.paper}>
-                            {current_user == 0 ?
-                                <ProfileBlog user={state.user}></ProfileBlog>
-                                :
-                                <ProfileWorkshops user={state.user}></ProfileWorkshops>
-                            }
+                    <br />
+                    <Grid container spacing={3}>
+                        <Grid item xs={6} sm={3}>
+                            <Paper className={classes.paper}>
+                                <List component="nav" aria-label="main mailbox folders">
+                                    <ListItem button>
+                                        <ListItemIcon>
+                                            <InboxIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Mail" />
+                                    </ListItem>
 
-                        </Paper>
+                                </List>
+                                <Divider />
+
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={6} sm={9}>
+                            <Paper className={classes.paper}>
+                                <CustomeBlog user={userId}></CustomeBlog>
+                            </Paper>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </div>
+
+
             </div>
 
-
-        </div>
-
-    )
-}
-
-
-export default Profile;
+        )
+    } else {
+        return (
+            <div>
+                Loading...
+            </div>
+        );
+    }
+};
+    export default Profile;
 

@@ -35,10 +35,15 @@ function Login() {
         e.preventDefault();
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             axios.post('http://localhost:8000/api/login', state).then(res => {
+
                 
                 
                 if (res.data.data == 403) {
                     alert.error("Wait The Admin To Accept You");
+                }
+                else if(res.data.status===401)
+                {
+                    alert.error("please verify your account");
                 }
                 else {
                     cookies.set('UserToken', res.data, { path: '/', expires: new Date(Date.now() + 2592000) });

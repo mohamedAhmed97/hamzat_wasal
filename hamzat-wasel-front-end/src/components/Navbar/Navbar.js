@@ -27,7 +27,7 @@ import Logout from '../Login/logout';
 
 const cookies = new Cookies();
 const user = cookies.get('UserData');
-console.log(user);
+//console.log(user);
 
 const Navbar1 = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,18 +39,18 @@ const Navbar1 = (props) => {
     <div>
 
       <Navbar className="mb-3" style={{ backgroundColor: "#24c0d1" }} expand="md">
-      <img src="images/logo.png" style={{width:50, height:50}}
-                            className= "p-1 img-thumbnail" alt="logo" />
+        <img src="/images/logo.png" style={{ width: 50, height: 50 }}
+          className="p-1 img-thumbnail" alt="logo" />
         <NavbarBrand href="/" className="font-weight-bold ml-2 text-light">
           Hamzet Wasl</NavbarBrand>
         <FontAwesomeIcon className="ml-4 d-md-none fa-2x" icon={faBars} style={{ color: "white" }}
           onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto font-weight-bold" navbar>
-            { !user ? 
-            <NavItem>
-              <NavLink href="/Blogs" className="text-light">Blogs</NavLink>
-            </NavItem> :""}
+            {!user ?
+              <NavItem>
+                <NavLink href="/Blogs" className="text-light">Blogs</NavLink>
+              </NavItem> : ""}
             <ProtectedRegsiter></ProtectedRegsiter>
             <ProtectedLogin></ProtectedLogin>
             <ProtectedRoute></ProtectedRoute>
@@ -60,27 +60,37 @@ const Navbar1 = (props) => {
         </Collapse>
       </Navbar>
       <Router>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/Register" component={Register} />
-          <Route exact path="/blogs/addblog" component={Addblog} />
-          <Route path="/blogs/:id" component={Singleblog} />
-          <Route path="/blogs" component={Blogs} />
-          <Route path="/test" />
-          <Route path="/home" component={Home} />
-          <Route path="/404" component={NotFound} />
-          <Route path="/posts/requests" component={Posts} />
-          <Route path="/logout" component={Logout} />
-          
-          {user!=null?
-           
+        {user != null ?
+          <Switch>
+            <Route exact path="/blogs/addblog" component={Addblog} />
+            <Route path="/blogs/:id" component={Singleblog} />
+            <Route path="/blogs" component={Blogs} />
+            <Route path="/test" />
+            <Route path="/404" component={NotFound} />
+            <Route path="/posts/requests" component={Posts} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/home" component={Home} />
             <Route path="/" component={Home} />
+            </Switch>
             :
+            
+            <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/Register" component={Register} />
+            <Route exact path="/blogs/addblog" component={Addblog} />
+            <Route path="/blogs/:id" component={Singleblog} />
+            <Route path="/blogs" component={Blogs} />
+            <Route path="/test" />
+            <Route path="/404" component={NotFound} />
+            <Route path="/posts/requests" component={Posts} />
+            <Route path="/logout" component={Logout} />
             <Route path="/" component={Login} />
+            </Switch>
+            
           }
 
 
-        </Switch>
+       
       </Router>
     </div>
   );

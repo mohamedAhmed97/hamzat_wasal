@@ -3,11 +3,10 @@ import axios from 'axios';
 import '../blog/blog.css';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
-
-export default class ProfileBlog extends React.Component {
+export default class CustomeBlog extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props)
+        console.log(this.props.user)
         this.state = {
             blogs: []
         }
@@ -17,11 +16,10 @@ export default class ProfileBlog extends React.Component {
 
 
     componentDidMount() {
-
-        
-        axios.get("http://localhost:8000/api/profile/posts/" + this.props.user.id)
+   
+        axios.get("http://localhost:8000/api/profile/posts/" + this.props.user)
         .then(res => {
-            //console.log(res.data)
+            console.log(res.data)
             this.setState({
                 blogs: res.data.posts
                 //blogs: res.data
@@ -46,7 +44,7 @@ export default class ProfileBlog extends React.Component {
                             <div class="grid_12">
                                 <article class="post post-blog">
                                     <a href="#" className="post-image">
-                                    <img src="images/blog.jpeg"  />
+                                    <img src="/images/blog.jpeg"  />
                                     </a>
                                     <div class="details">
                                         <Link to={`/blogs/${blog.id}`}>

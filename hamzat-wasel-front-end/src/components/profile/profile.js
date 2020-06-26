@@ -31,19 +31,20 @@ function Profile() {
 
     const classes = useStyles();
     const cookies = new Cookies();
-    const current_user=cookies.get('UserData').isAdmin;
+    const current_user = cookies.get('UserData').isAdmin;
     const [state, setState] = useState({
-        user: []
+        user: [],
+        load: false,
     });
-   
 
-    
+
+
 
     //componet before mounted
     useEffect(() => {
         // Update the document title using the browser API
-        setState({ user: cookies.get('UserData') });
-        
+        setState({ user: cookies.get('UserData'),load:true });
+      
         return () => {
             console.log("cleaned up");
 
@@ -51,68 +52,75 @@ function Profile() {
     }, []);
 
 
+    if (state.load) {
+        return (
 
-    return (
+            <div className={classes.root}>
 
-        <div className={classes.root}>
-            <div class="container">
-                <Grid item xs={12}>
-                    <Paper variant="outlined" >
-                        <br />
-                        <div class="span3 well">
-                            <center>
-                                
-                                    {current_user==0?
-                                      <img
-                                      src={"http://localhost:8000/storage/user/" + state.user.avatar}
-                                      name="aboutme" width="140" height="140" class="img-thumbnail rounded-circle" />
-                                      :
-                                      <img
-                                      src={"http://localhost:8000/storage/Mentors/" + state.user.avatar}
-                                      name="aboutme" width="140" height="140" class="img-thumbnail rounded-circle" />
+                <div class="container">
+                    <Grid item xs={12}>
+                        <Paper variant="outlined" >
+                            <br />
+                            <div class="span3 well">
+                                <center>
+
+                                    {current_user == 0 ?
+                                        <img
+                                            src={"http://localhost:8000/storage/user/" + state.user.avatar}
+                                            name="aboutme" width="140" height="140" class="img-thumbnail rounded-circle" />
+                                        :
+                                        <img
+                                            src={"http://localhost:8000/storage/Mentors/" + state.user.avatar}
+                                            name="aboutme" width="140" height="140" class="img-thumbnail rounded-circle" />
                                     }
-                                  
 
-                                <h3>{state.user.name}</h3>
-                                <br />
-                            </center>
-                        </div>
-                    </Paper>
-                </Grid>
-                <br />
-                <Grid container spacing={3}>
-                    <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>
-                            <List component="nav" aria-label="main mailbox folders">
-                                <ListItem button>
-                                    <ListItemIcon>
-                                        <InboxIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Mail" />
-                                </ListItem>
 
-                            </List>
-                            <Divider />
-
+                                    <h3>{state.user.name}</h3>
+                                    <br />
+                                </center>
+                            </div>
                         </Paper>
                     </Grid>
-                    <Grid item xs={6} sm={9}>
-                        <Paper className={classes.paper}>
-                            {current_user==0?
-                             <ProfileBlog user={cookies.get('UserData')}></ProfileBlog>
-                             :
-                             <ProfileWorkshops user={cookies.get('UserData')}></ProfileWorkshops>
-                            }
-                           
-                        </Paper>
+                    <br />
+                    <Grid container spacing={3}>
+                        <Grid item xs={6} sm={3}>
+                            <Paper className={classes.paper}>
+                                <List component="nav" aria-label="main mailbox folders">
+                                    <ListItem button>
+                                        <ListItemIcon>
+                                            <InboxIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Mail" />
+                                    </ListItem>
+
+                                </List>
+                                <Divider />
+
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={6} sm={9}>
+                            <Paper className={classes.paper}>
+                                {current_user == 0 ?
+                                    <ProfileBlog user={cookies.get('UserData')}></ProfileBlog>
+                                    :
+                                    <ProfileWorkshops user={cookies.get('UserData')}></ProfileWorkshops>
+                                }
+
+                            </Paper>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </div>
             </div>
+        )
+    }
+    else {
+        return (
+            <div>
+                Loading...
+            </div>
+        );
+    }
 
-
-        </div>
-
-    )
 }
 
 

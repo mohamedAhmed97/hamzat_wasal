@@ -49,9 +49,10 @@ export class Singleblog extends React.Component
                      <p>article description: 
                             
                     </p>
-                    <pre> 
-                    {this.state.blog.description}
-                    </pre>
+                    
+                   {/*  {this.state.blog.description} */}
+                    <div dangerouslySetInnerHTML={{ __html: this.state.blog.description }} />
+
                 </div> 
             </article>   
         </div>
