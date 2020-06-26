@@ -15,6 +15,10 @@ class Workshop extends Model
         'workshop_price',
         'user_id',
         'category_id',
+        'meeting_link',
+        'meeting_password',
+        'meeting_backup_link',
+        'meeting_backup_password',
     ];
 
     public function categories()
