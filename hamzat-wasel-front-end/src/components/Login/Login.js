@@ -35,13 +35,11 @@ function Login() {
         e.preventDefault();
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             axios.post('http://localhost:8000/api/login', state).then(res => {
-
-                
-                
+                console.log(res);
                 if (res.data.data == 403) {
                     alert.error("Wait The Admin To Accept You");
                 }
-                else if(res.data.status===401)
+                else if(res.data.status==401)
                 {
                     alert.error("please verify your account");
                 }
