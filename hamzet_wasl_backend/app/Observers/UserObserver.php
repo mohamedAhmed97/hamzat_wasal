@@ -15,7 +15,9 @@ class UserObserver
     public function created(User $user)
     {
         //send mail to verify 
-        $user->sendEmailVerificationNotification();
+        if ($user->binding == 0) {
+            $user->sendEmailVerificationNotification();
+        }
     }
 
     /**
@@ -27,7 +29,9 @@ class UserObserver
     public function updated(User $user)
     {
         //
-        
+        if ($user->binding == 0) {
+            $user->sendEmailVerificationNotification();
+        }
     }
 
     /**

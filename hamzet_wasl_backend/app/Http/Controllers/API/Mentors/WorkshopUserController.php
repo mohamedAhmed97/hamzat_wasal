@@ -10,7 +10,8 @@ use App\User;
 use App\Workshop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Mail\AcceptWorkshop;
+use Illuminate\Support\Facades\Mail;
 class WorkshopUserController extends Controller
 {
     public function index($id){
@@ -26,12 +27,20 @@ class WorkshopUserController extends Controller
         DB::table('user_workshop')->insert(
             ['workshop_id' => $request->workshop_id , 'user_id' => $request->user_id]
         );
+
         return response()->json(["status"=>200]);
     }
 
     public function update($id){
-        $x=DB::table('user_workshop')->where('uw_id',$id)->update(['status'=>'Accepted']);
+        DB::table('user_workshop')->where('uw_id',$id)->update(['status'=>'Accepted']);
         // dd($x);
+        $workshop_user=DB::table('user_workshop')->where('uw_id',$id)->first();
+        $user=User::where('id',$workshop_user->user_id)->first();     
+        $workshop=Workshop::where('id',$workshop_user->workshop_id)->first();
+        if($user)
+        {
+            Mail::to($user->email)->send(new AcceptWorkshop($workshop));
+        }
         return response()->json(["status"=>200]);
     }
 
