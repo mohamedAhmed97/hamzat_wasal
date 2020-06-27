@@ -120,15 +120,6 @@ Route::post('/login', function (Request $request) {
     ]);
 
     $user = User::where('email', $request->email)->first();
-     if($user->hasVerifiedEmail()==false)
-     {
-        
-        return response()->json([
-            "message"=>"please Verify Your Mail",
-            "status"=>401
-        ]);
-     }   
-
     if (!$user || !Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
             'email' => ['The provided credentials are incorrect.'],
@@ -138,6 +129,12 @@ Route::post('/login', function (Request $request) {
     if ($user->isAdmin == 1 and $user->binding == 1) {
         return response()->json([
             "data" => 403,
+        ]);
+    } else if ($user->hasVerifiedEmail() == false) {
+
+        return response()->json([
+            "message" => "please Verify Your Mail",
+            "status" => 401
         ]);
     }
     return $user->createToken($request->device_name)->plainTextToken;

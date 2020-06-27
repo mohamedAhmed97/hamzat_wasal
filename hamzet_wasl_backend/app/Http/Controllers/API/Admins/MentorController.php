@@ -44,8 +44,6 @@ class MentorController extends Controller
         else
         {   
             $admin->assignRole('mentor');
-            dispatch(new SendUsersMails($request->email ,$admin->isAdmin))->delay(now()->addMinutes(3));
-
             return response()->json(
                 [
                  "status" => 200,   
@@ -120,6 +118,7 @@ class MentorController extends Controller
         ]);
         if($mentor)
         {
+            
             dispatch(new SendUsersMails($theMentor ,4))->delay(now()->addMinutes(3));
             return response()->json(["status"=>200]);
         }
