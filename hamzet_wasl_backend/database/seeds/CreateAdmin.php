@@ -18,6 +18,7 @@ class CreateAdmin extends Seeder
             'password' => Hash::make('password'),
             'avatar'=>'miimi.png',
             'isAdmin'=>2,
+            'email_verified_at'=>'2020-06-23 10:46:56',
         ]);
         $user->assignRole('admin');
     }

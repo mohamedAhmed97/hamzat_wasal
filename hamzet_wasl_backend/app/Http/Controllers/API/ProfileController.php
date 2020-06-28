@@ -12,7 +12,7 @@ class ProfileController extends Controller
     public function getPosts($user)
     {
         //posts
-        $posts=Post::where('user_id',$user)->get();
+        $posts=Post::where('user_id',$user)->where('approval',1)->get();
         
         if($posts)
         {
