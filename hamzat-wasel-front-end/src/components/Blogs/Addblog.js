@@ -72,7 +72,7 @@ export class Addblog extends React.Component {
         return (
             <div className="container">
                 {this.state.alert_message === "success" ?
-                    <AlertSuccess message="your post was added successfully, you can check it in Blogs section" /> : ""}
+                    <AlertSuccess message="Wait for the admin to review the post, if it is accepted you can check it in Blogs section" /> : ""}
                 <div className="page-content">
                     <div className="form-v7-content">
                         <form className="border border-success p-3 form-detail" onSubmit={this.onSubmit}>

@@ -82,23 +82,8 @@ function Profile() {
                         </Paper>
                     </Grid>
                     <br />
-                    <Grid container spacing={3}>
-                        <Grid item xs={6} sm={3}>
-                            <Paper className={classes.paper}>
-                                <List component="nav" aria-label="main mailbox folders">
-                                    <ListItem button>
-                                        <ListItemIcon>
-                                            <InboxIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Mail" />
-                                    </ListItem>
-
-                                </List>
-                                <Divider />
-
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={6} sm={9}>
+                    <Grid>
+                        <Grid>
                             <Paper className={classes.paper}>
                                 {current_user == 0 ?
                                     <ProfileBlog user={cookies.get('UserData')}></ProfileBlog>
