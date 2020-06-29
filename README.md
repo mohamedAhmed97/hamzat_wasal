@@ -57,6 +57,16 @@ You should have npm or yarn installed from [here](https://www.digitalocean.com/c
     ```sh
     php artisan db:seed --class CreateAdmin
     ```
+     After the seed you can login as admin using the following credentials
+    Email:
+      ```sh
+    admin@admin.com
+    ```
+    Password:
+      ```sh
+    password
+    ```
+    
 10. Create symbolic link for images
     ```sh
     php artisan storage:link
