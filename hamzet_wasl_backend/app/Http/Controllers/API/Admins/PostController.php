@@ -19,7 +19,7 @@ class PostController extends Controller
         //$this->middleware(['role:user']);
     }
     public function index(){
-        $posts=Post::all();
+        $posts=Post::where('approval',1)->get();
         $postresource=PostResource::collection($posts);
         return $postresource;
         
